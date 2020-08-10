@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bean头部 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+            http://www.springframework.org/schema/task  
+            http://www.springframework.org/schema/task/spring-task-3.1.xsd
+            http://cxf.apache.org/jaxws
+            http://cxf.apache.org/schemas/jaxws.xsd
+            http://cxf.apache.org/jaxrs
+            http://cxf.apache.org/schemas/jaxrs.xsd">
+	<!-- 属性文件读入 -->
+	<context:property-placeholder location="classpath*:edarong.properties" ignore-unresolvable="true" />
+
+	<!-- 定时更新首页询价书信息碎片 -->
+	<bean id="enquireBillListJob" class="com.edarong.common.jobs.homechip.EnquireBillListJob">
+		<property name="fetchSize" value="5"></property>
+	</bean>    
+
+	<!-- 定时更新首页竞价邀请书信息碎片 -->
+	<bean id="competePriceListJob" class="com.edarong.common.jobs.homechip.CompetePriceListJob">
+		<property name="fetchSize" value="5"></property>
+	</bean> 
+
+	<!-- 定时更新首页企业名录信息碎片 -->
+	<bean id="organizationListJob" class="com.edarong.common.jobs.homechip.OrganizationListJob">
+		<property name="fetchSize" value="8"></property>
+	</bean> 
+
+	<!-- 定时更新首页招标公告信息碎片 -->
+	<bean id="bidfileListJob" class="com.edarong.common.jobs.homechip.BidfileListJob">
+		<property name="fetchSize" value="5"></property>
+	</bean>
+	<!-- 定时更新首页公告信息碎片 -->
+ <!--   <bean id="suppNoticeListJob" class="com.edarong.common.jobs.homechip.SuppNoticeListJob"> 
+ 		<property name="fetchSize" value="5"></property> 
+   </bean>   --> 
+	<!-- 定时更新首页招标结果公示信息碎片 -->
+	<bean id="bidResultPublicityListJob" class="com.edarong.common.jobs.homechip.BidResultPublicityListJob">
+		<property name="fetchSize" value="5"></property>
+	</bean>
+	
+	<!-- 定时撤回到达截止时间的信息公告 -->
+	<bean id="rollbackInfoAnnJob" class="com.edarong.common.jobs.infoanno.RollbackInfoAnnJob">
+	</bean>
+
+	<!-- 定时撤回到达截止时间的信息公告 -->
+	<bean id="infoAnnounceJob" class="com.edarong.common.jobs.homechip.InfoAnnounceJob">
+		<property name="fetchSize" value="10"></property>
+	</bean>
+
+	<!-- 定时更新首页当前发布的最新公告信息碎片 -->
+	<bean id="newOneInfoAnnounceJob" class="com.edarong.common.jobs.homechip.NewOneInfoAnnounceJob">
+	</bean>
+
+	<!-- 定时更新首页供应商名录信息碎片 -->
+	<bean id="supplierListJob" class="com.edarong.common.jobs.homechip.SupplierListJob">
+	</bean>
+								    
+       <!-- 轮训发送短信任务 -->
+    <bean id="smsSendJob" class="com.edarong.common.jobs.sms.SmsSendJob">
+    </bean>
+     <!-- 合同生成后半年没有进行评价系统自动给与80分的评价 -->
+    <bean id="contractScoreJob" class="com.edarong.common.jobs.homechip.ContractScoreJob">
+    </bean>
+     <task:scheduled-tasks> 
+       	<!-- <task:scheduled ref="suppNoticeListJob" method="work" cron="0 * * * * ?"/>
+     	<task:scheduled ref="smsSendJob" method="work" cron="0 0/5 * * * ?"/>
+     	<task:scheduled ref="enquireBillListJob" method="work" cron="0 * * * * ?"/> 
+     	<task:scheduled ref="competePriceListJob" method="work" cron="0 * * * * ?"/> 
+     	<task:scheduled ref="organizationListJob" method="work" cron="0 0 0 1 6 ?"/> 
+     	<task:scheduled ref="bidfileListJob" method="work" cron="0 * * * * ?"/> 
+     	<task:scheduled ref="bidResultPublicityListJob" method="work" cron="0 * * * * ?"/> 
+      	<task:scheduled ref="rollbackInfoAnnJob" method="work" cron="0 0/5 * * * ?"/>
+     	<task:scheduled ref="infoAnnounceJob" method="work" cron="0 * * * * ?"/> 
+     	<task:scheduled ref="newOneInfoAnnounceJob" method="work" cron="0 * * * * ?"/> 
+     	<task:scheduled ref="supplierListJob" method="work" cron="0 0 0 1 6 ?"/> 
+     	<task:scheduled ref="contractScoreJob" method="work" cron="0 59 23 * * ?"/> -->
+     	<task:scheduled ref="smsSendJob" method="work" cron="0 0/5 * * * ?"/>
+	</task:scheduled-tasks> 
+    <bean id="schedulerFactory" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    	<property name="triggers">
+    		<list>
+    			<!-- 
+    			 -->
+    		</list>
+    	</property>
+    </bean>
+    <!-- 
+    
+     -->
+</beans>

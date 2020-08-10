@@ -1,0 +1,351 @@
+<script language="javascript">
+    $(document).ready(function(){
+        $.post("/users/showLoginInfo.jsp",{
+                username:encodeURI(name)
+            },
+            function(data) {
+                if (data.username!=null) {
+                    $("#userInfos").html("欢迎你：<font color='red'>" + data.username + "</font>  <span><a href='#' onclick=\"javascript:logoff();\">退出</a></span>" + "<span><a href=\"/users/personinfo.jsp\">个人中心</a></span>");
+                }
+            },
+            "json"
+        );
+
+        $.post("/init.do",{},
+            function(data) {
+            },
+            "json"
+        )
+
+        var current_url_pathname = window.location.pathname;
+
+        if (current_url_pathname=='/ggzyjy/ggxx/index.shtml') {
+            //获得招标公告前10条
+            $.post("/BulletinNoticeTop10.do", {},
+                function (data) {
+                    if (data != null) {
+                        var div01_html = "<ul>";
+                        var loopnum = 0;
+                        if (data.length > 8) loopnum = 8;
+                        for (var ii = 0; ii < loopnum; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+                            div01_html = div01_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div01_html = div01_html + "</ul>";
+                        $("#file_div01").html(div01_html);
+                    }
+                },
+                "json"
+            );
+
+            //获得变更公告前10条
+            $.post("/ChangeNoticeTop10.do", {},
+                function (data) {
+                    if (data != null) {
+                        var div02_html = "<ul>";
+                        var loopnum = 0;
+                        if (data.length > 8) loopnum = 8;
+                        for (var ii = 0; ii < loopnum; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+                            div02_html = div02_html + "   <li><a href=\"/ec/changeNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div02_html = div02_html + "</ul>";
+                        $("#file_div02").html(div02_html);
+                    }
+                },
+                "json"
+            );
+
+            //获得中标结果公告前10条
+            $.post("/WinResultsNoticeTop10.do", {},
+                function (data) {
+                    if (data != null) {
+                        var div03_html = "<ul>";
+                        var loopnum = 0;
+                        if (data.length > 8) loopnum = 8;
+                        for (var ii = 0; ii < loopnum; ii++) {
+                            var date_str = data[ii].createTime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+                            div03_html = div03_html + "   <li><a href=\"/ec/winResultsNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].winningAnnName + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div03_html = div03_html + "</ul>";
+                        $("#file_div03").html(div03_html);
+                    }
+                },
+                "json"
+            );
+
+            //获得合同公告前10条--合同公告
+            $.post("/BaseContractTop10.do", {},
+                function (data) {
+                    if (data != null) {
+                        var div04_html = "<ul>";
+                        var loopnum = 0;
+                        if (data.length > 8) loopnum = 8;
+                        for (var ii = 0; ii < loopnum; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+                            div04_html = div04_html + "   <li><a href=\"/ec/baseContractDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].contarctName + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div04_html = div04_html + "</ul>";
+                        $("#file_div04").html(div04_html);
+                    }
+                },
+                "json"
+            );
+        } else if (current_url_pathname.indexOf("/ggzyjy/ggxx/zbgg/")>-1){
+            //获取招标公告的总条数
+            var totalBulletinNotices = 0;
+            $.post("/BulletinNoticeCount.do", {},
+                function (data) {
+                    if (data != null) {
+                        totalBulletinNotices = data;
+                        //获得招标公告第一页
+                        var div_html = goThePage('zbgg',totalBulletinNotices,0,10,10);
+                    }
+                },
+                "text"
+            );
+        } else if (current_url_pathname.indexOf("/ggzyjy/ggxx/bggg/")>-1){
+            //获取变更公告的总条数
+            var totalNotices = 0;
+            $.post("/ChangeNoticeCount.do", {},
+                function (data) {
+                    if (data != null) {
+                        totalNotices = data;
+                        //获得变更公告第一页
+                        var div_html = goThePage('bggg',totalNotices,0,10,10);
+                    }
+                },
+                "text"
+            );
+        } else if (current_url_pathname.indexOf("/ggzyjy/ggxx/winzb/")>-1){
+            //获取中标结果公告的总条数
+            var totalNotices = 0;
+            $.post("/WinResultsNoticeCount.do", {},
+                function (data) {
+                    if (data != null) {
+                        totalNotices = data;
+                        //获得变更公告第一页
+                        var div_html = goThePage('winzb',totalNotices,0,10,10);
+                    }
+                },
+                "text"
+            );
+        } else {
+            //获得合同公告的总条数
+            var totalNotices = 0;
+            $.post("/BaseContractCount.do", {},
+                function (data) {
+                    if (data != null) {
+                        totalNotices = data;
+                        //获得变更公告第一页
+                        var div_html = goThePage('other',totalNotices,0,10,10);
+                    }
+                },
+                "text"
+            );
+        }
+    })
+
+    //urltype:公告类型
+    //currentPage:当前页码
+    //totalBulletinNotices：总行数
+    //pageNo_Num：每页的页号数量，默认是10
+    //rows:每页显示公告的条数
+    function goThePage(urltype,totalNotices,currentPage,rows,pageNo_Num) {
+        var startrow = currentPage*rows;
+        if (urltype == "zbgg") {
+            $.post("/BulletinNoticeList.do", {
+                    start: startrow,
+                    rows: rows
+                },
+                function (data) {
+                    if (data != null) {
+                        var div_html = "<ul>";
+                        for (var ii = 0; ii < rows; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+
+                            div_html = div_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div_html = div_html + "</ul>";
+
+                        //设置页面的分页导航
+                        div_html = div_html + Pagination('zbgg', currentPage, totalNotices, pageNo_Num, rows);
+                        $("#datalistid").html(div_html);
+                    }
+                },
+                "json"
+            );
+        } else if (urltype == "bggg") {
+            $.post("/ChangeNoticeList.do", {
+                    start: startrow,
+                    rows: rows
+                },
+                function (data) {
+                    if (data != null) {
+                        var div_html = "<ul>";
+                        for (var ii = 0; ii < rows; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+
+                            div_html = div_html + "   <li><a href=\"/ec/changeNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div_html = div_html + "</ul>";
+
+                        //设置页面的分页导航
+                        div_html = div_html + Pagination('bggg', currentPage, totalNotices, pageNo_Num, rows);
+                        $("#datalistid").html(div_html);
+                    }
+                },
+                "json"
+            );
+        } else if (urltype == "winzb") {
+            $.post("/WinResultsNoticeList.do", {
+                    start: startrow,
+                    rows: rows
+                },
+                function (data) {
+                    if (data != null) {
+                        var div_html = "<ul>";
+                        for (var ii = 0; ii < rows; ii++) {
+                            var date_str = data[ii].createTime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+
+                            div_html = div_html + "   <li><a href=\"/ec/winResultsNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].winningAnnName + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div_html = div_html + "</ul>";
+
+                        //设置页面的分页导航
+                        div_html = div_html + Pagination('winzb', currentPage, totalNotices, pageNo_Num, rows);
+                        $("#datalistid").html(div_html);
+                    }
+                },
+                "json"
+            );
+        } else if (urltype == "other") {
+            $.post("/BaseContractList.do", {
+                    start: startrow,
+                    rows: rows
+                },
+                function (data) {
+                    if (data != null) {
+                        var div_html = "<ul>";
+                        for (var ii = 0; ii < rows; ii++) {
+                            var date_str = data[ii].createtime;
+                            var posi = date_str.indexOf(" ");
+                            if (posi > -1) date_str = date_str.substring(0, posi);
+
+                            div_html = div_html + "   <li><a href=\"/ec/baseContractNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].contarctName + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                        }
+                        div_html = div_html + "</ul>";
+
+                        //设置页面的分页导航
+                        div_html = div_html + Pagination('other', currentPage, totalNotices, pageNo_Num, rows);
+                        $("#datalistid").html(div_html);
+                    }
+                },
+                "json"
+            );
+        }
+    }
+
+    //urltype:公告类型
+    //currentPage:当前页码
+    //totalBulletinNotices：总行数
+    //pageNo_Num：每页的页号数量，默认是10
+    //rows:每页显示公告的条数
+    function Pagination(urltype,currentPage,totalNotices,pageNo_Num,rows) {
+        var div_html = "";
+        var totalPages = 0;       //总页数
+        var extra = parseInt(totalNotices)%rows;
+        if (extra == 0)
+            totalPages = parseInt(totalNotices/rows);
+        else
+            totalPages = parseInt(totalNotices/rows) + 1;
+
+        if (totalNotices > rows) {
+            var startPageNo = 0;
+            var endPageno = 0;
+            if (currentPage>(pageNo_Num/2))
+                startPageNo = currentPage-(pageNo_Num/2);
+            else
+                startPageNo = 0;
+            if (currentPage + (pageNo_Num/2) > totalPages)
+                endPageno = totalPages;
+            else {
+                if (currentPage>(pageNo_Num/2))
+                    endPageno = currentPage + (pageNo_Num/2);
+                else
+                    endPageno = pageNo_Num;
+            }
+
+            div_html = div_html + "        <div class=\"page_box\">" +
+                "            <span>共" + totalNotices + "条记录 1/" + totalPages + "</span>" +
+                "            <a href='/ggzyjy/ggxx/zbgg/index.shtml'>首页</a>";
+            if (currentPage>1)
+                div_html = div_html + "            <a href=\"javascript:goThePage('" + urltype + "'," + totalNotices + "," + (currentPage-1) + "," + pageNo_Num + "," +  rows + "\">上一页</a>";
+            else
+                div_html = div_html + "            <a>上一页</a>";
+            for (var ii = startPageNo; ii<endPageno; ii++) {
+                if (ii==currentPage)
+                    div_html = div_html + "            <span class=\"cur\">" + (ii+1) + "</span>";
+                else
+                    div_html = div_html + "            <a href=\"javascript:goThePage('" + urltype + "'," + totalNotices + "," + ii + "," + pageNo_Num + "," + rows + ")\">" + (ii+1) + "</a>";
+            }
+            if (currentPage<totalPages)
+                div_html = div_html + "            <a href=\"javascript:goThePage('" + urltype + "'," + totalNotices + "," + (currentPage+1) + "," + pageNo_Num + "," +  rows + "\">下一页</a>";
+            else
+                div_html = div_html + "            <a>下一页</a>";
+            div_html = div_html + "            <a href=\"javascript:goThePage('" + urltype + "'," + totalNotices + "," + (totalPages-1) + "," + pageNo_Num + "," + rows + "\">末页</a>";
+            div_html = div_html + "            <span class=\"select-pager\">";
+            div_html = div_html + "<form name=\"form\">第<select name=\"turnPage\" size=\"1\" onchange=\"window.location=this.form.turnPage.value;\">";
+            for(var ii=0; ii<totalPages; ii++) {
+                div_html = div_html + "<option value=\"" + ii + "\">" + (ii+1) + "</option>";
+            }
+            div_html = div_html + "</select>页</form>";
+            div_html = div_html + "</span>";
+            div_html = div_html + "</div>";
+        }
+
+        return div_html;
+    }
+</script>
+
+<div class="top_box">
+    <div class="logo_box">
+        <a href="/ggzyjy/">北京市西城区公共资源交易中心</a>
+        <div class="reg_in" id="userInfos"><a href="/users/login.jsp">登录</a>|<a href="/users/userreg1.jsp">注册</a></div>
+    </div>
+    <div class="reg_box">
+        <div class="reg"></div>
+    </div>
+</div>
+
+<!--div class="top_box">
+    <div class="logo_box"><a href="/ggzyjy/">北京市西城区公共资源交易中心</a></div>
+</div>
+<div class="reg_box">
+    <div class="reg">
+        <div class="reg_in" id="userInfos"><a href="/users/login.jsp">登录</a>|<a href="/users/userreg1.jsp">注册</a></div>
+    </div>
+</div>
+
+<div class="logo_box clearfix">
+<div class="search_box">
+<form action="/_prog/search.jsp" id="form1" method="post" name="searchForm" target="_blank">
+    <label><input class="search" id="sld" name="searchcontent" type="text" /></label>
+    <label><input class="batton" id="submit" name="submit" src="/images/search_but.png" type="image" value="提交" /></label>
+</form>
+</div>
+</div-->

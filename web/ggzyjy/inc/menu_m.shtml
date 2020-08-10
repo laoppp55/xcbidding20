@@ -1,0 +1,108 @@
+<script>
+	function doSearch() {
+        searchForm.submit();
+    }
+    function clearSearchContent() {
+        searchForm.searchcontent.value = "";
+    }
+</script>
+<div class="headDiv headDiv2">
+	<div class="wal"><a class="logo" href="#"><img src="/images/logo.jpg" /></a> <a class="searchph phshow" href="javascript:;"><img src="/images/search_but_m.jpg" /></a> <a class="phshow navIco" href="javascript:;"><img src="/images/menu.jpg" /></a></div>
+</div>
+<!--导航触发--><!--导航触发 end-->
+
+<div class="phsearch">
+	<div class="phsearchbg">&nbsp;</div>
+
+	<div class="searchcon">
+		<form id="form1" method="post" action="/_prog/search_m.jsp" target="_blank" name="searchForm">
+			<div class="search"><input class="input1 input_hover" name="searchcontent"  id="sld" title="输入关键词搜索" type="text" value="输入关键词搜索" onfocus="javascript:clearSearchContent();"/> <!--input id="submit" class="batton" src="/images/search_but_m.jpg" type="image" name="submit" value="提交" /--><a class="btn" href="#" id="btnsearchs1" onclick="javascript:doSearch();"><img src="/images/search_but_m.jpg" /></a></div>
+		</form>
+	</div>
+</div>
+
+<div class="navLayer">
+	<div class="top"><a class="ico" href="javascript:;"><img src="/images/menu.jpg" /></a> <a class="logo" href="http://www.gimp.cn/index.html"><img src="/images/logo.jpg" /></a> <a class="close" href="javascript:;"><img src="/images/close.jpg" /></a></div>
+
+	<div class="bg">
+		<div class="sideNav">
+			<div class="subNav"><a href="#">首页</a></div>
+
+			<div class="subNav">
+				<div class="name"><em>学校简介</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/introduction/brief/index-m.shtml">学校简介</a></li>
+				<li><a href="/introduction/honour/index-m.shtml">学校荣誉</a></li>
+				<li><a href="/introduction/org/index-m.shtml">组织结构</a></li>
+				<li><a href="/introduction/xxzz/index-m.shtml">学校资质</a></li>
+				<li><a href="/introduction/leader/index-m.shtml">学校领导</a></li>
+				<li><a href="/introduction/zhaopin/index-m.shtml">学校招聘</a></li>
+			</ul>
+
+			<div class="subNav">
+				<div class="name"><em>通知公告</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/annoucement/notics/index-m.shtml">通知</a></li>
+				<li><a href="/annoucement/annoucement/index-m.shtml">公告</a></li>
+			</ul>
+
+			<div class="subNav">
+				<div class="name"><em>新闻中心</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/newscenter/internews/index-m.shtml">学校新闻</a></li>
+				<li><a href="/newscenter/trainnews/index-m.shtml">培训新闻</a></li>
+				<li><a href="/newscenter/industrynews/index-m.shtml">行业新闻</a></li>
+			</ul>
+
+			<div class="subNav">
+				<div class="name"><em>党校教育</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/dxedu/trainmanager/index-m.shtml">企业领导干部培训</a></li>
+				<li><a href="/dxedu/objcpm/index-m.shtml">党员发展对象培训</a></li>
+				<li><a href="/dxedu/jjfz/index-m.shtml">入党积极分子培训</a></li>
+			</ul>
+
+			<div class="subNav">
+				<div class="name"><em>城建商学院</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/busischool/qyzlywh/index-m.shtml">企业战略与文化</a></li>
+				<li><a href="/busischool/tyzynl/index-m.shtml">通用职业能力</a></li>
+				<li><a href="/busischool/zyzynl/index-m.shtml">专项职业能力</a></li>
+			</ul>
+
+			<div class="subNav">
+				<div class="name"><em>新技术推广</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/newtech/newtechpub/index-m.shtml">&ldquo;四新&rdquo;技术推广</a></li>
+				<li><a href="/newtech/bimtrain/index-m.shtml">BIM培训</a></li>
+			</ul>
+
+			<div class="subNav"><a href="/intelligence/index-m.shtml">行业培训</a></div>
+
+			<div class="subNav">
+				<div class="name"><em>成人学历教育</em></div>
+			</div>
+
+			<ul class="navContent">
+				<li><a href="/crxledu/dxmaster/index-m.shtml">中央党校研究生班</a></li>
+				<li><a href="/crxledu/aopeng/index-m.shtml">奥鹏学历教育</a></li>
+			</ul>
+
+			<div class="subNav"><a href="/contactus/index-m.shtml">联系我们</a></div>
+
+			<div class="subNav"><a href="/users/personinfo.jsp">个人中心</a></div>
+		</div>
+	</div>
+</div>

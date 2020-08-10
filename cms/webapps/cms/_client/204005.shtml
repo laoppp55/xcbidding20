@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head xmlns="">
+    <title>щ戈?いみ</title>
+    <meta content="text/html; charset=big5" http-equiv="Content-Type" /><meta content="眃??" name="keywords" /><meta content="眃??" name="description" /><meta content="セ???耴眃???Τ?All Rights Reserved" name="copyright" /><meta content="zh-cn" http-equiv="content-language" /><meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible" />
+    <link  href=/big5/css/style.css rel="stylesheet" type="text/css" /><script  src=/big5/js/jquery-1.4.4.min.js type="text/javascript"></script><script  src=/big5/js/effect.js type="text/javascript"></script><script  src=/big5/js/AC_RunActiveContent.js type="text/javascript"></script><script type="text/javascript">
+    $(document).ready(function(){
+        $('.y_right li').each(function(){
+            $(this).hover(
+                function(){
+                    $(this).addClass('gh');
+                },function(){
+                    $(this).removeClass('gh');
+                }
+            )
+        });
+
+        $('#main #nav #right .nav_right .year #tonghan li').each(function(){
+            $(this).hover(
+                function(){
+                    $(this).addClass('gh');
+                },function(){
+                    $(this).removeClass('gh');
+                }
+            )
+        });
+
+        $('#main #nav #right .nav_right .year #xwg li').each(function(){
+            $(this).hover(
+                function(){
+                    $(this).addClass('gh');
+                },function(){
+                    $(this).removeClass('gh');
+                }
+            )
+        });
+
+        $('.en').hover(
+            function(){$('.sen').show()},
+            function(){$('.sen').hide()}
+        );
+    });
+
+</script>
+</head>
+<body xmlns="">
+<div id="main"><!--header--><!--#include virtual="/big5/inc/t3pjlv6e.shtml"--><!--header eof--><!--top-->
+    <div class="top"><!--#include virtual="/big5/inc/bjtqbi41.shtml"--><!--menu eof--><!--#include virtual="/big5/inc/c77y1sb0.shtml"--><!--top swf eof--></div>
+    <!--top eof--><!--body main-->
+
+    <div id="nav"><!--main left--><!--#include virtual="/big5/inc/d4k7awgq.shtml"--><!--main left eof--><!--main right-->
+        <div id="right" style="overflow: hidden">
+            <div class="point"><img alt=""  src=/big5/images/contact_06.gif />&nbsp;<A  href=/big5/index.shtml>??</A> ?щ戈?いみ</div>
+
+            <div class="nav_right">
+                <p><img alt=""  src=/big5/images/contact_10.gif /></p>
+
+                <div class="year">
+                    <div class="y_left">
+                        <p class="nb"><img alt=""  src=/big5/images/investor_icon.gif /> <img alt=""  src=/big5/images/investor_nb.gif /></p>
+
+                        <p class="upimg"><a  href=/big5/investor/financial/FinancialReport/2016/ar/20170411/download/C_0322ARss.pdf target="_blank"><img alt="" border="0" hspace="0"  src=/big5/investor/images/picv82l68lh.jpg /></a></p>
+                    </div>
+
+                    <ul class="y_right">
+                    <p class="ym"><span class="ym_left"><img alt=""  src=/big5/images/investor_icon.gif /> <img alt=""  src=/big5/images/investor_tg.gif /></span> <span class="ym_right"><a  href=/big5/investor/financial/announcement/ onfocus="">??</a></span></p>
+                    <div class="clear">&nbsp;</div>
+                    <li><span class="font_float font_gray" style="font-size:9px;">[2017-10-06] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="???箂????る??らゎぇ??祇︽???ㄩ跑笆る??" target="_blank"  href=/big5/investor/financial/announcement/2017/20171006/download/c_TingyiMonthlyReturn30.9.2017.pdf>???箂????る??らゎぇ??祇︽???ㄩ跑笆る??</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-10-03] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="??菏恨そ?" target="_blank"  href=/big5/investor/financial/announcement/2017/20171003/download/c_0322_ora_171003.pdf>??菏恨そ?</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-09-06] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="?ゎ?箂????る???らゎぇ??祇︽???ㄩ跑笆る??" target="_blank"  href=/big5/investor/financial/announcement/2017/20170906/download/C_Monthly Return 31.8.2017.pdf>?ゎ?箂????る???らゎぇ??祇︽???ㄩ跑笆る??</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-09-01] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="??菏恨そ?" target="_blank"  href=/big5/investor/financial/announcement/2017/20170904/download/c_0322_ORA_170901.pdf>??菏恨そ?</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-08-30] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="??菏恨そ?" target="_blank"  href=/big5/investor/financial/announcement/2017/20170830/download/c_0322_ORA1_170830.pdf>??菏恨そ?</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-08-30] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="??菏恨そ?" target="_blank"  href=/big5/investor/financial/announcement/2017/20170830/download/c_0322_ORA2_170830.pdf>??菏恨そ?</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-08-30] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="??菏恨そ?" target="_blank"  href=/big5/investor/financial/announcement/2017/20170830/download/c_0322_ORA3_170830.pdf>??菏恨そ?</a></span></li><li><span class="font_float font_gray" style="font-size:9px;">[2017-08-21] <img alt="" align="absMiddle"  src=/big5/images/investor_pdf.gif /></span><span class="icos"> <a title="2017?い戳穨罿簍ボ??" target="_blank"  href=/big5/investor/financial/announcement/2017/20170821/download/い戳簍ボ??いゅ.pdf>2017?い戳穨罿簍ボ??</a></span></li>
+                    </ul>
+
+                    <div class="clear">&nbsp;</div>
+                </div>
+
+                <div class="year" style="border-top-style: none; border-bottom-style: none; border-right-style: none; border-left-style: none">
+                    <ul id="tonghan">
+                    <p class="tonghan_title"><span class="tonghan_title_left"><img alt=""  src=/big5/images/investor_icon_th.gif /></span> <span class="tonghan_title_right"><a  href=/big5/investor/financial/tonghan/ onfocus="">??</a></span></p>
+                    <p class="clear">&nbsp;</p>
+                    <li><span class="font_float font_gray"><img  src=/big5/images/investor_pdf.gif align="absmiddle"  style="margin-right:5px;"/></span><span class="icos"> <a  href=/big5/investor/financial/tonghan/20191230/download/c158081-c322cir.pdf target="_blank">?某祇︽㎝潦???ぇ??甭???ㄆ?匡硈ヴの??㏄?????</a></span><p class="clear"></p><span class="date_class" style="font-size:9px;">[2019-12-30]</span></li><li><span class="font_float font_gray"><img  src=/big5/images/investor_pdf.gif align="absmiddle"  style="margin-right:5px;"/></span><span class="icos"> <a  href=/big5/investor/financial/announcement/2015/20150416/download/0322cir_20150416_c.pdf target="_blank">?某祇︽㎝潦???ぇ??甭???ㄆ?匡硈ヴの??㏄?????</a></span><p class="clear"></p><span class="date_class" style="font-size:9px;">[2015-04-16]</span></li>
+                    </ul>
+
+                    <ul id="xwg">
+                    <p class="xwg_title"><span class="xwg_title_left"><img alt=""  src=/big5/images/investor_icon_xwg.gif /></span> <span class="xwg_title_right"><a  href=/big5/investor/financial/financialnews/ onfocus="">??</a></span></p>
+                    <p class="clear">&nbsp;</p>
+                    <li><span class="font_float font_gray"><img  src=/big5/images/investor_pdf.gif align="absmiddle"  style="margin-right:5px;"/></span><span class="icos"> <a  href=/big5/investor/financial/financialnews/20140324/download/20130324AR_PR.doc target="_blank">眃??綪扳??100??じ</a></span><p class="clear"></p><span class="date_class" style="font-size:9px;">[2014-03-24]</span></li><li><span class="font_float font_gray"><img  src=/big5/images/investor_pdf.gif align="absmiddle"  style="margin-right:5px;"/></span><span class="icos"> <a  href=/big5/investor/financial/financialnews/20090525/download/20090525PressRelease-c.pdf target="_blank">眃??(0322)そガ2009?材?﹗穨罿?戳ず犁穨肂?ど21.28%?11.75??じ</a></span><p class="clear"></p><span class="date_class" style="font-size:9px;">[2009-05-25]</span></li>
+                    </ul>
+
+                    <p class="clear">&nbsp;</p>
+                </div>
+            </div>
+        </div>
+        <!--main right eof-->
+
+        <div class="clear">&nbsp;</div>
+    </div>
+    <!--body main eof--><!--footer--><!--#include virtual="/big5/inc/m4504en7.shtml"--><!--footer eof--></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+
+<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script><script type="text/javascript" src="/js/users.js"></script><script language="javascript">
+        $(document).ready(function(){
+            $.post("/users/showLoginInfo.jsp",{
+                        username:encodeURI(name)
+                    },
+                    function(data) {
+                        if (data.username!=null) {
+                            $("#userInfos").html("欢迎你：" + data.username + "  <a href='#' onclick=\"javascript:logoff('m');\">退出</a>" + "<a href=\"/users/m/personinfo.jsp\">个人中心</a>");
+                        }
+                    },
+                    "json"
+            )
+        })
+    </script><!--jsp:include page="/inc/m/top.jsp" flush="true"/-->
+<div class="main">
+<div class="top_left">北京日报报业集团读者服务电话：96060</div>
+<div id="userInfos" class="top_right"><a class="red" href="/users/login.jsp">登录</a> | <a href="/users/userreg.jsp">注册</a> <a href="/users/findPwd.jsp">忘记密码</a> <a href="/users/personinfo.jsp">个人中心</a></div>
+</div>

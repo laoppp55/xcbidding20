@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8">
+	<title>无标题文档</title>
+	<link href="/css/index.css" rel="stylesheet" type="text/css" />
+	<link href="/css/base.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="top_box"><!--#include virtual="/inc/login.shtml"--></div>
+
+<div class="reg_box">
+<div class="reg"><!---占位--></div>
+</div>
+
+<div class="main">
+<div class="logo_txt"><img alt="" height="83" src="/images/sysname_txt.png" width="1200" /></div>
+</div>
+
+<div class="menu_box">
+<div class="main">
+<ul class="menu">
+	<li><a class="bg1" href="/ggzyjy/ywdt/index.shtml">要闻动态</a></li>
+	<li><a class="bg2" href="/ggzyjy/fwzn/index.shtml">服务指南</a></li>
+	<li><a class="bg3" href="/ggzyjy/ggxx/index.shtml">公告信息</a></li>
+	<li><a class="bg4" href="/ggzyjy/jrkb/index.shtml">今日开标</a></li>
+</ul>
+</div>
+</div>
+
+<div class="foot_box"><!---占位--></div>
+</body>
+</html>

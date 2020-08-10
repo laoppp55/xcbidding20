@@ -1,0 +1,17 @@
+<script language="javascript">
+    $(document).ready(function(){
+        $.post("/users/showLoginInfo.jsp",{
+                username:encodeURI(name)
+            },
+            function(data) {
+                if (data.username!=null) {
+                    $("#userInfos").html("欢迎你：<font color='red'>" + data.username + "</font>  <span><a href='#' onclick=\"javascript:logoff();\">退出</a></span>" + "<span><a href=\"/users/personinfo.jsp\">个人中心</a></span>");
+                }
+            },
+            "json"
+        )
+    })
+</script>
+<div class="top_box">
+    <div class="main" id="userInfos"><span><a href="/users/userreg.jsp">注册</a></span> <span><a href="/users/login.jsp">登录</a></span> <span><a href="/users/findPwd.jsp">忘记密码</a></span><span><a href="/users/personinfo.jsp">个人中心</a></span> <span><a href="/intelligence/"><img height="26" src="/images/sign_up.png" width="94" /></a></span></div>
+</div>

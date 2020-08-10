@@ -1,0 +1,13 @@
+<div class="main">
+<div class="menu">
+<ul>
+	<li><a href="/">网站首页 </a></li>
+	<li><a href="/introduction/brief/">新闻动态</a></li>
+	<li><a href="/notices/">公告信息</a></li>
+	<li><a href="/newscenter/">今日开标</a></li>
+	<li><a href="/dxedu/">办事指南</a></li>
+	<li><a href="/busischool/">代理机构</a></li>
+	<li><a href="/newtech/">供应商</a></li>
+</ul>
+</div>
+</div>

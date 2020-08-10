@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head><meta http-equiv="X-UA-Compatible" content="IE=EDGE"><meta charset="utf-8">
+	<title>北京市西城区公共资源交易中心</title>
+	<link href="/css/base.css" rel="stylesheet" type="text/css" />
+	<link href="/css/ywdt.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="/js/style.js"></script>
+</head>
+<body>
+<div class="top_box"><!--#include virtual="/inc/login.shtml"--></div>
+
+<div class="reg_box">
+<div class="reg"><!--占位--></div>
+</div>
+
+<div class="main">
+<div class="center_box clearfix">
+<div class="ywdt_title">要闻动态</div>
+
+<div class="line"><!--线--></div>
+
+<div class="left_box">
+<div id="box">
+<div class="screen">
+<ol><!--占位-->
+</ol>
+</div>
+
+<div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+</div>
+<script src="/js/animate.js"></script></div>
+
+<div class="right_box">
+<div class="title_box">
+<ul>
+	<li class="act" id="file_tab01" onmouseover="Hovertab_m('1','4','file_','');">通知公告</li>
+	<li id="file_tab02" onmouseover="Hovertab_m('2','4','file_','');">工作动态</li>
+	<li id="file_tab03" onmouseover="Hovertab_m('3','4','file_','');">新闻信息（公示台）</li>
+	<li id="file_tab04" onmouseover="Hovertab_m('4','4','file_','');">监督管理机构（机构简介）</li>
+</ul>
+</div>
+
+<div class="more clearfix" id="file_more01" style="display: block;"><a href="/ggzyjy/news/annocement/">查看更多</a></div>
+
+<div class="more clearfix" id="file_more02" style="display: none;"><a href="/ggzyjy/news/working/">查看更多</a></div>
+
+<div class="more clearfix" id="file_more03" style="display: none;"><a href="/ggzyjy/news/news/">查看更多</a></div>
+
+<div class="more clearfix" id="file_more04" style="display: none;"><a href="/ggzyjy/news/supervision/">查看更多</a></div>
+
+<div class="ywdt_list" id="file_div01" style="display: block;">
+</div>
+
+<div class="ywdt_list" id="file_div02" style="display: none;">
+</div>
+
+<div class="ywdt_list" id="file_div03" style="display: none;">
+</div>
+
+<div class="ywdt_list" id="file_div04" style="display: none;">
+</div>
+</div>
+</div>
+</div>
+
+<div class="menu_box">
+<div class="main">
+<ul class="menu">
+	<li class="act"><a class="bg1" href="/ggzyjy/news/">要闻动态</a></li>
+	<li><a class="bg2" href="/ggzyjy/manual/index.shtml">办事指南</a></li>
+	<li><a class="bg3" href="/ggzyjy/ggxx/index.shtml">公告信息</a></li>
+	<li><a class="bg4" href="/ggzyjy/jrkb/index.shtml">今日开标</a></li>
+</ul>
+</div>
+</div>
+
+<div class="foot_box"><!--占位--></div>
+</body>
+</html>

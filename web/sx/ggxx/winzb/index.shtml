@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+    <meta charset="utf-8">
+    <title>北京市西城区公共资源交易中心</title>
+    <link href="/ggzyjy/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/ggzyjy/css/list_more.css" rel="stylesheet" type="text/css">
+    <link href="/ggzyjy/css/jquery.msgbox.css" rel="stylesheet" type="text/css" />
+    <link href="/ggzyjy/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/ggzyjy/js/style.js" type="text/javascript" ></script>
+    <script src="/ggzyjy/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/jquery.msgbox.min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/jquery.dragndrop.min.js" type="text/javascript"></script>
+
+    <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
+    <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/users.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<div class="date_box">
+    <!--#include virtual="/ggzyjy/inc/writeCurrentDate.shtml"-->
+</div>
+<!--#include virtual="/ggzyjy/inc/head_ggxx.shtml"-->
+<div class="main clearfix">
+    <div class="banner_box">
+        <div class="baner_box_left">全国公共资源交易平台（北京市·西城区）西城区公共资源交易<br>
+            信息网<br>公平 公正 公开 诚信</div>
+    </div>
+    <div class="menu_box_1">
+        <div class="home_box"><a href="/ggzyjy/">首页</a></div>
+        <div class="menu_list">
+            <ul>
+                <li class="fl_4"><a href="/ggzyjy/ywdt/tztg/">要闻动态</a></li>
+                <li class="fl_3 current">公告信息</li>
+                <li class="fl_2"><a href="/ggzyjy/fwzn/fwzn/">服务指南</a></li>
+                <li class="fl_1"><a href="/ggzyjy/jrkb/">今日开标</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="menu_c_box"><a href="/ggzyjy/ggxx/zbgg/">招标（资审）公告</a>|<a href="/ggzyjy/ggxx/bggg/">变更公告</a>|<a class="current">中标公告</a>|<a href="/ggzyjy/ggxx/other/">其它公告</a></div>
+    <div class="path_search_box">
+        <div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/ggxx/">公告信息</a>&gt;中标公告</div>
+        <div class="search_box"><input type="text" class="sear"></div>
+    </div>
+    <div class="list_main_box" id="datalistid">
+        <ul>
+            <li><a href="#">1333331关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+            <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>2020-04-15</span><span>未读</span></li>
+        </ul>
+        <div class="page_box">
+            <span>共187条记录 1/15</span>
+            <a href="#">首页</a>
+            <a href="#">上一页</a>
+            <span class="cur">1</span>
+            <a href="/ywdt/sjsdt/index1.shtml">2</a>
+            <a href="/ywdt/sjsdt/index2.shtml">3</a>
+            <a href="/ywdt/sjsdt/index3.shtml">4</a>
+            <a href="/ywdt/sjsdt/index4.shtml">5</a>
+            <a href="/ywdt/sjsdt/index4.shtml">...</a>
+            <a href="#">下一页</a>
+            <a href="#">末页</a>
+            <span class="select-pager">
+		<form name="form">第<select name="turnPage" size="1" onchange="window.location=this.form.turnPage.value;"><option value="/ywdt/sjsdt/index.shtml" selected="">1</option><option value="/ywdt/sjsdt/index1.shtml">2</option><option value="/ywdt/sjsdt/index2.shtml">3</option><option value="/ywdt/sjsdt/index3.shtml">4</option><option value="/ywdt/sjsdt/index4.shtml">5</option><option value="/ywdt/sjsdt/index5.shtml">6</option><option value="/ywdt/sjsdt/index6.shtml">7</option><option value="/ywdt/sjsdt/index7.shtml">8</option><option value="/ywdt/sjsdt/index8.shtml">9</option><option value="/ywdt/sjsdt/index9.shtml">10</option><option value="/ywdt/sjsdt/index10.shtml">11</option><option value="/ywdt/sjsdt/index11.shtml">12</option></select>页</form>
+		</span>
+        </div>
+    </div>
+</div>
+<div class="foot_box">
+    <div class="main">
+        <!--div class="foot">
+            <p>政府网站标识码：1101020002</p>
+            <p> ICP备案序号：京ICP备19014909号 京公网安备：11010202007633号</p>
+            <p>地址：北京市西城区广安门南甲2号 邮编：100032 </p>
+        </div-->
+    </div>
+</div>
+</body>
+</html>

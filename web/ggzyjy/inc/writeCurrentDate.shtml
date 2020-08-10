@@ -1,0 +1,11 @@
+<div class="date" id="current_dateid">
+    <script>
+        var mydate = new Date();
+        var str = "" + mydate.getFullYear() + "年";
+        str += (mydate.getMonth()+1) + "月";
+        str += mydate.getDate() + "日";
+        var today = new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
+        var week = today[mydate.getDay()];
+        document.write(str + "  " + week);
+    </script>
+</div>

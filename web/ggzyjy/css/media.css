@@ -1,0 +1,60 @@
+/*! www.vancheer.com  |  Powered by vancheer */
+@media screen and ( max-width:1600px ){
+}
+@media screen and ( max-width:1440px ){
+.nav{ margin-right:137px;}
+.headDiv .logo{ left:20px;}
+.headDiv .searchDiv{ right:20px;}
+.nav li a{ padding:0 20px;}
+.indexPart1 .Nlist .slick-next{ right:-10px;}
+.indexPart1 .Nlist .slick-prev{ left:-10px;}
+}
+@media screen and ( max-width:1366px ){
+
+.partnershow1 .tablist{ width:90px;}
+.partnershow1 .tablist li{ margin-bottom:10px;}
+.partnershow1 .tablist li .box{ width:90px; height:90px;}
+.partnershow1 .tablist li .imgon{ display:none;}
+.partnershow1 .tablist li .ico{ height:50px; line-height:60px;}
+
+}
+
+/*功能*/
+.wal{ width:auto; margin:0 10px;}
+.phshow{ display:block;}
+.pcshow{ display:none;}
+.phimg{ display:inline-block;}
+.pcimg{ display:none;}
+.nav{ display:none;}
+.sideBar{ display:none;}
+.phwal .wal{ margin:0;}/*列表wal*/
+/*功能*/
+
+/*头部*/
+.headDiv{ height:60px; line-height:60px;}
+.headDiv2{box-shadow: 0 2px 15px rgba(0,0,0,0.1);}
+.headDiv .logo{ position:relative; left:auto; display:block; text-align:center;}
+.headDiv .logo img{ max-height:40px;}
+
+.searchph{ position:absolute; left:10px; top:0;}
+.searchph img{ height:25px;}
+.navIco{ position:absolute; right:10px; top:0;}
+.navIco img{ height:25px;}
+.navIco .imgon{ display:none;}
+.navIco.on .imgon{ display:inline-block;}
+.navIco.on .imgoff{ display:none;}
+
+/*搜索*/
+.pcsearch{ display:none;}
+.phsearch{ position:absolute; z-index:3333; top:60px; left:0; width:100%; height:100%;}
+.phsearch .phsearchbg{ width:100%; height:100%;}
+.phsearch .searchcon{ position:absolute; z-index:4444; left:0; top:0; width:100%; height:60px; background-color:rgba(0,0,0,0.6);}
+.phsearch .searchcon .search{ height:40px; line-height:40px; margin:10px 10%; position:relative; border-radius: 40px; overflow:hidden;}
+.phsearch .searchcon .search .btn{ display:block; position:absolute; right:13px; top:0; width:40px; height:40px; text-align:center; border-radius:40px;}
+.phsearch .searchcon .search .btn img{ height:20px;}
+.phsearch .searchcon .search .input1{ display:block; height:40px; width:100%; font-size:14px; color:#c4c4c4; text-indent:15px; border-radius:40px; background-color:#fff;}
+
+	}
+@media screen and ( max-width:320px ){
+
+	}

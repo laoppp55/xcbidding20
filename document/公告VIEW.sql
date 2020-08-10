@@ -1,0 +1,3 @@
+create view bulletin_notice_view as SELECT uuid,purchaseprojcode,purchaseprojname,bulletintitle,xcprojectcode,AgentName,publishtime,createtime,status,0 as type FROM bulletin_notice 
+UNION SELECT uuid,purchaseprojcode,purchaseprojname,bulletintitle,xcprojectcode,AgentName,announcementTime as publishtime,creationTime as createtime,status,type FROM bulletin_notice_consultations 
+UNION SELECT uuid,purchaseprojcode,purchaseprojname,bulletintitle,xcprojectcode,AgentName,announcementTime as publishtime,creationTime as createtime,status,3 as type FROM bulletin_notice_singlesource

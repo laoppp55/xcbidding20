@@ -1,0 +1,77 @@
+.banner { width:100%; overflow:hidden; margin:auto; }
+
+.zxyw{ width:1000px; float:left; padding-top:18px;}
+.zxyw_title{ width:1000px; float:left; }
+.zxyw_title span{ display:block; width:177px; height:40px; background-color:#257ed7; text-align:center; line-height:40px; color:#FFF; font-size:20px;}
+
+.zxyw_box{ width:983px; float:left; background-color:#FFF; border-bottom:1px solid #e6e4e5; border-left:1px solid #e6e4e5; border-right:1px solid #e6e4e5; border-top:2px solid #247ed4; padding:16px 0px 16px 15px;}
+
+.zxyw_in_title{ width:983px; float:left; padding-bottom:16px;}
+.zxyw_in_title h2{ font-size:16px; font-weight:normal; display:block; width:110px; height:30px; line-height:30px; text-align:center; float:left; background-color:#ececec; margin-right:4px;}
+.zxyw_in_title h2 a{ color:#353535} 
+.zxyw_in_title h2.act{ background-color:#257ed8;}
+.zxyw_in_title h2.act a{ color:#fff;}
+
+.zxyw_txt{ width:625px; padding-left:30px; float:left;}
+.zxyw_txt ul li{ float:left; width:605px; padding-left:20px; line-height:34px; background:url(/images/point_1.jpg) 2px 14px no-repeat;}
+.zxyw_txt ul li a{ color:#3b3e3f; display:block; float:left}
+.zxyw_txt ul li span{ color:#7d7e7e; display:block; float:right;}
+
+.news_pic{ float:left;}
+
+.box_main{ width:1000px; float:left; padding-top:18px; padding-bottom:18px;}
+
+.box_main_l{ float:left; width:682px;}
+.box_main_r{ float:right; width:298px;}
+
+.tsfw{ width:682px; float:left; padding-bottom:18px;}
+
+.tsfw_title{ width:682px; float:left;}
+.tsfw_title span{ display:block; width:123px; height:40px; background-color:#257ed7; text-align:center; line-height:40px; color:#FFF; font-size:20px;}
+.tsfw_box{ width:680px; padding:15px 0px; height:104px; float:left; background-color:#FFF; border-bottom:1px solid #e6e4e5; border-left:1px solid #e6e4e5; border-right:1px solid #e6e4e5; border-top:2px solid #247ed4;}
+
+.subnav{height: 46px;width: 680px;position: absolute;}
+.subnav_ul{float:left;position:relative;width: 680px;}
+.subnav_ul li{ float:left;border:0;z-index:10; width:114px; height:121px; text-align:center; padding:0px 11px;}
+.subnav_ul li img{ padding-bottom:3px;}
+.subnav_ul li a{ text-decoration:none; font-size:16px; cursor:pointer; color:#3b3d3e;}
+
+.subnav_ul dl,.subnav_ul dd{ margin:0;padding:0;}
+
+.subnav_down{ position:absolute; display:none; z-index:999; padding-left:0px;top:110px; background:#ebf4fb; width:125px; text-align:center; border:1px solid #e1e6ec;}
+.subnav_down dd{ border-bottom:1px solid #fff; font-size:14px; display:block;}
+.subnav_down dd span{ line-height:35px;}
+.subnav_down dd span a{color:#000;padding:0px; font-size:14px; height:auto;}
+.subnav_down dd span a:hover{ color:#116dcb; padding:0;}
+
+
+.aldt{ width:682px; float:left;}
+
+.aldt_title{ width:682px; float:left;}
+.aldt_title span{ display:block; width:123px; height:40px; background-color:#257ed7; text-align:center; line-height:40px; color:#FFF; font-size:20px;}
+.aldt_box{ width:665px; float:left; padding:17px 0px 16px 17px; background-color:#FFF; border-bottom:1px solid #e6e4e5; border-left:1px solid #e6e4e5; border-right:1px solid #e6e4e5; border-top:2px solid #247ed4;}
+
+.ztlj{ width:296px; float:left; border:1px solid #e6e4e5; background-color:#FFF;}
+
+.ztlj_title{ width:296px; float:left;}
+.ztlj_title span{ display:block; width:123px; height:40px; background-color:#257ed7; text-align:center; line-height:40px; color:#FFF; font-size:20px;}
+
+.ztlj_txt{ width:284px; float:left; padding:15px 0px 0px 12px;}
+.ztlj_txt ul li{ padding-bottom:6px;}
+.ztlj_txt ul img{ height:65px;}
+
+.ewm{ width:296px; padding:12px 0px; float:left; border:1px solid #e6e4e5; background-color:#FFF; margin-top:18px;}
+.ewm_1{ width:296px; float:left;}
+.ewm_1 img{ float:left; padding-left:40px;}
+.ewm_1 span{ float:left; display:block; font-size:14px; line-height:30px; padding-left:12px; padding-top:30px; color:#47494a;}
+
+.ewm_2{ text-align:center; padding-top:6px; float:left; width:296px;}
+.ewm_2 a{ color:#16549f; text-decoration:underline;}
+
+.hzdw{ width:998px; float:left; background-color:#FFF; border:1px solid #e6e4e5;}
+
+.hzdw_title{ width:296px; float:left;}
+.hzdw_title span{ display:block; width:123px; height:40px; background-color:#257ed7; text-align:center; line-height:40px; color:#FFF; font-size:20px;}
+
+.hzdw_txt{ width:998px; float:left; padding-top:15px;}
+

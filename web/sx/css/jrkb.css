@@ -1,0 +1,60 @@
+@charset "utf-8";
+.jrkb {
+	height: 80px;
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 38px;
+}
+.jrkb_title {
+	float: left;
+	width: 833px;
+	line-height: 80px;
+	color: #ffffff;
+	font-size: 24px;
+}
+.jrkb_title_s {
+	float:left;
+	line-height: 80px;
+	color: #ffffff;
+	width: 135px;
+}
+.more {
+	background: url(../images/icon_11.png) right center no-repeat;
+	color: #ffffff;
+	float: left;
+	text-align: right;
+	font-size: 14px;
+	padding: 13px 20px 13px 1006px;
+}
+.more a {
+	color: #ffffff;
+	font-size: 14px;
+}
+.jrkb_list {
+	padding-left: 60px;
+	float: left;
+}
+.jrkb_list ul li {
+	padding: 10px 0;
+	font-size: 14px;
+	display: block;
+	float: left
+}
+.jrkb_list ul li a {
+	color:#ffffff; 
+	display:block; 
+	width:776px; 
+	float:left; 
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 14px;
+}
+.jrkb_list ul li span {
+	width: 135px;
+	display: block;
+	float: left;
+	color: #ffffff;
+	font-size: 14px;
+	text-align: center;
+}

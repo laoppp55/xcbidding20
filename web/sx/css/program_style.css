@@ -1,0 +1,43 @@
+@charset "utf-8";
+.blue_title{ font-size:24px; color:#037bc8;}
+.input_txt{ border:1px solid #cdcdcd; padding:5px ; font-family:"Microsoft YaHei"; font-size:16px; height:27px; line-height:27px;}
+.hint_red{ color:#F00;}
+.w_red{ font-size:14px; color:#d30909;}
+.regist_btn{ width:188px; height:40px; border:none; color:#FFF; font-size:18px; background-color:#0b84d1; cursor:pointer;}
+.enter_btn{ width:346px; height:40px; border:none; color:#FFF; font-size:18px; background-color:#0b84d1; cursor:pointer;}
+.blue_16{ color:#037bc8;}
+.blue_14{ color:#037bc8; font-size:14px;}
+.input_shcar{ border:1px solid #cdcdcd; padding:5px ; font-family:"Microsoft YaHei"; font-size:16px; height:18px; line-height:18px;}
+.submit_btn{ width:188px; height:40px; border:none; color:#FFF; font-size:18px; background-color:#b80e0e; cursor:pointer;}
+
+.personal_left{ width:290px; float:left; border:1px solid #e3e3e3; padding-bottom:200px;}
+.personal_left .title{ width:265px; padding-left:25px; float:left; background:url(/images/20189-bg1.jpg) no-repeat; height:54px; font-size:20px; color:#0275be; line-height:54px;}
+
+.personal_left ul li{ width:265px; float:left; padding:13px 0px 13px 25px; border-bottom:1px solid #e3e3e3;}
+.personal_left ul li a:hover{ color:#0275be;}
+
+.personal_right_box{ width:875px; float:right;}
+.personal_right_box td{ padding:10px 0;}
+.personal_right_box .regtable td{ padding:0;}
+.personal_right{ float:left; width:873px;  border:1px solid #e3e3e3; }
+.p_r_title { font-size:24px; color:#037bc8;  height:72px; line-height:72px; background-color:#f6f4f5;  width:828px; padding-left:45px; }
+.personal_right .txt{ line-height:30px; width:828px; float:left; padding:25px 0px 40px 45px; }
+.personal_right .txt p{ padding-bottom:20px;}
+
+.personal_right .cont{ float:left; width:873px;}
+
+.companyinfo_left{ width:250px; float:left; border:1px solid #e3e3e3; padding-bottom:200px;}
+.companyinfo_left .title{ width:245px; padding-left:25px; float:left; background:url(/images/20189-bg1.jpg) no-repeat; height:54px; font-size:20px; color:#0275be; line-height:54px;}
+
+.companyinfo_left ul li{ width:245px; float:left; padding:13px 0px 13px 25px; border-bottom:1px solid #e3e3e3;}
+.companyinfo_left ul li a:hover{ color:#0275be;}
+
+.companyinfo_right_box{ width:920px; float:right;}
+.companyinfo_right_box td{ padding:10px 0;}
+.companyinfo_right_box .regtable td{ padding:0;}
+.companyinfo_right{ float:left; width:910px;  border:1px solid #e3e3e3; }
+.p_r_title { font-size:18px; color:#037bc8;  height:72px; line-height:72px; background-color:#f6f4f5;  width:910px; padding-left:5px; }
+.companyinfo_right .txt{ line-height:2px; width:910px; float:left; padding:5px 0px 4px 5px; }
+.companyinfo_right .txt p{ padding-bottom:20px;}
+
+.companyinfo_right .cont{ float:left; width:910px;}

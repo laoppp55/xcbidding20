@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+    <meta charset="utf-8">
+    <title>北京市西城区公共资源交易中心</title>
+    <link href="/ggzyjy/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/ggzyjy/css/list_more.css" rel="stylesheet" type="text/css">
+    <link href="/ggzyjy/css/jquery.msgbox.css" rel="stylesheet" type="text/css" />
+    <link href="/ggzyjy/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/ggzyjy/js/style.js" type="text/javascript" ></script>
+    <script src="/ggzyjy/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/jquery.msgbox.min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/jquery.dragndrop.min.js" type="text/javascript"></script>
+
+    <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
+    <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
+    <script src="/ggzyjy/js/users.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<!--#include virtual="/ggzyjy/inc/head_ggxx.shtml"-->
+<div class="date_box">
+    <!--#include virtual="/ggzyjy/inc/writeCurrentDate.shtml"-->
+</div>
+<div class="main clearfix">
+    <div class="banner_box">
+        <div class="baner_box_left">西城区公共资源交易信息网</div>
+    </div>
+    <div class="menu_box_1">
+        <div class="home_box"><a href="/ggzyjy/">首页</a></div>
+        <div class="menu_list">
+            <ul>
+                <li class="fl_4"><a href="/ggzyjy/news/">要闻动态</a></li>
+                <li class="fl_3 current">公告信息</li>
+                <li class="fl_2"><a href="/ggzyjy/manual/">服务指南</a></li>
+                <li class="fl_1"><a href="/ggzyjy/jrkb/">今日开标</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="menu_c_box"><a href="/ggzyjy/ggxx/zbgg/index.shtml">招标（资审）公告</a>|<a href="/ggzyjy/ggxx/bggg/index.shtml">变更公告</a>|<a class="current">中标公告</a>|<a href="/ggzyjy/ggxx/other/index.shtml">其它公告</a></div>
+    <div class="path_search_box">
+        <div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/ggxx/index.shtml">公告信息</a>&gt;中标公告</div>
+        <div class="search_box" onclick="javascript:doSearch('winzb');">
+            <form name="searchForm">
+                <input type="hidden" name="pageno" value="0">
+                <input type="hidden" name="rows" value="10">
+                <input type="text" name="keyword" class="sear" value="">
+            </form>
+        </div>
+    </div>
+    <div class="list_main_box" id="datalistid"></div>
+</div>
+<div class="foot_box">
+    <div class="main">
+        <!--div class="foot">
+            <p>政府网站标识码：1101020002</p>
+            <p> ICP备案序号：京ICP备19014909号 京公网安备：11010202007633号</p>
+            <p>地址：北京市西城区广安门南甲2号 邮编：100032 </p>
+        </div-->
+    </div>
+</div>
+</body>
+</html>

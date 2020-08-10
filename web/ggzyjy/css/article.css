@@ -1,0 +1,5 @@
+.biaoti { width:1200px; text-align:center; float:left; border-bottom:1px dashed #CCCCCC; padding:25px 0;}
+.biaoti .title { font-size:24px; text-align:center; line-height:200%;}
+.biaoti .time { text-align:center; line-height:150%;}
+.neirong { width:1200px; float:left; font-size:16px; margin-bottom:50px; margin-top:15px;}
+.neirong p { padding:15px; text-indent:2em; line-height:200%;}

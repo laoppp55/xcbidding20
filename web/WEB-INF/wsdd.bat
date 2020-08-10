@@ -1,0 +1,1 @@
+java -Djava.ext.dirs=lib org.apache.axis.client.AdminClient -lhttp://localhost:81/services/AdminService deploy.wsdd

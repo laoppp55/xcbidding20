@@ -1,0 +1,7 @@
+<div class="main logo">
+<div class="search_box">
+<form id="form1" method="post" action="/_prog/search_m.jsp" target="_blank" name="searchForm">
+<label><input id="sld" class="search" name="searchcontent" type="text" /></label> <label><input id="submit" class="batton" src="/images/search_but.png" type="image" name="submit" value="提交" /></label>
+</form>
+</div>
+</div>
