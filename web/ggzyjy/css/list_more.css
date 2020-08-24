@@ -173,7 +173,7 @@ body {
 	height: 610px;
 }
 .list_main_box ul li a {
-	width: 800px;
+	/*width: 600px;*/
     display: block;
     float: left;
     text-overflow: ellipsis;

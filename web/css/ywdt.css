@@ -146,7 +146,7 @@
 .ywdt_list ul li a {
 	color: #ffffff;
     display: block;
-    width: 560px;
+    /*width: 560px;*/
     float: left;
     text-overflow: ellipsis;
     white-space: nowrap;
