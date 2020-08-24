@@ -79,7 +79,7 @@
         <div class="title">个人中心</div>
         <ul>
             <li><a href="/ec/myBidinfos.jsp"><span style="color: red"> 投标项目管理</span></a></li>
-            <li><a href="javascript:getApplyCredits(0,20);">授信申请管理</a></li>
+            <li><a href="/users/personinfo.jsp">授信申请管理</a></li>
             <li><a href="javascript:queryPurchaseProjectsOfNeedMargin(0,20);">保证金管理</a></li>
             <li><a href="/users/companyinfo.jsp">公司信息管理</a></li>
             <li><a href="/users/updatereg.jsp">修改个人注册信息</a></li>
