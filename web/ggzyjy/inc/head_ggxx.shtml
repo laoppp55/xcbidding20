@@ -34,7 +34,7 @@
                             var posi = date_str.indexOf(" ");
                             if (posi > -1) date_str = date_str.substring(0, posi);
                             var type = data[ii].type;
-                            var href="bulletinNoticeDetail.jsp1";
+                            var href="bulletinNoticeDetail.jsp";
                             var typestr="【公开招标】";
                             if(type == 1){
                                 typestr="【竞争性谈判公告】";
