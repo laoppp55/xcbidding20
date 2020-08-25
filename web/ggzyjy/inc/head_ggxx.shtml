@@ -38,7 +38,7 @@
                             var typestr="【公开招标】";
                             if(type == 1){
                                 typestr="【竞争性谈判公告】";
-                                href =   "bulletinNoticeConsultationss.jsp";
+                                href =   "bulletinNoticeConsultationss.jsp1";
                             }
                             if(type == 2){
                                 typestr="【竞争性磋商公告】";
