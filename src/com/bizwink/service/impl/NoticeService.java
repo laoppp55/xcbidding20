@@ -24,6 +24,9 @@ public class NoticeService implements INoticeService{
     private BulletinNoticeMapper bulletinNoticeMapper;
 
     @Autowired
+    private BulletinNoticeConsultationsMapper bulletinNoticeConsultationsMapper;
+
+    @Autowired
     private ChangeNoticeMapper changeNoticeMapper;
 
     @Autowired
@@ -49,6 +52,10 @@ public class NoticeService implements INoticeService{
 
     public BulletinNoticeWithBLOBs getBulletinNoticeByUUID(String uuid) {
         return bulletinNoticeMapper.selectByPrimaryKey(uuid);
+    }
+
+    public BulletinNoticeConsultationsWithBLOBs getBulletinNoticeConsultationByUUID(String uuid) {
+        return bulletinNoticeConsultationsMapper.selectByPrimaryKey(uuid);
     }
 
     public List<voBulletinNotice> getBulletinNoticeList(Timestamp now,BigDecimal startrow, BigDecimal rows) {
