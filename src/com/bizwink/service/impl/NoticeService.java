@@ -230,4 +230,12 @@ public class NoticeService implements INoticeService{
         params.put("noticeids",notice_ids);
         return readNoticeLogMapper.getReadNoticesLogs(params);
     }
+
+    public BulletinNoticeConsultationsWithBLOBs getConsultationsNoticeByUUID(String uuid) {
+        return bulletinNoticeConsultationsMapper.selectByPrimaryKey(uuid);
+    }
+
+    public BulletinNoticeSinglesourceWithBLOBs getSinglesourceNoticeByUUID(String uuid) {
+        return bulletinNoticeSinglesourceMapper.selectByPrimaryKey(uuid);
+    }
 }
