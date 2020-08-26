@@ -51,20 +51,6 @@
         IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
         if (purchaseProject==null) response.sendRedirect("/users/error.jsp?errcode=300");
         budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
-        if (budgetProject.getBuymethod().equals("1"))
-            buymethod = "公开招标";
-        else if (budgetProject.getBuymethod().equals("2"))
-            buymethod = "邀请招标";
-        else if(budgetProject.getBuymethod().equals("3"))
-            buymethod = "竞争性谈判";
-        else if(budgetProject.getBuymethod().equals("4"))
-            buymethod = "单一来源";
-        else if(budgetProject.getBuymethod().equals("5"))
-            buymethod = "询价";
-        else if(budgetProject.getBuymethod().equals("6"))
-            buymethod = "竞争性磋商";
-        else if(budgetProject.getBuymethod().equals("9"))
-            buymethod = "其它";
 
         //保存用户已经阅读过公告的信息
         if (authToken!=null) {
@@ -252,100 +238,73 @@
     <div class="list_main_box" id="datalistid">
         <div id="bcontentid">
             <div id="btitleid" style="text-align: center">
-                <h2>[<%=(buymethod!=null)?buymethod:""%>]&nbsp;&nbsp;<%=bulletinSinglesourceNotice.getBulletintitle()%></h2>
-                <%if(receiveFileWay.equals("1") || receiveFileWay.equals("3")){ //1网上下载招标文件，2现场售卖招标文件%>
-                <!--a href="/ec/download.jsp?uuid=< %=bulletinNotice.getUuid()%>" style="color: red"--><a href="javascript:downfile('<%=bulletinSinglesourceNotice.getUuid()%>')" style="color: red">下载招标文件</a>
-                <%}%>
+                <h2>[单一来源]&nbsp;&nbsp;<%=bulletinSinglesourceNotice.getBulletintitle()%></h2>
             </div>
 
             <div style="text-align: center;margin:28px 0 28px 0;"> </div>
             <div align="left" style="padding-left:30px;">
-                <%if (budgetProject.getBuymethod().equals("1")) {%>
                 <p align="center"></p>
                 <p>
                 <p></p>
                 <h3>项目概况</h3> <%=bulletinSinglesourceNotice.getBulletincontent()%>
-                <p></p> <p><strong>一、项目基本情况</strong></p>
-                <p>项目编号：<%=purchaseProject.getInvestprojcode()%></p>
-                <p>项目名称：<%=budgetProject.getProjectname()%></p>
-                <p>采购人名称：</p>
+                <p></p> <p><strong>一、采购人名称：<%=bulletinSinglesourceNotice.getBuyerName()%></strong></p>
+                <p>联系地址：<%=bulletinSinglesourceNotice.getBuyerAddress()%></p>
+                <p>联系人：<%=bulletinSinglesourceNotice.getBuyerContactor()%></p>
+                <p>联系电话：<%=bulletinSinglesourceNotice.getBuyerContactMobilePhone() + "," + bulletinSinglesourceNotice.getBuyerContactPhone()%></p>
                 <p></p>
-                <p><%=purchaseProject.getPurchasecontent()%></p>
+                <p><strong>二、拟采购服务说明：</strong></p>
+                <p><%=bulletinSinglesourceNotice.getPurchasingContent()%></p>
                 <p></p>
-                <!--p>合同履行期限：自合同签订之日起至2020年12月31日止</p-->
+                <p><strong>三、采用单一来源采购方式的原因及相关说明</strong></p>
+                <p><%=bulletinSinglesourceNotice.getRelevantDescriptions()%></p>
+                <p></p>
+                <p><strong>四、拟定的唯一供应商名称、地址</strong></p>
+                <p>供应商名称：<%=bulletinSinglesourceNotice.getSupplierName() + "。供应商地址：" + bulletinSinglesourceNotice.getSupplierAddress()%></p>
+                <p></p>
+                <p><strong>五、专业人员对相关供应商因专利、专有技术等原因具有唯一性的具体论证意见、以及专业人员姓名、工作单位和职称</strong></p>
+                <p>专家论证意见：<%=bulletinSinglesourceNotice.getProfessionalInformation()%></p>
+                <p>专家名单：<%=bulletinSinglesourceNotice.getExpertOpinion()%></p>
+                <p></p>
+                <p><strong>六、公示期限</strong></p>
                 <p>
+                <p><%=bulletinSinglesourceNotice.getPublicityPeriod()%></p>
                 </p>
-                <p><strong>二、申请人的资格要求：</strong></p>
-                <p><%=bulletinSinglesourceNotice.getBidderRequirement()%></p>
-                <p></p>
-                <p><%=(purchaseProject.getProjectSpecificRequire()==null)?"":"本项目特殊资质要求："+purchaseProject.getProjectSpecificRequire()%></p>
-                <p></p>
-                <p></p>
-                <p><strong>三、获取招标文件</strong></p>
-                <p>时间：<%=(bulletinSinglesourceNotice.getReceiveFileStartTime()==null)?"":sdf.format(bulletinSinglesourceNotice.getReceiveFileStartTime()) + "至" + ((bulletinSinglesourceNotice.getReceiveFileEndTime()==null)?"":sdf.format(bulletinSinglesourceNotice.getReceiveFileEndTime())) + "双休日及法定节假日除外"%></p>
-                <p>地点：<%=bulletinSinglesourceNotice.getReceiveFileAddress()%></p>
-                <p>方式：
-                    <%
-                        if (receiveFileWay.equals("1"))
-                            out.println("网上下载招标文件");
-                        else if (receiveFileWay.equals("3"))
-                            out.println("网上下载或者现场获取招标文件");
-                        else
-                            out.println("现场获取招标文件");
-                    %>
-                </p>
-                <p>售价：￥<%=bulletinSinglesourceNotice.getSellingPrice()%> 元</p>
-                <p><strong>四、提交投标文件截止时间、开标时间和地点</strong></p>
-                <p>开标时间： <%=sdf.format(bulletinSinglesourceNotice.getTenderEndTime())%>（北京时间）</p>
-                <p>开标地点：<%=bulletinSinglesourceNotice.getBidOpenAddress()%></p>
-                <p><strong>五、公告期限</strong></p>
-                <p>自本公告发布之日起5个工作日。</p>
-                <p><strong>六、其他补充事宜</strong></p>
-                <p>
-                <p><%=bulletinSinglesourceNotice.getOtherNode()%></p>
-                <!--p>评标方法和标准：综合评分法；本次评审均采用百分制，满分为100分。</p-->
-                </p>
-                <p><strong>七、对本次招标提出询问，请按以下方式联系。</strong></p>
-                <p>1.采购人信息</p>
-                <p>名 称：<%=bulletinSinglesourceNotice.getBuyerName()%>　　　　　</p>
-                <p>地址：<%=bulletinSinglesourceNotice.getBuyerAddress()%>　　　　　　　　</p>
-                <p>联系方式：<%=bulletinSinglesourceNotice.getBuyerContactor() + "," + bulletinSinglesourceNotice.getBuyerContactPhone()%>　　　　　　</p>
-                <p>2.采购代理机构信息</p>
-                <p>名 称：<%=bulletinSinglesourceNotice.getAgentName()%>　　　　　　　　　　　　</p>
-                <p>地　址：<%=bulletinSinglesourceNotice.getAgentAddress()%>　　　　　　　　　　　　</p>
-                <p>联系方式：<%=bulletinSinglesourceNotice.getAgentContactor() + "," + bulletinSinglesourceNotice.getAgentContactPhone()%>　　　　　　　　　　　　</p>
-                <p>3.项目联系方式</p>
-                <p>项目联系人：<%=bulletinSinglesourceNotice.getProjcontactor()%></p>
-                <p>电　话：　　<%=bulletinSinglesourceNotice.getProjContactPhone()%></p>
-                </p>
-                <p>八、采购项目需要落实的政府采购政策：</p>
-                <p><%=bulletinSinglesourceNotice.getPolicyNode()%></p>
                 <p></p>
                 <p></p>
                 <p>
                     <%
-                        if (bulletinSinglesourceNotice.getReceiveNotice()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getReceiveNotice() + "\"><span style=\"color:red\">公告附件</span></a>");
+                        if (bulletinSinglesourceNotice.getUrl()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getUrl() + "\"><span style=\"color:red\">公告附件</span></a>");
                     %>
                 </p>
                 <p>
                 </p>
                 <p>
                     <%
-                        //if (bulletinNotice.getReceiveFile()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotice.getReceiveFile() + "\"><span style=\"color:red\">招标文件</span></a>");
+                        if (bulletinSinglesourceNotice.getExpertOpinionURL()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getExpertOpinionURL() + "\"><span style=\"color:red\">专家表附件</span></a>");
                     %>
                 </p>
                 <p>
                 </p>
                 <p>
                     <%
-                        if (bulletinSinglesourceNotice.getAttachment()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getAttachment() + "><span style=\"color:red\">其它附件</span></a>");
+                        if (bulletinSinglesourceNotice.getExpertOpinionURL()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getExpertOpinionURL() + "><span style=\"color:red\">专家论证意见</span></a>");
                     %>
                 </p>
                 <p>
                 </p>
-                <%} else {
-                    bulletinSinglesourceNotice.getRichTextContent();
-                }%>
+                <p>
+                    <%
+                        if (bulletinSinglesourceNotice.getRelatedMaterialsURL()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getRelatedMaterialsURL() + "><span style=\"color:red\">相关材料附件</span></a>");
+                    %>
+                </p>
+                </p>
+                <p>
+                    <%
+                        if (bulletinSinglesourceNotice.getOtherAocumentsURL()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinSinglesourceNotice.getOtherAocumentsURL() + "><span style=\"color:red\">其他附件</span></a>");
+                    %>
+                </p>
+                <p>
+                </p>
             </div>
         </div>
     </div>
