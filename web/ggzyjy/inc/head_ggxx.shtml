@@ -30,24 +30,34 @@
                         for (var ii = 0; ii < loopnum; ii++) {
                             var date_str = data[ii].createtime;
                             var readflag = data[ii].readflag;
+
                             var posi = date_str.indexOf(" ");
                             if (posi > -1) date_str = date_str.substring(0, posi);
                             var type = data[ii].type;
-                            var notice_type = "";
-                            if (type==0)
-                                notice_type = "公开招标";
-                            else if (type == 1)
-                                notice_type = "竞争性磋商";
-                            else if (type == 2)
-                                notice_type = "竞争性谈判";
-                            else if (type==3)
-                                notice_type = "单一来源";
-                            else
-                                notice_type = "其他";
-                            if (readflag == 1)
-                                div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
-                            else
-                                div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                            var href="bulletinNoticeDetail.jsp";
+                            var typestr="【公开招标】";
+                            if(type == 1){
+                                typestr="【竞争性谈判公告】";
+                                href =   "bulletinNoticeConsultationss.jsp";
+                            }
+                            if(type == 2){
+                                typestr="【竞争性磋商公告】";
+                                href = "bulletinNoticeConsultations.jsp";
+                            }
+                            if(type == 3){
+                                typestr="【单一来源公告】";
+                                href="";
+                            }
+                            var readstr = "未读"
+                            if(readflag == 1){
+                                readstr = "已读";
+                            }
+
+
+                            //if (readflag == 1)
+                                div01_html = div01_html + "   <li><a href=\"/ec/"+ href +"?uuid=" + data[ii].uuid + "\" target='_blank'>" + typestr+data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>"+readstr+"</span></li>";
+                           // else
+                           //     div01_html = div01_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + typestr+data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
                         }
                         div01_html = div01_html + "</ul>";
                         $("#file_div01").html(div01_html);
@@ -202,28 +212,36 @@
                             for (var ii = 0; ii < data.length; ii++) {
                                 var date_str = data[ii].createtime;
                                 var readflag = data[ii].readflag;
-                                var type = data[ii].type;
-                                var notice_type = "";
-                                if (type==0)
-                                    notice_type = "公开招标";
-                                else if (type == 1)
-                                    notice_type = "竞争性磋商";
-                                else if (type == 2)
-                                    notice_type = "竞争性谈判";
-                                else if (type==3)
-                                    notice_type = "单一来源";
-                                else
-                                    notice_type = "其他";
                                 if (date_str != null && date_str != "") {
                                     var posi = date_str.indexOf(" ");
                                     if (posi > -1) date_str = date_str.substring(0, posi);
                                 } else {
                                     date_str = "";
                                 }
-                                if (readflag==1)
-                                    div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
-                                else
-                                    div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                var type = data[ii].type;
+                                var href="bulletinNoticeDetail.jsp";
+                                var typestr="【公开招标】";
+                                if(type == 1){
+                                    typestr="【竞争性谈判公告】";
+                                    href="bulletinNoticeConsultationss.jsp";
+                                }
+                                if(type == 2){
+                                    typestr="【竞争性磋商公告】";
+                                    href="bulletinNoticeConsultations.jsp";
+                                }
+                                if(type == 3){
+                                    typestr="【单一来源公告】";
+                                    href="";
+                                }
+                                var readstr = "未读"
+                                if(readflag == 1){
+                                    readstr = "已读";
+                                }
+                               // if (readflag==1)
+
+                                    div_html = div_html + "   <li><a href=\"/ec/"+href+"?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + typestr+data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>"+readstr+"</span></li>"
+                              //  else
+                              //      div_html = div_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + typestr+data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
                             }
                             div_html = div_html + "</ul>";
 
@@ -393,23 +411,23 @@
                                     date_str = "";
                                 }
                                 var title = data[ii].bulletintitle;
-                                title = title.replace(keyword, "<font color='red'>" + keyword + "</font>");
                                 var type = data[ii].type;
-                                var notice_type = "";
-                                if (type==0)
-                                    notice_type = "公开招标";
-                                else if (type == 1)
-                                    notice_type = "竞争性磋商";
-                                else if (type == 2)
-                                    notice_type = "竞争性谈判";
-                                else if (type==3)
-                                    notice_type = "单一来源";
-                                else
-                                    notice_type = "其他";
+                                var typestr="【公开招标】";
+                                if(type == 1){
+                                    typestr="【竞争性磋商公告】";
+                                }
+                                if(type == 2){
+                                    typestr="【竞争性谈判公告】";
+                                }
+                                if(type == 3){
+                                    typestr="【单一来源公告】";
+                                }
+
+                                title = title.replace(keyword, "<font color='red'>" + keyword + "</font>");
                                 if (readflag == 1)
-                                    div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    div_html = div_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + typestr+title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
                                 else
-                                    div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    div_html = div_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + typestr+title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
                             }
                             div_html = div_html + "</ul>";
 
