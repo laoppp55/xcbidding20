@@ -17,6 +17,10 @@ public interface INoticeService {
 
     BulletinNoticeWithBLOBs getBulletinNoticeByUUID(String uuid);
 
+    BulletinNoticeConsultationsWithBLOBs getConsultationsNoticeByUUID(String uuid);
+
+    BulletinNoticeSinglesourceWithBLOBs getSinglesourceNoticeByUUID(String uuid);
+
     int getBulletinNoticeCount(Timestamp now);
 
     List<voBulletinNotice> getBulletinNoticeList(Timestamp now,BigDecimal startrow, BigDecimal rows);
