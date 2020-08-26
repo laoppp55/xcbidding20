@@ -14,9 +14,6 @@
         return;
     }
 
-    int startrow = ParamUtil.getIntParameter(request,"start",0);
-    int rows = ParamUtil.getIntParameter(request,"rows",20);
-
     String username = authToken.getUsername();
     ApplicationContext appContext = SpringInit.getApplicationContext();
     PurchasingAgency purchasingAgency = null;
@@ -116,14 +113,14 @@
                 async:false,
                 success:function(data){
                     alert(data.errcode + data.errmsg);
-                    window.opener.getApplyCredits(<%=startrow%>,<%=rows%>);
+                    window.opener.getApplyCredits();
                     window.close();
                 }
             });
         }
     </script>
 </head>
-<body>
+<body  style="background-image: url('');">
 <div class="full_box">
     <div class="top_box">
         <!--#include virtual="/inc/head.shtml"-->
@@ -135,16 +132,16 @@
 <!--以上页面头-->
 <div class="main clearfix div_top div_bottom">
     <form name="acform">
+        <input type="hidden" name="compuuid" value="<%=purchasingAgency.getUuid()%>">
+        <input type="hidden" name="start" value="<%=purchasingAgency.getUuid()%>">
+        <input type="hidden" name="rows" value="<%=purchasingAgency.getUuid()%>">
         <table width="100%" border="0" align="left" cellpadding="0" cellspacing="1"  style="margin-top:25px;">
             <tr>
                 <td align="right">
                     申请授信名称：
                 </td>
                 <td align="left" colspan="3">
-                    <input type="text" name="creditName" value="" size="130"><span class="red">*</span>
-                    <input type="hidden" name="compuuid" value="<%=purchasingAgency.getUuid()%>">
-                    <input type="hidden" name="start" value="<%=purchasingAgency.getUuid()%>">
-                    <input type="hidden" name="rows" value="<%=purchasingAgency.getUuid()%>">
+                    <input type="text" name="creditName" value="" size="100" style="border: 1px solid #DCDCDC;color: #999999;height: 14px;padding: 8px 9px;"><span class="red">*</span>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -153,13 +150,13 @@
                     企业名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="companyName" value="<%=(purchasingAgency.getOrganName()==null)?"":purchasingAgency.getOrganName()%>"><span class="red">*</span>
+                    <input type="text" name="companyName" value="<%=(purchasingAgency.getOrganName()==null)?"":purchasingAgency.getOrganName()%>" class="input_but_5"><span class="red">*</span>
                 </td>
                 <td align="right">
                     企业统一社会信用代码：
                 </td>
                 <td align="left">
-                    <input type="text" name="companyCode" value="<%=(purchasingAgency.getLegalCode()==null)?"":purchasingAgency.getLegalCode()%>"><span class="red">*</span>
+                    <input type="text" name="companyCode" value="<%=(purchasingAgency.getLegalCode()==null)?"":purchasingAgency.getLegalCode()%>" class="input_but_5"><span class="red">*</span>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -168,13 +165,13 @@
                     基本户账户：
                 </td>
                 <td align="left">
-                    <input type="text" name="baseAccount" value="<%=(purchasingAgency.getBankAccount()==null)?"":purchasingAgency.getBankAccount()%>">
+                    <input type="text" name="baseAccount" value="<%=(purchasingAgency.getBankAccount()==null)?"":purchasingAgency.getBankAccount()%>" class="input_but_5">
                 </td>
                 <td align="right">
                     基本户开户行：
                 </td>
                 <td align="left">
-                    <input type="text" name="bankOfBaseAccount" value="<%=(purchasingAgency.getBank()==null)?"":purchasingAgency.getBank()%>">
+                    <input type="text" name="bankOfBaseAccount" value="<%=(purchasingAgency.getBank()==null)?"":purchasingAgency.getBank()%>" class="input_but_5">
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -183,13 +180,13 @@
                     法人代表名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="lawPersonName" value="<%=(purchasingAgency.getPersonName()==null)?"":purchasingAgency.getPersonName()%>">
+                    <input type="text" name="lawPersonName" value="<%=(purchasingAgency.getPersonName()==null)?"":purchasingAgency.getPersonName()%>" class="input_but_5">
                 </td>
                 <td align="right">
                     法人代表身份证号：
                 </td>
                 <td align="left">
-                    <input type="text" name="idCard" value="<%=(purchasingAgency.getPersonIdcard()==null)?"":purchasingAgency.getPersonIdcard()%>">
+                    <input type="text" name="idCard" value="<%=(purchasingAgency.getPersonIdcard()==null)?"":purchasingAgency.getPersonIdcard()%>" class="input_but_5">
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -198,13 +195,13 @@
                     企业邮箱：
                 </td>
                 <td align="left">
-                    <input type="text" name="email" value="<%=(purchasingAgency.getLegalemail()==null)?"":purchasingAgency.getLegalemail()%>">
+                    <input type="text" name="email" value="<%=(purchasingAgency.getLegalemail()==null)?"":purchasingAgency.getLegalemail()%>" class="input_but_5">
                 </td>
                 <td align="right">
                     营业执照下载地址：
                 </td>
                 <td align="left">
-                    <input type="text" name="businessLicenseUrl" value="">
+                    <input type="text" name="businessLicenseUrl" value="" class="input_but_5">
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -213,7 +210,7 @@
                     企业业绩：
                 </td>
                 <td align="left">
-                    <input type="text" name="enterprisePerformances" value="">
+                    <input type="text" name="enterprisePerformances" value="" class="input_but_5">
                 </td>
                 <td align="right">
                 </td>

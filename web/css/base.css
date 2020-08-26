@@ -166,6 +166,26 @@ body {
 	margin: 0 auto;
 }
 
+.input_but_5 {
+	width: 200px;
+	height: 14px;
+	padding: 8px 9px;
+	border: 1px solid #DCDCDC;
+	color: #999999;
+	float: left;
+	outline: none;
+}
+
+.input_but_6 {
+	width: 1000px;
+	height: 14px;
+	padding: 8px 9px;
+	border: 1px solid #DCDCDC;
+	color: #999999;
+	float: left;
+	outline: none;
+}
+
 @media screen and (max-width:1500px){
 
 .logo_box {

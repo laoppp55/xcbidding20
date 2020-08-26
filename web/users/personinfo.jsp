@@ -229,12 +229,12 @@
             });
         }
 
-        function createApplyCredit(start,rows) {
+        function createApplyCredit() {
             var iWidth=window.screen.availWidth-400;                                                 //弹出窗口的宽度;
             var iHeight=600;                                                //弹出窗口的高度;
             var iTop = (window.screen.availHeight-30-iHeight)/2;        //获得窗口的垂直位置;
             var iLeft = (window.screen.availWidth-10-iWidth)/2;         //获得窗口的水平位置;
-            window.open("/ec/applyCredit.jsp?start=" + start + "&rows=" + rows, "CreateApplyCredit", "width=" + iWidth + ",height=" + iHeight + ",left=" + iLeft + ",top=" + iTop + "toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+            window.open("/ec/applyCredit.jsp", "CreateApplyCredit", "width=" + iWidth + ",height=" + iHeight + ",left=" + iLeft + ",top=" + iTop + "toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
         }
 
         function updateApplyCredit(uuid,start,rows) {
@@ -253,7 +253,7 @@
             window.open("/ec/queryApplyCredit.jsp?uuid=" + uuid + "&start=" + start + "&rows=" + rows, "queryApplyCredit", "width=" + iWidth + ",height=" + iHeight + ",left=" + iLeft + ",top=" + iTop + "toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
         }
 
-        function deleteApplyCredit(uuid,start,rows) {
+        function deleteApplyCredit(uuid) {
             htmlobj=$.ajax({
                 url:"/deleteApplyCredit.do",
                 data: {
@@ -263,12 +263,12 @@
                 async:false,
                 success:function(data){
                     alert(data);
-                    getApplyCredits(start,rows);
+                    getApplyCredits();
                 }
             });
         }
 
-        function submitApplyCredit(uuid,start,rows) {
+        function submitApplyCredit(uuid) {
             htmlobj=$.ajax({
                 url:"/submitApplyCredit.do",
                 data: {
@@ -278,25 +278,22 @@
                 async:false,
                 success:function(data){
                     alert(data);
-                    getApplyCredits(start,rows);
+                    getApplyCredits();
                 }
             });
         }
 
-        function getApplyCredits(start,rows){
+        function getApplyCredits(){
             htmlobj=$.ajax({
                 url:"/ApplyCreditList.do",
-                data: {
-                    start:start,
-                    rows:rows
-                },
+                data: {},
                 dataType:'json',
                 async:false,
                 success:function(data){
                     //$("#projectsid").find("tr:not(:first)").remove();
                     $("#projectsid").find("tr").remove();
-                    var htmlstr = "<tr bgcolor='white'><td><%=purchasingAgency.getOrganName()%><td><%=purchasingAgency.getLegalCode()%></td></td><td colspan=\"8\" align=\"right\"><a href=\"javascript:createApplyCredit("+start + "," + rows + ");\">新建申请</a></td></tr>" +
-                        "<tr>\n" +
+                    //var htmlstr = "<tr bgcolor='white'><td colspan=\"2\"><%=purchasingAgency.getOrganName()%></td><td><%=purchasingAgency.getLegalCode()%></td><td colspan=\"7\" align=\"right\"><a href=\"javascript:createApplyCredit("+start + "," + rows + ");\">新建申请</a></td></tr>" +
+                    var htmlstr = "<tr>\n" +
                         "                <td width=\"10%\" height=\"25\" align=\"center\" valign=\"middle\">授信申请名称</td>\n" +
                         "                <td width=\"30%\" align=\"center\" valign=\"middle\">授信申请编号</td>\n" +
                         "                <td width=\"10%\" align=\"center\" valign=\"middle\">申请时间</td>\n" +
@@ -373,15 +370,20 @@
         <div class="title">个人中心</div>
         <ul>
             <li><a href="/ec/myBidinfos.jsp">投标项目管理</a></li>
-            <li><a href="javascript:getApplyCredits(0,20);">授信申请管理</a></li>
-            <li><a href="javascript:queryPurchaseProjectsOfNeedMargin(0,20);">保证金管理</a></li>
+            <li><a href="/users/personinfo.jsp?action=2"><%=(actionid==2)?"<span style=\"color: red\">":""%>授信申请管理<%=(actionid==2)?"</span>":""%></a></li>
+            <li><a href="/users/personinfo.jsp?action=3"><%=(actionid==3)?"<span style=\"color: red\">":""%>保证金管理<%=(actionid==3)?"</span>":""%></a></li>
             <li><a href="/users/companyinfo.jsp">公司信息管理</a></li>
             <li><a href="/users/updatereg.jsp">修改个人注册信息</a></li>
             <li><a href="/users/changePwd.jsp">修改密码</a></li>
         </ul>
     </div>
     <div class="personal_right_box">
-        <table id="projectsid" width="1000" border="0" align="left" cellpadding="0" cellspacing="1" bgcolor="#e2e2e2" style="margin-top:25px;"></table>
+        <div id="div1" style="margin-top: 20px;text-align: left"><%=purchasingAgency.getOrganName()+":" + purchasingAgency.getLegalCode()%></div>
+        <div style="margin-top: 20px;float: right"><a href="javascript:createApplyCredit();">新建申请</a></div>
+        <div id="div2" style="margin-top: 5px;">
+            <table id="projectsid" width="1000" border="0" align="left" cellpadding="0" cellspacing="1" bgcolor="#e2e2e2" style="margin-top:25px;">
+            </table>
+        </div>
     </div>
 </div>
 <!--以下页面尾-->
