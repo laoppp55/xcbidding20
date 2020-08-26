@@ -24,6 +24,12 @@ public class NoticeService implements INoticeService{
     private BulletinNoticeMapper bulletinNoticeMapper;
 
     @Autowired
+    private BulletinNoticeConsultationsMapper bulletinNoticeConsultationsMapper;
+
+    @Autowired
+    private BulletinNoticeSinglesourceMapper bulletinNoticeSinglesourceMapper;
+
+    @Autowired
     private ChangeNoticeMapper changeNoticeMapper;
 
     @Autowired
@@ -224,4 +230,13 @@ public class NoticeService implements INoticeService{
         params.put("noticeids",notice_ids);
         return readNoticeLogMapper.getReadNoticesLogs(params);
     }
+
+    public BulletinNoticeConsultationsWithBLOBs getConsultationsNoticeByUUID(String uuid){
+        return bulletinNoticeConsultationsMapper.selectByPrimaryKey(uuid);
+    }
+
+    public BulletinNoticeSinglesourceWithBLOBs getSinglesourceNoticeByUUID(String uuid){
+        return bulletinNoticeSinglesourceMapper.selectByPrimaryKey(uuid);
+    }
+
 }
