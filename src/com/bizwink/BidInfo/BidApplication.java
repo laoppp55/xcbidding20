@@ -3,10 +3,7 @@ package com.bizwink.BidInfo;
 import com.bizwink.cms.server.InitServer;
 import com.bizwink.cms.server.MyConstants;
 import com.bizwink.net.sftp.FtpFileToDest;
-import com.bizwink.po.BidderInfo;
-import com.bizwink.po.BulletinNoticeWithBLOBs;
-import com.bizwink.po.PurchasingAgency;
-import com.bizwink.po.Users;
+import com.bizwink.po.*;
 import com.bizwink.security.Auth;
 import com.bizwink.service.IBidderInfoService;
 import com.bizwink.service.INoticeService;
@@ -30,7 +27,8 @@ import java.util.UUID;
 public class BidApplication {
     @RequestMapping(value = "/createBidApplication.do")
     public String saveBidApplicationInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String bulletinNotice_uuid = filter.excludeHTMLCode(ParamUtil.getParameter(request, "uuid"));                                 //招标（资审）公告uuid
+        String bulletinNotice_uuid = filter.excludeHTMLCode(ParamUtil.getParameter(request, "uuid"));                  //招标（资审）公告uuid
+        int buymethod = ParamUtil.getIntParameter(request,"buymethod",0);                                 //表示不同的采购方式，1公开招标，2邀请招标，3竞争性谈判，4单一来源，5询价，6竞争性磋商，9其他
         String projName = filter.excludeHTMLCode(ParamUtil.getParameter(request, "projName"));                         //潜在投标人拟投项目名称
         String projCode = filter.excludeHTMLCode(ParamUtil.getParameter(request, "projCode"));                         //潜在投标人拟投项目编码
         String buyerName = filter.excludeHTMLCode(ParamUtil.getParameter(request, "buyerName"));                       //购买人名称
@@ -83,13 +81,15 @@ public class BidApplication {
                 ApplicationContext appContext = SpringInit.getApplicationContext();
                 if (appContext!=null) {
                     BulletinNoticeWithBLOBs bulletinNotice = null;
+                    BulletinNoticeConsultationsWithBLOBs bulletinConsultationsNotice = null;
+                    BulletinNoticeSinglesourceWithBLOBs bulletinSinglesourceNotice = null;
+
                     Users user = null;
                     PurchasingAgency purchasingAgency = null;
                     BidderInfo bidderInfo = null;
 
                     //获取下载招标文件的公告信息，得到公告文件的文件名称
                     INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
-                    bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
 
                     //获取登录用户的信息
                     IUserService usersService = (IUserService)appContext.getBean("usersService");
@@ -99,8 +99,22 @@ public class BidApplication {
                     purchasingAgency = usersService.getEnterpriseInfoByCompcode(user.getCOMPANYCODE());
 
                     //将下载招标文件的用户所在单位保存为潜在投标人
+                    String purchaseProjCode = null;
                     IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
-                    bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
+                    if (buymethod == 1){
+                        bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
+                        purchaseProjCode = bulletinNotice.getPurchaseprojcode();
+                        bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
+                    }else if (buymethod == 3 || buymethod == 6){
+                        bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
+                        purchaseProjCode = bulletinConsultationsNotice.getPurchaseprojcode();
+                        bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinConsultationsNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
+                    }else if (buymethod == 4) {
+                        bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
+                        purchaseProjCode = bulletinSinglesourceNotice.getPurchaseprojcode();
+                        bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinSinglesourceNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
+                    }
+
                     int retcode = 0;
                     //供应商已经注册并且对于该项目并非是潜在投标人，将该供应商的信息保存到潜在投标人信息表
                     if (purchasingAgency!=null) {
@@ -109,7 +123,7 @@ public class BidApplication {
                             uuid = uuid.replace("-", "");
                             bidderInfo = new BidderInfo();
                             bidderInfo.setUuid(uuid);                                                        //潜在报名信息的uuid
-                            bidderInfo.setPurchaseprojcode(bulletinNotice.getPurchaseprojcode());            //拟投项目编码
+                            bidderInfo.setPurchaseprojcode(purchaseProjCode);            //拟投项目编码
                             bidderInfo.setLegalname(lawPersonName);                                          //潜在投标人法人代表名称
                             bidderInfo.setBiddername(purchasingAgency.getOrganName());                       //潜在投标人名称
                             bidderInfo.setBiddercode(purchasingAgency.getLegalCode());                       //潜在投标人统一社会信用代码

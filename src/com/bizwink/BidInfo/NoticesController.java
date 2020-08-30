@@ -2,7 +2,9 @@ package com.bizwink.BidInfo;
 
 import com.bizwink.po.*;
 import com.bizwink.security.Auth;
+import com.bizwink.service.IBudgetProjectService;
 import com.bizwink.service.INoticeService;
+import com.bizwink.service.IPurchaseProjectService;
 import com.bizwink.util.ParamUtil;
 import com.bizwink.util.SessionUtil;
 import com.bizwink.util.SpringInit;
@@ -58,6 +60,10 @@ public class NoticesController {
                                 break;
                             }
                         }
+                        //公告标题最长显示不超过40个汉字
+                        String title = voBulletinNotice.getBulletintitle();
+                        if (title.length()>40) title = title.substring(0,40) + "......";
+                        voBulletinNotice.setBulletintitle(title);
                         bulletinNotices.set(ii,voBulletinNotice);
                     }
                 }
@@ -79,6 +85,7 @@ public class NoticesController {
             bulletinNotices = noticeService.getBulletinNoticeList(now,BigDecimal.valueOf(startrow),BigDecimal.valueOf(rows));
             //设置查到的每个招标公告是否被当前用户阅读过
             if (bulletinNotices!=null) {
+                //获取公告已经被该用户读取过的LOG信息
                 HttpSession session = request.getSession();
                 Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
                 if (authToken!=null) {
@@ -87,7 +94,6 @@ public class NoticesController {
                     for(int ii=0;ii<bulletinNotices.size();ii++) {
                         notices_ids.add(bulletinNotices.get(ii).getUuid());
                     }
-                    //获取公告已经被该用户读取过的LOG信息
                     readNoticeLogs =noticeService.getReadNotiesLog(authToken.getUserid(),notices_ids);
                     //修改列表的公告是否已经被该用户读过的状态
                     for(int ii=0;ii<bulletinNotices.size();ii++) {
@@ -98,6 +104,22 @@ public class NoticesController {
                                 break;
                             }
                         }
+                        String title = voBulletinNotice.getBulletintitle();
+                        if (title.length()>40) {
+                            title = title.substring(0,40) + "......";
+                        }
+                        voBulletinNotice.setBulletintitle(title);
+                        bulletinNotices.set(ii,voBulletinNotice);
+                    }
+                }else {
+                    for(int ii=0;ii<bulletinNotices.size();ii++) {
+                        voBulletinNotice voBulletinNotice = bulletinNotices.get(ii);
+                        String title = voBulletinNotice.getBulletintitle();
+                        if (title.length()>40) {
+                            System.out.println(title + "==" + title.length());
+                            title = title.substring(0,40) + "......";
+                        }
+                        voBulletinNotice.setBulletintitle(title);
                         bulletinNotices.set(ii,voBulletinNotice);
                     }
                 }
@@ -162,6 +184,9 @@ public class NoticesController {
                                 break;
                             }
                         }
+                        String title = voBulletinNotice.getBulletintitle();
+                        if (title.length()>40) title = title.substring(0,40) + "......";
+                        voBulletinNotice.setBulletintitle(title);
                         bulletinNotices.set(ii,voBulletinNotice);
                     }
                 }
@@ -170,7 +195,6 @@ public class NoticesController {
 
         Gson gson = new Gson();
         String jsondata = gson.toJson(bulletinNotices);
-        System.out.println(jsondata);
 
         return  bulletinNotices;
     }
@@ -186,8 +210,6 @@ public class NoticesController {
             Timestamp now = new Timestamp(System.currentTimeMillis());
             count = noticeService.SearchBulletinNoticeCount(now,keyword);
         }
-
-        System.out.println("search result:" + count);
 
         return count;
     }

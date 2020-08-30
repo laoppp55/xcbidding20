@@ -152,8 +152,12 @@ public class UsersService implements IUserService {
 
             //创建用户，保存用户信息
             errcode = usersMapper.insert(user);
+
+            //判断企业基本信息是否已经存在，如果企业基本信息已经存在，不在新增企业基本信息
+            PurchasingAgency agency = purchasingAgencyMapper.selectEnterpriseInfoByCompcode(suppinfo.getLegalCode());
+
             //保存企业基本信息
-            errcode = purchasingAgencyMapper.insert(suppinfo);
+            if (agency==null) errcode = purchasingAgencyMapper.insert(suppinfo);
         }
 
         return  errcode;
@@ -188,7 +192,6 @@ public class UsersService implements IUserService {
 
     public Users getUserinfoByUserid(String userid) {
         Users user = null;
-        System.out.println("userid==" + userid);
         user = usersMapper.selectByPrimaryKey(userid);
         if (user==null) {
             user = usersMapper.selectByEmail(userid);
@@ -474,7 +477,6 @@ public class UsersService implements IUserService {
         if (reg_dns_flag == 0 && errcode == 0) {
             //设置站点信息
             //try{
-            System.out.println("Service userid=" + theuser.getUSERID() + "====" + samsiteid + "====" + TemplateNum);
             BigDecimal siteid =siteinfoMapper.getSiteinfoMainKey();
             siteInfo = new Siteinfo();
             siteInfo.setSITENAME(theuser.getUSERID() + ".show.caiwuzi.com");
@@ -608,7 +610,6 @@ public class UsersService implements IUserService {
             }
 
             //设置用户信息
-            System.out.println("company_error==" + column_error);
             if (company_error>0) {
                 try {
                     BigDecimal id = usersMapper.getMainKey();
@@ -635,20 +636,16 @@ public class UsersService implements IUserService {
                     myuser.setUSERTYPE(theuser.getUSERTYPE());                                //用户类型 0企业用户  1-个人用户
                     myuser.setCREATEDATE(new Timestamp(System.currentTimeMillis()));
                     user_error = usersMapper.insert(myuser);
-                    System.out.println("user is created");
                 } catch(Exception exp) {
-                    System.out.println("user failed");
                     exp.printStackTrace();
                 }
             } else {
-                System.out.println("user failed");
                 errorMessage.setErrcode(-16);
                 errorMessage.setErrmsg("创建公司信息记录出现错误");
                 errorMessage.setModelname("用户注册");
             }
 
             //设置用户的权限信息
-            System.out.println("user_error==" + user_error);
             if (user_error >0) {
                 MembersRights membersRights = new MembersRights();
                 membersRights.setUSERID(theuser.getUSERID());
