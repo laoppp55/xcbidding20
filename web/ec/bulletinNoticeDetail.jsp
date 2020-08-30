@@ -38,12 +38,14 @@
     String buymethod = null;
     List<Section> sectionList = null;
     INoticeService noticeService = null;
+    String publishtime = null;
+    SimpleDateFormat publishsdf = new SimpleDateFormat("yyyy-MM-dd");
     if (appContext!=null) {
         IUserService usersService = (IUserService)appContext.getBean("usersService");
         if (unloginflag == 1) user = usersService.getUserinfoByUserid(userid);
-
         noticeService = (INoticeService)appContext.getBean("noticeService");
         bulletinNotice = noticeService.getBulletinNoticeByUUID(uuid);
+        publishtime = publishsdf.format(bulletinNotice.getPublishtime());
         receiveFileWay = bulletinNotice.getReceiveFileWay();
         if (receiveFileWay == null) receiveFileWay = "";
         IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
@@ -260,7 +262,7 @@
                 <%}%>
             </div>
 
-            <div style="text-align: center;margin:28px 0 28px 0;"> </div>
+            <div style="text-align: center;margin:28px 0 28px 0;"> 发布时间：<%=publishtime%></div>
             <div align="left" style="padding-left:30px;">
                 <%if (budgetProject.getBuymethod().equals("1")) {%>
                 <p align="center"></p>
