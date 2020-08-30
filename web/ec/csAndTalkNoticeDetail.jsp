@@ -7,7 +7,6 @@
 <%@ page import="com.bizwink.security.Auth" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="com.bizwink.service.*" %>
-<%@ page import="org.w3c.tidy.Dict" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.bizwink.cms.server.MyConstants" %><%--
   Created by IntelliJ IDEA.
@@ -31,52 +30,83 @@
     ApplicationContext appContext = SpringInit.getApplicationContext();
     String uuid = ParamUtil.getParameter(request,"uuid");
     BulletinNoticeConsultationsWithBLOBs bulletinConsultationsNotice = null;
+    BulletinNoticeWithBLOBs bulletinNoticeWithBLOBs = null;
     PurchaseProjectWithBLOBs purchaseProject = null;
     BudgetProject budgetProject = null;
-    String receiveFileWay = null;
+    String receiveFileWay = "";
     Users user = null;
     String buymethod = null;
     List<Section> sectionList = null;
     INoticeService noticeService = null;
+    String publishtime = null;
+    int buymethod_type = 0;
+    SimpleDateFormat publishsdf = new SimpleDateFormat("yyyy-MM-dd");
     if (appContext!=null) {
         IUserService usersService = (IUserService)appContext.getBean("usersService");
+        IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
+        IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
         if (unloginflag == 1) user = usersService.getUserinfoByUserid(userid);
-
         noticeService = (INoticeService)appContext.getBean("noticeService");
         bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(uuid);
-        receiveFileWay = bulletinConsultationsNotice.getConsultationFileMode();
-        int type = Integer.parseInt(bulletinConsultationsNotice.getType());
-        if (type == 1)
+        if (bulletinConsultationsNotice != null) {
+            publishtime = publishsdf.format(bulletinConsultationsNotice.getAnnouncementTime());
             receiveFileWay = bulletinConsultationsNotice.getConsultationFileMode();
-        else
-            receiveFileWay = bulletinConsultationsNotice.getNegotiationFileMode();
-        if (receiveFileWay == null) receiveFileWay = "";
-        IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
-        purchaseProject = purchaseProjectService.getProjectInfoWithBLOBsByProjCode(bulletinConsultationsNotice.getPurchaseprojcode());
-        sectionList = purchaseProjectService.getSectionsByProjcode(purchaseProject.getPurchaseprojcode());
+            int type = Integer.parseInt(bulletinConsultationsNotice.getType());
+            if (type == 1)                 //1--竞争性磋商   2--竞争性谈判
+                receiveFileWay = bulletinConsultationsNotice.getConsultationFileMode();
+            else if (type==2)
+                receiveFileWay = bulletinConsultationsNotice.getNegotiationFileMode();
+            if (receiveFileWay == null) receiveFileWay = "";
+            purchaseProject = purchaseProjectService.getProjectInfoWithBLOBsByProjCode(bulletinConsultationsNotice.getPurchaseprojcode());
+            sectionList = purchaseProjectService.getSectionsByProjcode(purchaseProject.getPurchaseprojcode());
 
-        IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
-        if (purchaseProject==null) response.sendRedirect("/users/error.jsp?errcode=300");
-        budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
-        if (budgetProject.getBuymethod().equals("1"))
-            buymethod = "公开招标";
-        else if (budgetProject.getBuymethod().equals("2"))
-            buymethod = "邀请招标";
-        else if(budgetProject.getBuymethod().equals("3"))
-            buymethod = "竞争性谈判";
-        else if(budgetProject.getBuymethod().equals("4"))
-            buymethod = "单一来源";
-        else if(budgetProject.getBuymethod().equals("5"))
-            buymethod = "询价";
-        else if(budgetProject.getBuymethod().equals("6"))
-            buymethod = "竞争性磋商";
-        else if(budgetProject.getBuymethod().equals("9"))
-            buymethod = "其它";
-
-        //保存用户已经阅读过公告的信息
-        if (authToken!=null) {
-            noticeService.saveReadNoticeFlag(bulletinConsultationsNotice.getBulletintitle(),bulletinConsultationsNotice.getUuid(),authToken.getUserid());
+            if (purchaseProject==null) response.sendRedirect("/users/error.jsp?errcode=300");
+            budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
+            buymethod_type = Integer.parseInt(budgetProject.getBuymethod());
+            if (budgetProject.getBuymethod().equals("1"))
+                buymethod = "公开招标";
+            else if (budgetProject.getBuymethod().equals("2"))
+                buymethod = "邀请招标";
+            else if(budgetProject.getBuymethod().equals("3"))
+                buymethod = "竞争性谈判";
+            else if(budgetProject.getBuymethod().equals("4"))
+                buymethod = "单一来源";
+            else if(budgetProject.getBuymethod().equals("5"))
+                buymethod = "询价";
+            else if(budgetProject.getBuymethod().equals("6"))
+                buymethod = "竞争性磋商";
+            else if(budgetProject.getBuymethod().equals("9"))
+                buymethod = "其它";
+            //保存用户已经阅读过公告的信息
+            if (authToken!=null) {
+                noticeService.saveReadNoticeFlag(bulletinConsultationsNotice.getBulletintitle(),bulletinConsultationsNotice.getUuid(),authToken.getUserid());
+            }
+        } else {
+            bulletinNoticeWithBLOBs = noticeService.getBulletinNoticeByUUID(uuid);
+            publishtime = publishsdf.format(bulletinNoticeWithBLOBs.getPublishtime());
+            purchaseProject = purchaseProjectService.getProjectInfoWithBLOBsByProjCode(bulletinNoticeWithBLOBs.getPurchaseprojcode());
+            budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
+            buymethod_type = Integer.parseInt(budgetProject.getBuymethod());
+            if (budgetProject.getBuymethod().equals("1"))
+                buymethod = "公开招标";
+            else if (budgetProject.getBuymethod().equals("2"))
+                buymethod = "邀请招标";
+            else if(budgetProject.getBuymethod().equals("3"))
+                buymethod = "竞争性谈判";
+            else if(budgetProject.getBuymethod().equals("4"))
+                buymethod = "单一来源";
+            else if(budgetProject.getBuymethod().equals("5"))
+                buymethod = "询价";
+            else if(budgetProject.getBuymethod().equals("6"))
+                buymethod = "竞争性磋商";
+            else if(budgetProject.getBuymethod().equals("9"))
+                buymethod = "其它";
+            //保存用户已经阅读过公告的信息
+            if (authToken!=null) {
+                noticeService.saveReadNoticeFlag(bulletinConsultationsNotice.getBulletintitle(),bulletinConsultationsNotice.getUuid(),authToken.getUserid());
+            }
         }
+
     }
 
     int section_num  = 0;
@@ -87,7 +117,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>招标公告--<%=bulletinConsultationsNotice.getBulletintitle()%></title>
+    <title>招标公告--<%=(bulletinConsultationsNotice!=null)?bulletinConsultationsNotice.getBulletintitle():bulletinNoticeWithBLOBs.getBulletintitle()%></title>
     <link href="/ggzyjy/css/base.css" rel="stylesheet" type="text/css">
     <link href="/ggzyjy/css/list_more.css" rel="stylesheet" type="text/css">
     <link href="/ggzyjy/css/jquery.msgbox.css" rel="stylesheet" type="text/css" />
@@ -208,7 +238,7 @@
                                 dataType: 'json',
                                 async: false,
                                 success: function (data) {
-                                    window.location.href = "/ec/bidApplication.jsp?uuid=" + uuid;
+                                    window.location.href = "/ec/bidApplication.jsp?buymethod=<%=buymethod_type%>&uuid=" + uuid;
                                 }
                             });
                         } else {
@@ -259,14 +289,15 @@
     <div class="list_main_box" id="datalistid">
         <div id="bcontentid">
             <div id="btitleid" style="text-align: center">
-                <h2>[<%=(buymethod!=null)?buymethod:""%>]&nbsp;&nbsp;<%=bulletinConsultationsNotice.getBulletintitle()%></h2>
+                <h2>[<%=(buymethod!=null)?buymethod:""%>]&nbsp;&nbsp;<%=(bulletinConsultationsNotice!=null)?bulletinConsultationsNotice.getBulletintitle():bulletinNoticeWithBLOBs.getBulletintitle()%></h2>
                 <%if(receiveFileWay.equals("1") || receiveFileWay.equals("3")){ //1网上下载招标文件，2现场售卖招标文件%>
-                <!--a href="/ec/download.jsp?uuid=< %=bulletinNotice.getUuid()%>" style="color: red"--><a href="javascript:downfile('<%=bulletinConsultationsNotice.getUuid()%>')" style="color: red">下载招标文件</a>
+                <!--a href="/ec/download.jsp?uuid=< %=bulletinNotice.getUuid()%>" style="color: red"--><a href="javascript:downfile('<%=(bulletinConsultationsNotice!=null)?bulletinConsultationsNotice.getUuid():bulletinNoticeWithBLOBs.getUuid()%>')" style="color: red">下载招标文件</a>
                 <%}%>
             </div>
 
-            <div style="text-align: center;margin:28px 0 28px 0;"> </div>
+            <div style="text-align: center;margin:28px 0 28px 0;"> 发布时间：<%=publishtime%></div>
             <div align="left" style="padding-left:30px;">
+                <%if (bulletinConsultationsNotice!=null) {%>
                 <p align="center"></p>
                 <p>
                 <p></p>
@@ -398,6 +429,9 @@
                 </p>
                 <p>
                 </p>
+                <%} else {
+                   out.println(bulletinNoticeWithBLOBs.getRichTextContent());
+                }%>
             </div>
         </div>
     </div>
