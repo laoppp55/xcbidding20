@@ -90,7 +90,7 @@
 <body>
 <div class="main">
   <div class="logo_box">
-    <div class="left"><!--a href="/ggzyjy/"-->北京市西城区公共资源交易中心<!--/a--></div>
+    <div class="left"><a href="/ggzyjy/"><font size="6">北京市西城区公共资源交易中心</font></a></div>
     <div class="right">用户登录</div>
   </div>
 </div>
