@@ -34,30 +34,36 @@
                             if (posi > -1) date_str = date_str.substring(0, posi);
                             var type = data[ii].type;
                             var notice_type = "";
-                            if (type == 0)
+                            //设置公告类型，根据预算项目选择的采购方式确定公告类型，预算项目中采购方式：1公开招标，2邀请招标，3竞争性谈判 4单一来源，5询价，6竞争性磋商 9其他
+                            var notice_type = "";
+                            if (type == 1)
                                 notice_type = "公开招标";
-                            else if (type == 1)
-                                notice_type = "竞争性磋商";
                             else if (type == 2)
-                                notice_type = "竞争性谈判";
+                                notice_type = "邀请招标";
                             else if (type == 3)
+                                notice_type = "竞争性谈判";
+                            else if (type == 4)
                                 notice_type = "单一来源";
+                            else if (type == 5)
+                                notice_type = "询价";
+                            else if (type == 6)
+                                notice_type = "竞争性磋商";
                             else
                                 notice_type = "其他";
                             if (readflag == 1) {
-                                if (type == 0)
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
-                                else if (type == 1 || type == 2)
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
-                                else if (type == 3)
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
+                                if (type == 1)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
+                                else if (type == 3 || type == 6)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
+                                else if (type == 4)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>已读</span></li>"
                             } else {
-                                if (type==0)
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
-                                else if (type == 1 || type == 2)
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
-                                else
-                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                                if (type==1)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                                else if (type == 3 || type == 6)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
+                                else if (type == 4)
+                                    div01_html = div01_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'>" + data[ii].bulletintitle + "</a><span>" + date_str + "</span><span>未读</span></li>"
                             }
                         }
                         div01_html = div01_html + "</ul>";
@@ -213,16 +219,21 @@
                             for (var ii = 0; ii < data.length; ii++) {
                                 var date_str = data[ii].createtime;
                                 var readflag = data[ii].readflag;
+                                //设置公告类型，根据预算项目选择的采购方式确定公告类型，预算项目中采购方式：1公开招标，2邀请招标，3竞争性谈判 4单一来源，5询价，6竞争性磋商 9其他
                                 var type = data[ii].type;
                                 var notice_type = "";
-                                if (type == 0)
+                                if (type == 1)
                                     notice_type = "公开招标";
-                                else if (type == 1)
-                                    notice_type = "竞争性磋商";
                                 else if (type == 2)
-                                    notice_type = "竞争性谈判";
+                                    notice_type = "邀请招标";
                                 else if (type == 3)
+                                    notice_type = "竞争性谈判";
+                                else if (type == 4)
                                     notice_type = "单一来源";
+                                else if (type == 5)
+                                    notice_type = "询价";
+                                else if (type == 6)
+                                    notice_type = "竞争性磋商";
                                 else
                                     notice_type = "其他";
                                 if (date_str != null && date_str != "") {
@@ -232,19 +243,19 @@
                                     date_str = "";
                                 }
                                 if (readflag == 1) {
-                                    if (type == 0)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
-                                    else if (type==1 || type==2)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
-                                    else if(type==3)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    if (type == 1)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    else if (type==3 || type==6)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    else if(type==4)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
                                 } else {
-                                    if (type == 0)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
-                                    else if (type==1 || type==2)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
-                                    else if (type ==3)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    if (type == 1)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    else if (type==3 || type==6)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    else if (type ==4)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + data[ii].bulletintitle + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
                                 }
                             }
                             div_html = div_html + "</ul>";
@@ -417,31 +428,36 @@
                                 var title = data[ii].bulletintitle;
                                 title = title.replace(keyword, "<font color='red'>" + keyword + "</font>");
                                 var type = data[ii].type;
+                                //设置公告类型，根据预算项目选择的采购方式确定公告类型，预算项目中采购方式：1公开招标，2邀请招标，3竞争性谈判 4单一来源，5询价，6竞争性磋商 9其他
                                 var notice_type = "";
-                                if (type == 0)
+                                if (type == 1)
                                     notice_type = "公开招标";
-                                else if (type == 1)
-                                    notice_type = "竞争性磋商";
                                 else if (type == 2)
-                                    notice_type = "竞争性谈判";
+                                    notice_type = "邀请招标";
                                 else if (type == 3)
+                                    notice_type = "竞争性谈判";
+                                else if (type == 4)
                                     notice_type = "单一来源";
+                                else if (type == 5)
+                                    notice_type = "询价";
+                                else if (type == 6)
+                                    notice_type = "竞争性磋商";
                                 else
                                     notice_type = "其他";
                                 if (readflag == 1) {
-                                    if (type == 0)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
-                                    else if (type==1 || type == 2)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
-                                    else if (type == 3)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    if (type == 1)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    else if (type==3 || type == 6)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
+                                    else if (type == 4)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>已读</span></li>"
                                 } else {
-                                    if (type == 0)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
-                                    else if (type==1 || type ==2)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
-                                    else if (type == 3)
-                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    if (type == 1)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    else if (type==3 || type ==6)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
+                                    else if (type == 4)
+                                        div_html = div_html + "   <li><a>" + notice_type + "</a><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>未读</span></li>"
                                 }
                             }
                             div_html = div_html + "</ul>";
