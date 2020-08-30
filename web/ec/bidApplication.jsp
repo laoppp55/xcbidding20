@@ -23,12 +23,14 @@
 	}
 	String username = authToken.getUserid();
 	String bulletinNotice_uuid = ParamUtil.getParameter(request,"uuid");
+	int buymethod = ParamUtil.getIntParameter(request,"buymethod",0);
 	ApplicationContext appContext = SpringInit.getApplicationContext();
 	PurchasingAgency purchasingAgency = null;
 	BulletinNoticeWithBLOBs bulletinNotice = null;
+	BulletinNoticeConsultationsWithBLOBs bulletinConsultationsNotice = null;
+	BulletinNoticeSinglesourceWithBLOBs bulletinSinglesourceNotice = null;
 	BudgetProject budgetProject = null;
 	PurchaseProject purchaseProject = null;
-	BidderInfo bidderInfo = null;
 	String compname = null;
 	String compcode = null;
 	String lawPersonName = null;
@@ -51,16 +53,31 @@
 		lawPersonName = purchasingAgency.getPersonName();
 		lawPersonTel = purchasingAgency.getPersonTel();
 
-		INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
-		bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
-        projName = bulletinNotice.getPurchaseprojname();
-        projCode = bulletinNotice.getPurchaseprojcode();
-		agentName = bulletinNotice.getAgentName();
-		agentPhone = bulletinNotice.getAgentContactPhone();
-
-		IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
-		purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinNotice.getPurchaseprojcode());
 		IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
+		IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
+		INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
+		if (buymethod == 1) {
+			bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
+			projName = bulletinNotice.getPurchaseprojname();
+			projCode = bulletinNotice.getPurchaseprojcode();
+			agentName = bulletinNotice.getAgentName();
+			agentPhone = bulletinNotice.getAgentContactPhone();
+			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinNotice.getPurchaseprojcode());
+		} else if (buymethod ==3 || buymethod == 6) {
+			bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
+			projName = bulletinConsultationsNotice.getPurchaseprojname();
+			projCode = bulletinConsultationsNotice.getPurchaseprojcode();
+			agentName = bulletinConsultationsNotice.getAgentName();
+			agentPhone = bulletinConsultationsNotice.getAgentContactPhone();
+			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinConsultationsNotice.getPurchaseprojcode());
+		} else if (buymethod == 4) {
+			bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
+			projName = bulletinSinglesourceNotice.getPurchaseprojname();
+			projCode = bulletinSinglesourceNotice.getPurchaseprojcode();
+			agentName = bulletinSinglesourceNotice.getAgentName();
+			agentPhone = bulletinSinglesourceNotice.getAgentContactPhone();
+			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinSinglesourceNotice.getPurchaseprojcode());
+		}
 		budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
 		buyerName = budgetProject.getBuyername();
 		buyerPhone = budgetProject.getPhone();
@@ -104,6 +121,7 @@
 <div style="width: 1300px;padding-left: 150px;">
 	<form name="regform" method="post" action="/createBidApplication.do" onsubmit="return checkBidApplicationInfo(this);">
 		<input type="hidden" name="checkval" value="">
+		<input type="hidden" name="buymethod" value="<%=buymethod%>">
 		<input type="hidden" name="uuid" value="<%=bulletinNotice_uuid%>">
 		<div class="title_box_2">拟投项目基本信息</div>
 		<table width="100%" border="0" class="reg_table e">
