@@ -1,8 +1,6 @@
 package com.bizwink.persistence;
 
-import com.bizwink.po.BulletinNotice;
-import com.bizwink.po.BulletinNoticeExample;
-import com.bizwink.po.BulletinNoticeWithBLOBs;
+import com.bizwink.po.*;
 import com.bizwink.vo.voBulletinNotice;
 
 import java.math.BigDecimal;

@@ -238,4 +238,13 @@ public class NoticeService implements INoticeService{
     public BulletinNoticeSinglesourceWithBLOBs getSinglesourceNoticeByUUID(String uuid) {
         return bulletinNoticeSinglesourceMapper.selectByPrimaryKey(uuid);
     }
+
+    public List<BulletinNoticeConsultationsWithBLOBs> getConsultationsNoticesByPurchaseprojcode(String purchaseProjcode) {
+        return bulletinNoticeConsultationsMapper.getConsultationsNoticesByProjectCode(purchaseProjcode);
+    }
+
+    public List<BulletinNoticeSinglesourceWithBLOBs> getSinglesourceNoticesByPurchaseprojcode(String purchaseProjcode) {
+        return bulletinNoticeSinglesourceMapper.getSinglesourceNoticesByProjectCode(purchaseProjcode);
+    }
+
 }

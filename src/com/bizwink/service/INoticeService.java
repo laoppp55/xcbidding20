@@ -70,4 +70,8 @@ public interface INoticeService {
     int saveReadNoticeFlag(String noticeTitle,String noticeid,String userid);
 
     List<ReadNoticeLog> getReadNotiesLog(String userid,List<String> notice_ids);
+
+    List<BulletinNoticeConsultationsWithBLOBs> getConsultationsNoticesByPurchaseprojcode(String purchaseProjcode);
+
+    List<BulletinNoticeSinglesourceWithBLOBs> getSinglesourceNoticesByPurchaseprojcode(String purchaseProjcode);
 }
