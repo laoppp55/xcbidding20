@@ -25,7 +25,7 @@ public class MyConstants {
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/data/project/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/30/supp/";
-    private static String DOWNLOAD_ADDRESS = "http://39.105.96.34:8084/";
+    private static String DOWNLOAD_ADDRESS = "http://39.105.96.34:8086";
 
     //生产环境
     //private static String SFTP_ADDRESS = "39.97.119.172";
@@ -34,7 +34,7 @@ public class MyConstants {
     //private static String SFTP_PASSWD = "Zaq!2wsx";
     //private static String SFTP_ROOTPATH = "/home/xicheng/upload";
     //private static String SFTP_RELATE_PATH = "upload/30/supp/";
-    //private static String DOWNLOAD_ADDRESS = "http://39.97.119.172:8084/";
+    //private static String DOWNLOAD_ADDRESS = "http://39.97.119.172:8084";
 
     public static List<String> getColumns() {
         return columns;
