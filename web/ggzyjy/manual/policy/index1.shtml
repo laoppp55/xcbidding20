@@ -6,7 +6,6 @@
 	<link href="/css/list_more.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<!--#include virtual="/ggzyjy/inc/head.shtml"-->
 <div class="date_box">
 <div class="date"><script>
         var mydate = new Date();
@@ -19,9 +18,11 @@
     </script></div>
 </div>
 
+<div class="top_box"><!--#include virtual="/inc/login.shtml"--></div>
+
 <div class="main clearfix">
 <div class="banner_box">
-	<div class="baner_box_left">西城区公共资源交易信息网</div>
+<div class="baner_box_left">西城区公共资源交易信息网</div>
 </div>
 
 <div class="menu_box_1">
@@ -43,40 +44,38 @@
 <div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/manual">办事指南</a>&gt;<a href="/ggzyjy/manual/policy/">政策法规</a></div><!--#include virtual="/inc/search.shtml"--></div>
 
 <div class="list_main_box"><ul>
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/10.shtml">关于在政府采购活动中查询及使用信用记录有关问题的通知</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/13.shtml">财政部关于政府采购竞争性磋商采购方式管理暂行办法有关问题的补充通知</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/11.shtml">政府采购评审专家管理办法</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/8.shtml">关于做好政府采购信息公开工作的通知</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/7.shtml">政务信息系统政府采购管理暂行办法</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/9.shtml">财政部关于进一步加强政府采购需求和履约验收管理的指导意见</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/8.shtml">关于做好政府采购信息公开工作的通知</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/10.shtml">关于在政府采购活动中查询及使用信用记录有关问题的通知</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/9.shtml">财政部关于进一步加强政府采购需求和履约验收管理的指导意见</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/5.shtml">政府购买服务管理办法(中华人民共和国财政部令第102号)</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/4.shtml">政府采购货物和服务招标投标管理办法（中华人民共和国财政部令第87号）</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/6.shtml">政府采购信息发布管理办法(中华人民共和国财政部令第101号)</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/5.shtml">政府购买服务管理办法(中华人民共和国财政部令第102号)</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/7.shtml">政务信息系统政府采购管理暂行办法</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/6.shtml">政府采购信息发布管理办法(中华人民共和国财政部令第101号)</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/3.shtml">中华人民共和国政府采购法实施条例</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/2.shtml">中华人民共和国政府采购法</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/4.shtml">政府采购货物和服务招标投标管理办法（中华人民共和国财政部令第87号）</a><span>2020-08-04</span></li>
 
 
-<li><a href="/ggzyjy/manual/policy/gjfg/20200517/3.shtml">中华人民共和国政府采购法实施条例</a><span>2020-05-20</span></li>
+<li><a href="/ggzyjy/manual/policy/gjfg/20200517/1.shtml">测试文章录入</a><span>2020-08-04</span></li>
 
 </ul><div class="page_box"><span>共21条记录</span>		
 <A href="/ggzyjy/manual/policy/index.shtml">首页</A>
-<A href="/ggzyjy/manual/policy/index.shtml">上一页</A>
-
-
+<A href="/ggzyjy/manual/policy/index.shtml">上一页</A>
 
 <a href="/ggzyjy/manual/policy/index.shtml">1</a>
 <span class="cur">2</span>

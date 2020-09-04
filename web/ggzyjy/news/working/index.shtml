@@ -6,58 +6,59 @@
 	<link href="/css/list_more.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<!--#include virtual="/ggzyjy/inc/head.shtml"-->
 <div class="date_box">
-	<div class="date">
-		<script>
-            var mydate = new Date();
-            var str = "" + mydate.getFullYear() + "年";
-            str += (mydate.getMonth()+1) + "月";
-            str += mydate.getDate() + "日";
-            var today = new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
-            var week = today[mydate.getDay()];
-            document.write(str + "  " + week);
-		</script>
-	</div>
+<div class="date"><script>
+        var mydate = new Date();
+        var str = "" + mydate.getFullYear() + "年";
+        str += (mydate.getMonth()+1) + "月";
+        str += mydate.getDate() + "日";
+        var today = new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
+        var week = today[mydate.getDay()];
+        document.write(str + "  " + week);
+    </script></div>
 </div>
 
+<div class="top_box"><!--#include virtual="/inc/login.shtml"--></div>
+
 <div class="main clearfix">
-	<div class="banner_box">
-		<div class="baner_box_left">西城区公共资源交易信息网</div>
-	</div>
+<div class="banner_box">
+<div class="baner_box_left">西城区公共资源交易信息网</div>
+</div>
 
-	<div class="menu_box_1">
-		<div class="home_box"><a href="/ggzyjy/">首页</a></div>
+<div class="menu_box_1">
+<div class="home_box"><a href="/ggzyjy/">首页</a></div>
 
-		<div class="menu_list">
-			<ul>
-				<li class="fl_4 current"><a href="/ggzyjy/news/">要闻动态</a></li>
-				<li class="fl_3"><a href="/ggzyjy/ggxx/index.shtml">公告信息</a></li>
-				<li class="fl_2"><a href="/ggzyjy/manual/index.shtml">服务指南</a></li>
-				<li class="fl_1"><a href="/ggzyjy/jrkb/index.shtml">今日开标</a></li>
-			</ul>
-		</div>
-	</div>
+<div class="menu_list">
+<ul>
+	<li class="fl_4 current"><a href="/ggzyjy/news/">要闻动态</a></li>
+	<li class="fl_3"><a href="/ggzyjy/ggxx/index.shtml">公告信息</a></li>
+	<li class="fl_2"><a href="/ggzyjy/manual/index.shtml">服务指南</a></li>
+	<li class="fl_1"><a href="/ggzyjy/jrkb/index.shtml">今日开标</a></li>
+</ul>
+</div>
+</div>
 
-	<div class="menu_c_box"><a href="/ggzyjy/news/annocement/">通知公告</a>|<a class="current" href="/ggzyjy/news/working/">工作动态</a>|<a href="/ggzyjy/news/news/">新闻信息（公示台）</a>|<a href="/ggzyjy/news/supervision/">监督管理机构（机构简介）</a></div>
+<div class="menu_c_box"><a href="/ggzyjy/news/annocement/">通知公告</a>|<a class="current" href="/ggzyjy/news/working/">工作动态</a>|<a href="/ggzyjy/news/news/">新闻信息（公示台）</a>|<a href="/ggzyjy/news/supervision/">监督管理机构（机构简介）</a></div>
 
-	<div class="path_search_box">
-		<div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/news/">要闻动态</a>&gt;<a href="/ggzyjy/news/working/">工作动态</a></div><!--#include virtual="/inc/search.shtml"--></div>
+<div class="path_search_box">
+<div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/news/">要闻动态</a>&gt;<a href="/ggzyjy/news/working/">工作动态</a></div><!--#include virtual="/inc/search.shtml"--></div>
 
-	<div class="list_main_box"><ul>
-	</ul><div class="page_box"><span>共1条记录</span>
-		<A href="/ggzyjy/news/working/index.shtml">首页</A>
-		<A href="/ggzyjy/news/working/index.shtml">上一页</A>
+<div class="list_main_box"><ul><li><a href="/ggzyjy/news/working/20200804/25.shtml">5月交易情况月报</a><span>2020-08-04</span></li>
 
 
+<li><a href="/ggzyjy/news/working/20200804/26.shtml">6月交易情况月报</a><span>2020-08-04</span></li>
 
-		<span class="cur">1</span>
-		<A href="/ggzyjy/news/working/index1.shtml">下一页</A>
-		<A href="/ggzyjy/news/working/index0.shtml">末页</A>
-		<span class="txtl">第</span>
-		<span class="select-pager"><form name=form><select name=turnPage size=1 onChange="window.location=this.form.turnPage.value;"><option value=/ggzyjy/news/working/index.shtml selected>1</option></select></form></span>
-		<span class="txtr">页</span></div>
-	</div>
+</ul><div class="page_box"><span>共2条记录</span>		
+<A href="/ggzyjy/news/working/index.shtml">首页</A>
+<A href="/ggzyjy/news/working/index.shtml">上一页</A>
+
+<span class="cur">1</span>
+<A href="/ggzyjy/news/working/index1.shtml">下一页</A>
+<A href="/ggzyjy/news/working/index0.shtml">末页</A>
+<span class="txtl">第</span>
+<span class="select-pager"><form name=form><select name=turnPage size=1 onChange="window.location=this.form.turnPage.value;"><option value=/ggzyjy/news/working/index.shtml selected>1</option></select></form></span>
+<span class="txtr">页</span></div>
+</div>
 </div>
 
 <div class="foot_box"><!--占位--></div>
