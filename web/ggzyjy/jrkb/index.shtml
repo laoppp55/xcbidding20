@@ -28,7 +28,26 @@
               async: false,
               cache: false,
               success: function (data) {
-
+                  var div_html = "<ul>";
+                  for (var ii = 0; ii < data.length; ii++) {
+                      var type = data[ii].type;
+                      var date_str = data[ii].publishtime;
+                      if (date_str != null && date_str != "") {
+                          var posi = date_str.indexOf(" ");
+                          if (posi > -1) date_str = date_str.substring(posi);
+                      } else {
+                          date_str = "";
+                      }
+                      var title = data[ii].bulletintitle;
+                      if (type == 1)
+                          div_html = div_html + "   <li><a href=\"/ec/bulletinNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>-</span></li>"
+                      else if (type==3 || type == 6)
+                          div_html = div_html + "   <li><a href=\"/ec/csAndTalkNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>-</span></li>"
+                      else if (type == 4)
+                          div_html = div_html + "   <li><a href=\"/ec/oneSourceNoticeDetail.jsp?type=" + type + "&uuid=" + data[ii].uuid + "\" target='_blank'><font color='black'>" + title + "</font></a><span>" + date_str + "</span><span>-</span></li>"
+                  }
+                  div_html = div_html + "</ul>";
+                  $("#jrkbinfoid").html(div_html);
               }
           });
       })
@@ -46,14 +65,14 @@
     </div>
     <!--div class="more"><a href="#">查看更多</a></div-->
     <div class="line"><!--线--></div>
-    <div class="jrkb_list">
-      <ul>
-        <!--li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li>
+    <div class="jrkb_list" id="jrkbinfoid">
+      <!--ul>
+        <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li>
         <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li>
         <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li>
         <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>19:30</span><span>第三开标室</span></li>
-        <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li-->
-      </ul>
+        <li><a href="#">关于启用西城区公共资源交易平台投标电子保证金和投标电子保函管理系</a><span>9:30</span><span>第三开标室</span></li>
+      </ul-->
     </div>
   </div>
 </div>
