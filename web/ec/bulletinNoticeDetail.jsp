@@ -36,6 +36,7 @@
     String receiveFileWay = null;
     Users user = null;
     String buymethod = null;
+    String buymethod_type = null;
     List<Section> sectionList = null;
     INoticeService noticeService = null;
     String publishtime = null;
@@ -55,6 +56,7 @@
         IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
         if (purchaseProject==null) response.sendRedirect("/users/error.jsp?errcode=300");
         budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
+        buymethod_type = budgetProject.getBuymethod();
         if (budgetProject.getBuymethod().equals("1"))
             buymethod = "公开招标";
         else if (budgetProject.getBuymethod().equals("2"))
@@ -205,7 +207,7 @@
                                 dataType: 'json',
                                 async: false,
                                 success: function (data) {
-                                    window.location.href = "/ec/bidApplication.jsp?uuid=" + uuid;
+                                    window.location.href = "/ec/bidApplication.jsp?uuid=" + uuid +"&buymethod=<%=buymethod_type%>";
                                 }
                             });
                         } else {
@@ -373,7 +375,7 @@
                 <p></p>
                 <p>
                     <%
-                        if (bulletinNotice.getReceiveNotice()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotice.getReceiveNotice() + "\"><span style=\"color:red\">公告附件</span></a>");
+                        if (bulletinNotice.getReceiveNotice()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotice.getReceiveNotice() + "><span style=\"color:red\">公告附件</span></a>");
                     %>
                 </p>
                 <p>

@@ -40,6 +40,7 @@
         IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
         bidderInfoList = bidderInfoService.getBidderInfosByUseridAndCompcode(username,user.getCOMPANYCODE(), BigDecimal.valueOf(0),BigDecimal.valueOf(20));
         purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
+        noticeService = (INoticeService)appContext.getBean("noticeService");
     }
 %>
 <!doctype html>
@@ -96,8 +97,8 @@
         <div class="title">个人中心</div>
         <ul>
             <li><a href="/ec/myBidinfos.jsp"><span style="color: red"> 投标项目管理</span></a></li>
-            <!--li><a href="/users/personinfo.jsp?action=2">授信申请管理</a></li>
-            <li><a href="/users/personinfo.jsp?action=3">保证金管理</a></li-->
+            <li><a href="/users/personinfo.jsp?action=2">授信申请管理</a></li>
+            <li><a href="/users/personinfo.jsp?action=3">保证金管理</a></li>
             <li><a href="/users/companyinfo.jsp">公司信息管理</a></li>
             <li><a href="/users/updatereg.jsp">修改个人注册信息</a></li>
             <li><a href="/users/changePwd.jsp">修改密码</a></li>
@@ -128,11 +129,11 @@
                     if (bulletinNotices.size()>1) multiNoticeFlag = true;
                 } else if (purchaseProject.getPurchasemode().equals("2")) {
                     buymethod = "邀请招标";
-                } else if (purchaseProject.getPurchasemode().equals("3")) {
+                } else if (purchaseProject.getPurchasemode().equals("6")) {
                     buymethod = "竞争性磋商";
                     consultationsNotices = noticeService.getConsultationsNoticesByPurchaseprojcode(purchaseProject.getPurchaseprojcode());
                     if (consultationsNotices.size()>1) multiNoticeFlag = true;
-                } else if (purchaseProject.getPurchasemode().equals("6")) {
+                } else if (purchaseProject.getPurchasemode().equals("3")) {
                     buymethod = "竞争性谈判";
                     consultationsNotices = noticeService.getConsultationsNoticesByPurchaseprojcode(purchaseProject.getPurchaseprojcode());
                     if (consultationsNotices.size()>1) multiNoticeFlag = true;
@@ -145,6 +146,7 @@
                 } else
                     buymethod = "其他";
 
+
             %>
             <tr <%=((ii % 2)==0)?"bgcolor=\"#ffffff\"":"bgcolor=\"#ffffff\""%>>
                 <td><%=bidderInfo.getPurchaseprojcode()%></td>
@@ -156,11 +158,11 @@
                 <td><a href="javascript:downfile('<%=bidderInfo.getPurchaseprojcode()%>',<%=buymethod_type%>);">下载</a></td>
                 <%} else {
                     if (buymethod_type.equals("1"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotices.get(0).getReceiveFile() + ">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotices.get(0).getReceiveFile() + " target=\"_blank\">下载</a></td>");
                     else if (buymethod_type.equals("3"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getConsultationAnnouncement() + ">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getNegotiationNotice() + " target=\"_blank\">下载</a></td>");
                     else if (buymethod_type.equals("6"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getNegotiationNotice() + ">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getConsultationAnnouncement() + " target=\"_blank\">下载</a></td>");
                     //else if (buymethod_type.equals("4"))
                     //    out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotices.get(0).getReceiveFile() + ">下载</a></td>");
                 }%>
