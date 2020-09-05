@@ -56,6 +56,7 @@
 		IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
 		IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
 		INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
+		System.out.println("buymethod==" + buymethod);
 		if (buymethod == 1) {
 			bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
 			projName = bulletinNotice.getPurchaseprojname();
