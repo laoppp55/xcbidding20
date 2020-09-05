@@ -23,6 +23,7 @@
 
     //获取申请保函的标包编号
     String projsectioncode = ParamUtil.getParameter(request,"projsectioncode");
+    System.out.println("sectionCode==" + projsectioncode);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     ApplicationContext appContext = SpringInit.getApplicationContext();
     BudgetProject budgetProject = null;
@@ -40,6 +41,7 @@
         section = purchaseProjectService.getSectionBySecotionCode(projsectioncode);
         if (section==null) response.sendRedirect("/error.jsp?errcode=" + "-200");
         purchaseProject = purchaseProjectService.getProjectInfoByProjCode(section.getPurchaseprojcode());
+        System.out.println("purchaseCode==" + purchaseProject.getPurchaseprojcode());
         budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
         if (purchaseProject==null) response.sendRedirect("/error.jsp?errcode=" + "-100");
         //找到标包所在的公告
@@ -200,15 +202,7 @@
         }
     </script>
 </head>
-<body>
-<div class="full_box">
-    <div class="top_box">
-        <!--#include virtual="/inc/head.shtml"-->
-    </div>
-    <div class="menu_box">
-        <!--#include virtual="/inc/menu.shtml"-->
-    </div>
-</div>
+<body style="background-image: url('');height: 800px;">
 <!--以上页面头-->
 <div class="main clearfix div_top div_bottom">
     <form name="acform">
@@ -218,7 +212,7 @@
                     保函名称：
                 </td>
                 <td align="left" colspan="3">
-                    <input type="text" name="glName" value="" size="130"><span class="red">*</span>
+                    <input type="text" name="glName" value="" size="130" class="input_but_5"><span class="red">*</span>
                     <input type="hidden" name="compuuid" value="<%=purchasingAgency.getUuid()%>">
                     <input type="hidden" name="start" value="<%=startrow%>">
                     <input type="hidden" name="rows" value="<%=rows%>">
@@ -230,13 +224,13 @@
                     企业名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="companyName" value="<%=(purchasingAgency.getOrganName()==null)?"":purchasingAgency.getOrganName()%>" readonly><span class="red">*</span>
+                    <input type="text" class="input_but_5" name="companyName" value="<%=(purchasingAgency.getOrganName()==null)?"":purchasingAgency.getOrganName()%>" readonly><span class="red">*</span>
                 </td>
                 <td align="right">
                     企业统一社会信用代码：
                 </td>
                 <td align="left">
-                    <input type="text" name="companyCode" value="<%=(purchasingAgency.getLegalCode()==null)?"":purchasingAgency.getLegalCode()%>" readonly><span class="red">*</span>
+                    <input type="text" class="input_but_5" name="companyCode" value="<%=(purchasingAgency.getLegalCode()==null)?"":purchasingAgency.getLegalCode()%>" readonly><span class="red">*</span>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -245,13 +239,13 @@
                     项目名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="projectname" value="<%=(purchaseProject.getPurchasername()==null)?"":purchaseProject.getPurchasername()%>" readonly>
+                    <input type="text" class="input_but_5" name="projectname" value="<%=(purchaseProject.getPurchasername()==null)?"":purchaseProject.getPurchasername()%>" readonly>
                 </td>
                 <td align="right">
                     项目编码：
                 </td>
                 <td align="left">
-                    <input type="text" name="projectcode" value="<%=(purchaseProject.getPurchaseprojcode()==null)?"":purchaseProject.getPurchaseprojcode()%>" readonly>
+                    <input type="text" class="input_but_5" name="projectcode" value="<%=(purchaseProject.getPurchaseprojcode()==null)?"":purchaseProject.getPurchaseprojcode()%>" readonly>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -260,13 +254,13 @@
                     项目所在区域：
                 </td>
                 <td align="left">
-                    <input type="text" name="regioncode" value="<%=(budgetProject.getRegioncode()==null)?"":budgetProject.getRegioncode()%>" readonly>
+                    <input type="text" class="input_but_5" name="regioncode" value="<%=(budgetProject.getRegioncode()==null)?"":budgetProject.getRegioncode()%>" readonly>
                 </td>
                 <td align="right">
                     招标类型：
                 </td>
                 <td align="left">
-                    <input type="text" name="biddingtype" value="<%=(tenderProjType==null)?"":tenderProjType%>" readonly>
+                    <input type="text" class="input_but_5" name="biddingtype" value="<%=(tenderProjType==null)?"":tenderProjType%>" readonly>
                     <input type="hidden" name="tenderprojtype" value="<%=(budgetProject.getTenderprojtype()==null)?"":budgetProject.getTenderprojtype()%>">
                 </td>
             </tr>
@@ -276,13 +270,13 @@
                     标包名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="sectionName" value="<%=(section.getSectionname()==null)?"":section.getSectionname()%>" readonly>
+                    <input type="text" class="input_but_5" name="sectionName" value="<%=(section.getSectionname()==null)?"":section.getSectionname()%>" readonly>
                 </td>
                 <td align="right">
                     标包编码：
                 </td>
                 <td align="left">
-                    <input type="text" name="sectionCode" value="<%=(section.getPurchasesectioncode()==null)?"":section.getPurchasesectioncode()%>" readonly>
+                    <input type="text" class="input_but_5" name="sectionCode" value="<%=(section.getPurchasesectioncode()==null)?"":section.getPurchasesectioncode()%>" readonly>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -291,13 +285,13 @@
                     采购人名称：
                 </td>
                 <td align="left">
-                    <input type="text" name="buyername" value="<%=(bulletinNotice.getBuyerName()==null)?"":bulletinNotice.getBuyerName()%>" readonly>
+                    <input type="text" class="input_but_5" name="buyername" value="<%=(bulletinNotice.getBuyerName()==null)?"":bulletinNotice.getBuyerName()%>" readonly>
                 </td>
                 <td align="right">
                     采购人地址：
                 </td>
                 <td align="left">
-                    <input type="text" name="buyeraddr" value="<%=(bulletinNotice.getBuyerAddress()==null)?"":bulletinNotice.getBuyerAddress()%>" readonly>
+                    <input type="text" class="input_but_5" name="buyeraddr" value="<%=(bulletinNotice.getBuyerAddress()==null)?"":bulletinNotice.getBuyerAddress()%>" readonly>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -306,13 +300,13 @@
                     招标代理机构：
                 </td>
                 <td align="left">
-                    <input type="text" name="agentname" value="<%=(bulletinNotice.getAgentName()==null)?"":bulletinNotice.getAgentName()%>" readonly>
+                    <input type="text" class="input_but_5" name="agentname" value="<%=(bulletinNotice.getAgentName()==null)?"":bulletinNotice.getAgentName()%>" readonly>
                 </td>
                 <td align="right">
                     保证金金额：
                 </td>
                 <td align="left">
-                    <input type="text" name="margin" value="<%=(section.getMargin().floatValue()==0.0)?"":String.valueOf(section.getMargin().floatValue())%>" readonly>
+                    <input type="text" class="input_but_5" name="margin" value="<%=(section.getMargin().floatValue()==0.0)?"":String.valueOf(section.getMargin().floatValue())%>" readonly>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -321,13 +315,13 @@
                     投标生效日期：
                 </td>
                 <td align="left">
-                    <input type="text" name="startdate" value="<%=(bulletinNotice.getTenderStartTime()==null)?"":sdf.format(bulletinNotice.getTenderStartTime())%>" readonly>
+                    <input type="text" class="input_but_5" name="startdate" value="<%=(bulletinNotice.getTenderStartTime()==null)?"":sdf.format(bulletinNotice.getTenderStartTime())%>" readonly>
                 </td>
                 <td align="right">
                     投标截止日期：
                 </td>
                 <td align="left">
-                    <input type="text" name="enddate" value="<%=(bulletinNotice.getTenderEndTime()==null)?"":sdf.format(bulletinNotice.getTenderEndTime())%>" readonly>
+                    <input type="text" class="input_but_5" name="enddate" value="<%=(bulletinNotice.getTenderEndTime()==null)?"":sdf.format(bulletinNotice.getTenderEndTime())%>" readonly>
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -336,13 +330,13 @@
                     经办人姓名：
                 </td>
                 <td align="left">
-                    <input type="text" name="contactorname" value="">
+                    <input type="text" class="input_but_5" name="contactorname" value="">
                 </td>
                 <td align="right">
                     经办人证件号：
                 </td>
                 <td align="left">
-                    <input type="text" name="idCardno" value="">
+                    <input type="text" class="input_but_5" name="idCardno" value="">
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -351,13 +345,13 @@
                     经办人手机号：
                 </td>
                 <td align="left">
-                    <input type="text" name="contactormphone" value="">
+                    <input type="text" class="input_but_5" name="contactormphone" value="">
                 </td>
                 <td align="right">
                     营业执照下载路径：
                 </td>
                 <td align="left">
-                    <input type="text" name="business_license_url" value="">
+                    <input type="text" class="input_but_5" name="business_license_url" value="">
                 </td>
             </tr>
             <tr height="10"><td></td></tr>
@@ -365,16 +359,25 @@
                 <td align="right">
                     招标文件下载路径
                 </td>
-                <td align="left"><input type="text" name="tender_file_urls" value=""></td>
+                <td align="left"><input type="text" class="input_but_5" name="tender_file_urls" value=""></td>
             </tr>
             <tr height="10"><td></td></tr>
-            <tr>
+            <!--tr>
                 <td align="center" colspan="4" >
                     <input type="button" name="save" value="保存" onclick="tijiao('dosave');" style="line-height: 20px;font-size: 14px;padding: 5px 15px">&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" name="dosubmit" value="提交"  onclick="tijiao('dosubmit');" style="line-height: 20px;font-size: 14px;padding: 5px 15px">&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" name="back" value="返回" onclick="javascript:window.close();"  style="line-height: 20px;font-size: 14px;padding: 5px 15px">
                 </td>
+            </tr-->
+
+            <tr>
+                <td align="center" colspan="4" >
+                    <input type="button" name="save" value="保存" onclick="tijiao('dosave');" >&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="dosubmit" value="提交"  onclick="tijiao('dosubmit');" >&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" name="back" value="返回" onclick="javascript:window.close();" >
+                </td>
             </tr>
+
         </table>
     </form>
 </div>

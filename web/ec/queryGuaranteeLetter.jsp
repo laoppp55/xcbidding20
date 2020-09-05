@@ -31,7 +31,7 @@
     <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
     <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
 </head>
-<body>
+<body style="background-image: url('');height: 800px;">
 <!--以上页面头-->
 <div class="main clearfix div_top div_bottom">
     <div class="personal_right_box">
