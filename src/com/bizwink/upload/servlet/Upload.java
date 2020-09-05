@@ -83,19 +83,15 @@ public class Upload extends HttpServlet {
 
             //同意linux和windows的路径分隔符
             String name = fileItem.getName().replaceAll("/", "\\");
-            //得到文件名
-            int index = name.lastIndexOf("\\");
-            String fileName = "";
-            if(index == -1){
-                fileName = name;
-            }else{
-                fileName = name.substring(index + 1);
-            }
+            //得到文件的扩展名
+            String extFileName = "";
+            int posi = name.lastIndexOf(".");
+            extFileName = name.substring(posi);
 
             //文件名加UUID保障文件名唯一
             String uuid = UUID.randomUUID().toString();
             uuid = uuid.replace("-", "");
-            fileName = uuid + "_" + fileName;
+            String fileName = uuid + "_" + System.currentTimeMillis() + extFileName;
 
             //将服务器端生成的文件名保存到Session中，jsp从Session中获取服务器端的文件名，并将文件名设置到前端页面
             request.getSession().setAttribute("servr_filename", fileName);

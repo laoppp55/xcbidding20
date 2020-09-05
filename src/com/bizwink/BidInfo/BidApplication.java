@@ -75,6 +75,7 @@ public class BidApplication {
         HttpSession session = request.getSession();
         String yzcodeForSession = (String)session.getAttribute("randnum");
         Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
+        String bidFile_uuid = null;
 
         if (yzcode.equals(yzcodeForSession)) {
             if (checkcode.equals(paramVals)) {
@@ -103,14 +104,22 @@ public class BidApplication {
                     IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
                     if (buymethod == 1){
                         bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
+                        bidFile_uuid = bulletinNotice.getReceiveFile();
                         purchaseProjCode = bulletinNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
-                    }else if (buymethod == 3 || buymethod == 6){
+                    }else if (buymethod == 3){
                         bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
+                        //bidFile_uuid = bulletinConsultationsNotice.getReceiveFile();
                         purchaseProjCode = bulletinConsultationsNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinConsultationsNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
-                    }else if (buymethod == 4) {
+                    }else if (buymethod == 6){
+                        bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
+                        //bidFile_uuid = bulletinConsultationsNotice.getReceiveFile();
+                        purchaseProjCode = bulletinConsultationsNotice.getPurchaseprojcode();
+                        bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinConsultationsNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
+                    } else if (buymethod == 4) {
                         bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
+                        //bidFile_uuid = bulletinSinglesourceNotice.getReceiveFile();
                         purchaseProjCode = bulletinSinglesourceNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinSinglesourceNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
                     }
@@ -205,7 +214,7 @@ public class BidApplication {
 
         //return "redirect:/ec/download.jsp?uuid=" + bulletinNotice_uuid;
 
-        return "redirect:" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id="+bulletinNotice_uuid;
+        return "redirect:" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id="+bidFile_uuid;
     }
 
     @RequestMapping(value = "/getMyBidInfos.do")

@@ -301,7 +301,7 @@ public class UsersService implements IUserService {
                 baseAttachment = new BaseAttachment();
                 baseAttachment.setUuid(uuid);
                 baseAttachment.setFilename(filename);
-                baseAttachment.setCategory("base_purchasing_agency_promise");
+                baseAttachment.setCategory("base_purchasing_agency_license");
                 baseAttachment.setSuffix(extname);
                 baseAttachment.setCreationTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));

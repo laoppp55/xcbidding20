@@ -322,8 +322,7 @@ public class BidInfoController {
                     suppinfo.setCreateDate(sdf.parse(regDate));                                                 //公司成立日期
                     if (longtimeflag == 2) suppinfo.setOperatingpeoid(String.valueOf(99));                      //无限期营业
                     suppinfo.setRegistrationTime(sdf.parse(sdate));                                             //营业开始时间
-                    if (edate != null)
-                        suppinfo.setExpiryDate(sdf.parse(edate));                                  //营业结束时间
+                    if (edate != null) suppinfo.setExpiryDate(sdf.parse(edate));                               //营业结束时间
                     suppinfo.setAddress(regaddress);                                                            //注册地址
                     suppinfo.setRegisteredCapital(regCapital);                                                  //注册资本
                     suppinfo.setBank(bankname);                                                                 //开户银行
@@ -344,6 +343,7 @@ public class BidInfoController {
                     suppinfo.setContactunitLandline(contactorphone);                                            //企业联系人办公电话
                     suppinfo.setLegalemail(email);                                                              //企业联系人电子邮件
                     suppinfo.setFax(faxnum);                                                                    //企业联系人传真
+                    suppinfo.setCreateTime(new Timestamp(System.currentTimeMillis()));                          //修改时间
                     suppinfo.setBusinessAttachmentIds(licensepic);                                              //企业营业执照图片
                     suppinfo.setCertificateAttachmentIds(promisepic);                                           //企业风险承诺书图片
                     suppinfo.setAuditstatus("核验中");                                                          //修改信息后，供应商的状态变成审核中，审核中不能执行业务操作
