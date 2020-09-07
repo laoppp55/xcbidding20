@@ -304,12 +304,21 @@
         select dirname from tbl_column where id=#{columnid}
     </select>
 
-    <select id="getNeedIndex"  parameterType="int" resultType="com.bizwink.po.Article">
+    <select id="getNeedIndex"  parameterType="int" resultType="com.bizwink.po.Article" databaseId="oracle">
         <![CDATA[
             select t.id,t.siteid,t.sortid,t.brand,t.pic,t.bigpic,t.columnid ,
                     t.articlepic,t.createdate,t.publishtime,tc.dirname,t.filename,t.maintitle,t.summary,t.keyword ,t.content
             from tbl_article t  ,tbl_column tc
             where   t.columnid=tc.id  and  (t.status =1 or t.status=2 or t.status =5)  and t.pubflag =0 and  t.siteid = #{siteid}  and t.indexflag=0  and rownum < 200
+        ]]>
+    </select>
+
+    <select id="getNeedIndex"  parameterType="int" resultType="com.bizwink.po.Article" databaseId="mysql">
+        <![CDATA[
+            select t.id,t.siteid,t.sortid,t.brand,t.pic,t.bigpic,t.columnid ,
+                    t.articlepic,t.createdate,t.publishtime,tc.dirname,t.filename,t.maintitle,t.summary,t.keyword ,t.content
+            from tbl_article t  ,tbl_column tc
+            where   t.columnid=tc.id  and  (t.status =1 or t.status=2 or t.status =5)  and t.pubflag =0 and  t.siteid = #{siteid}  and t.indexflag=0  limit 200
         ]]>
     </select>
 
