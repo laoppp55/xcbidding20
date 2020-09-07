@@ -54,6 +54,7 @@ public class LuceneIndexService extends QuartzJobBean {
     public void createIndex(){
         InitServer.getInstance().init();
         String indexPath = InitServer.getProperties().getProperty("main.indexPath");
+        System.out.println("indexPath==" + indexPath);
         createIndex(indexPath);
     }
 
