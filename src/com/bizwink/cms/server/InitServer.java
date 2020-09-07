@@ -18,7 +18,6 @@ public class InitServer {
     }
 
     public synchronized void init() {
-        System.out.println("isInitialized:" + isInitialized);
         if (!isInitialized) {
             initEnv();                      //初始化环境变量
             isInitialized = true;
@@ -27,7 +26,9 @@ public class InitServer {
 
     void initEnv() {
         System.out.println("获取环境设置参数" + System.currentTimeMillis());
-        properties = new FileProps("com/bizwink/cms/server/config.properties");
+        //properties = new FileProps("com/bizwink/cms/server/config.properties");
+
+        properties = new FileProps("db.properties");
         System.out.println("获取环境设置参数结束" + System.currentTimeMillis());
     }
 
