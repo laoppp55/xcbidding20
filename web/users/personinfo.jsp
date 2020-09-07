@@ -82,7 +82,7 @@
                     }
 
                     if (gl_exist_flag == 0) {
-                        var iWidth=1000;                                                 //弹出窗口的宽度;
+                        var iWidth=1200;                                                 //弹出窗口的宽度;
                         var iHeight=800;                                                //弹出窗口的高度;
                         var iTop = (window.screen.availHeight-30-iHeight)/2;        //获得窗口的垂直位置;
                         var iLeft = (window.screen.availWidth-10-iWidth)/2;         //获得窗口的水平位置;
@@ -156,6 +156,11 @@
             alert("deleteGLApply");
         }
 
+        //检查保函申请的状态，如果保函申请未提交可以修改和删除，保函申请提交后不能修改和删除
+        function checkGLStatus(apply_no) {
+            alert(apply_no);
+        }
+
         function queryPurchaseProjectsOfNeedMargin(start,rows) {
             htmlobj=$.ajax({
                 url:"/ProjOfNeedMargin.do",
@@ -209,7 +214,7 @@
 
                         htmlstr = htmlstr + "<tr>\n" +
                             "                <td width=\"5%\" height=\"25\" align=\"center\" valign=\"middle\" bgcolor=\"#f6f4f5\">" +
-                            "                <input type=\"radio\" name=\"projsectioncode\" value=\"" + data[ii].projectSectionCode + "-"+ data[ii].projectSectionName + "\"/>" +
+                            "                <input type=\"radio\" name=\"projsectioncode\" onclick=javascript:checkGLStatus('" + apply_no + "') value=\"" + data[ii].projectSectionCode + "-"+ data[ii].projectSectionName + "\"/>" +
                             "                </td>\n" +
                             "                <td width=\"10%\" height=\"25\" align=\"center\" valign=\"middle\" bgcolor=\"#f6f4f5\">" + data[ii].projectName + "</td>\n" +
                             //"                <td width=\"15%\" align=\"center\" valign=\"middle\" bgcolor=\"#f6f4f5\">"+data[ii].projectCode+"</td>\n" +
@@ -379,7 +384,11 @@
     </div>
     <div class="personal_right_box">
         <div id="div1" style="margin-top: 20px;text-align: left"><%=purchasingAgency.getOrganName()+":" + purchasingAgency.getLegalCode()%></div>
-        <div style="margin-top: 20px;float: right"><a href="javascript:createApplyCredit();">新建申请</a></div>
+        <div style="margin-top: 20px;float: right">
+            <% if (actionid==2) {%>
+            <a href="javascript:createApplyCredit();">新建申请</a>
+           <%}%>
+        </div>
         <div id="div2" style="margin-top: 5px;">
             <table id="projectsid" width="1000" border="0" align="left" cellpadding="0" cellspacing="1" bgcolor="#e2e2e2" style="margin-top:25px;">
             </table>
