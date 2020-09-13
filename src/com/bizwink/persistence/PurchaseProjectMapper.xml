@@ -136,7 +136,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from purchase_project pp where pp.isNotice=1 and pp.isCexpert=0 and pp.purchaseprojcode in (select bb.purchaseprojcode from supp_bidding_record bb,tbl_members tm where tm.companycode=bb.Biddercode and tm.companycode=#{companycode,jdbcType=VARCHAR})
+    from purchase_project pp where pp.isNotice=1 and pp.isCexpert=0 and pp.purchaseprojcode in (select bb.purchaseprojcode from bidder_info bb,tbl_members tm where tm.companycode=bb.biddercode and tm.companycode=#{companycode,jdbcType=VARCHAR})
   </select>
 
   <select id="getProjectInfoByProjCode" parameterType="java.lang.String" resultMap="BaseResultMap">

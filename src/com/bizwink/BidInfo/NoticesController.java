@@ -214,6 +214,29 @@ public class NoticesController {
         return count;
     }
 
+    @RequestMapping(value="/BulletinNoticeOfToday.do")
+    public @ResponseBody List<voBulletinNotice> getBulletinNoticeOfToday(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        List<voBulletinNotice> bulletinNotices = null;
+        ApplicationContext appContext = SpringInit.getApplicationContext();
+
+        if (appContext!=null) {
+            INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
+            bulletinNotices = noticeService.getBulletinNoticeOfToday();
+            if (bulletinNotices!=null) {
+                for(int ii=0;ii<bulletinNotices.size();ii++) {
+                    voBulletinNotice voBulletinNotice = bulletinNotices.get(ii);
+                    //公告标题最长显示不超过40个汉字
+                    String title = voBulletinNotice.getBulletintitle();
+                    if (title.length() > 40) title = title.substring(0, 40) + "......";
+                    voBulletinNotice.setBulletintitle(title);
+                    bulletinNotices.set(ii, voBulletinNotice);
+                }
+            }
+        }
+
+        return  bulletinNotices;
+    }
+
     @RequestMapping(value="/ChangeNoticeTop10.do")
     public @ResponseBody List<voChangeNotice> getChangeNoticeTop10(HttpServletRequest request, HttpServletResponse response) throws Exception{
         List<voChangeNotice> changeNotices = null;
@@ -692,4 +715,6 @@ public class NoticesController {
 
         return count;
     }
+
+
 }

@@ -41,6 +41,8 @@ public interface INoticeService {
 
     List<voChangeNotice> getTopChangeNotice(Timestamp now,int toprows);
 
+    List<voBulletinNotice> getBulletinNoticeOfToday();
+
     ChangeNotice getChangeNoticeByUUID(String uuid);
 
     int getWinResultsNoticeCount(Timestamp now);

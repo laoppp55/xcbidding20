@@ -89,6 +89,12 @@ public class NoticeService implements INoticeService{
         return bulletinNoticeMapper.SearchBulletinNoticeCount(params).intValue();
     }
 
+    public List<voBulletinNotice> getBulletinNoticeOfToday() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String today = sdf.format(new Timestamp(System.currentTimeMillis()));
+        return bulletinNoticeMapper.getBulletinNoticeOfToday(today);
+    }
+
     public int getChangeNoticeCount(Timestamp now) {
         return changeNoticeMapper.getChangeNoticeCount(now).intValue();
     }

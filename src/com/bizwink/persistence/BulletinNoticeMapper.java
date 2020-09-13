@@ -59,6 +59,8 @@ public interface BulletinNoticeMapper {
 
     List<voBulletinNotice> getTopBulletinNotice(Map params);
 
+    List<voBulletinNotice> getBulletinNoticeOfToday(String today);
+
     List<voBulletinNotice> SearchBulletinNotice(Map params);
 
     BigDecimal SearchBulletinNoticeCount(Map params);
