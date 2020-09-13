@@ -41,7 +41,9 @@
 	<div class="menu_c_box"><a href="/ggzyjy/news/annocement/">通知公告</a>|<a href="/ggzyjy/news/working/">工作动态</a>|<a class="current" href="/ggzyjy/news/news/">新闻信息（公示台）</a>|<a href="/ggzyjy/news/supervision/">监督管理机构（机构简介）</a></div>
 
 	<div class="path_search_box">
-		<div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/news/">要闻动态</a>&gt;<a href="/ggzyjy/news/news/">新闻信息（公示台）</a></div><!--#include virtual="/inc/search.shtml"--></div>
+		<div class="path_box">您的位置：<a href="/ggzyjy/">首页</a>&gt;<a href="/ggzyjy/news/">要闻动态</a>&gt;<a href="/ggzyjy/news/news/">新闻信息（公示台）</a></div>
+		<!--#include virtual="/inc/search.shtml"-->
+	</div>
 
 	<div class="list_main_box"><ul>
 	</ul><div class="page_box"><span>共1条记录</span>

@@ -20,9 +20,9 @@
 
 <div class="bszn_sign">
 <ul>
-	<li class="sign_bg1"><a href="/ggzyjy/manual/service/">政府采购</a></li>
-	<li class="sign_bg3"></li>
-	<li class="sign_bg2"><a href="/ggzyjy/manual/policy/">散小醒目交易</a></li>
+	<li class="sign_bg1"><a href="http://39.105.96.34:8086/">政府采购</a></li>
+	<li class="sign_bg3"><a href="/users/login.jsp">供应商登录</a></li>
+	<li class="sign_bg2"><a href="http://39.105.96.34:8088">散小项目交易</a></li>
 </ul>
 </div>
 </div>

@@ -1,2 +1,12 @@
-
-<div class="search_box"><input class="sear" type="text" /></div>
+<script language="javascript">
+    function doSearch() {
+        alert("综合检索");
+    }
+</script>
+<div class="search_box" onclick="javascript:doSearch('winzb');">
+    <form name="searchForm">
+        <input type="hidden" name="pageno" value="0">
+        <input type="hidden" name="rows" value="10">
+        <input type="text" name="keyword" class="sear" value="">
+    </form>
+</div>
