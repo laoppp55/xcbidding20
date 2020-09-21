@@ -106,7 +106,7 @@
                       $.msgbox({
                           height: 200,
                           width: 300,
-                          content: {type: 'alert', content: compname + '已经完成注册，如需设置账号请联系管理员' + contactor},
+                          content: {type: 'alert', content: compname + '已经完成注册，如需设置账号请联系管理员'},
                           animation: 0,        //禁止拖拽
                           drag: false          //禁止动画
                           //autoClose: 10       //自动关闭
@@ -185,7 +185,7 @@
 <div class="main">
   <div class="logo_box">
     <div class="left"><a href="/ggzyjy/">北京市西城区公共资源交易中心</a></div>
-    <div class="right">用户登录</div>
+    <div class="right"><a href="login.jsp">用户登录</a></div>
   </div>
   <div class="title_box">新用户注册</div>
   <div class="txt_box">

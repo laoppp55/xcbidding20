@@ -198,6 +198,7 @@ public class BidInfoController {
                         FtpFileToDest ftpFileToDest = new FtpFileToDest();
                         InitServer initServer = InitServer.getInstance();
                         String localFileName = initServer.getProperties().getProperty("main.uploaddir");
+                        System.out.println("localFileName==" + localFileName);
                         if (localFileName.endsWith(File.separator))
                             localFileName = localFileName + licensepic;
                         else

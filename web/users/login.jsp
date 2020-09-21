@@ -90,7 +90,7 @@
 <body>
 <div class="main">
   <div class="logo_box">
-    <div class="left"><a href="/ggzyjy/"><font size="6">北京市西城区公共资源交易中心</font></a></div>
+    <div class="left"><a href="/ggzyjy/"><font size="6" color="black">北京市西城区公共资源交易中心</font></a></div>
     <div class="right">用户登录</div>
   </div>
 </div>
@@ -163,7 +163,7 @@
 <div class="main">
   <div class="txt_box">
     <p class="txt_red">温馨提示：</p>
-    <p>1、建议使用谷歌浏览器或者360浏览器，初次使用用户请下载并认真阅读<a href="#">操作指南</a></p>
+    <p>1、建议使用谷歌浏览器或者360浏览器，初次使用用户请下载并认真阅读<a href="/users/supplierGuide.pdf" target="_blank">投标人服务手册</a></p>
     <!--p>2、请使用CA证书登录，点击<a href="#">CA办理服务指南及驱动下载</a>查看服务办理流程或下载驱动程序</p-->
   </div>
 </div>

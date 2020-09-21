@@ -226,7 +226,7 @@
       </tr>
       <tr>
         <td align="right"><span class="redstar">*</span>风险承诺书横版:</td>
-        <td><span class="download"><a href="#">下载</a></span><span>风险承诺书要手工填写，加盖公司公章，上传彩色影音件</span></td>
+        <td><span class="download"><a href="/users/chengnuoshu.pdf" target="_blank">下载</a></span><span>风险承诺书要手工填写，加盖公司公章，上传彩色影音件</span></td>
       </tr>
       </tbody>
     </table>
