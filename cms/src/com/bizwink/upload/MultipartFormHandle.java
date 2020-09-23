@@ -1655,7 +1655,7 @@ public class MultipartFormHandle {
                     auditMgr.updateAudit_Info("", articleid, "", 0,0);
                 }
 
-                extendMgr.update(extAttrList, null, null, null, null,null,null,null);
+                extendMgr.update(extAttrList, null, article, null, null,null,null,null);
             }
             catch (ExtendAttrException e) {
                 errcode = -3;

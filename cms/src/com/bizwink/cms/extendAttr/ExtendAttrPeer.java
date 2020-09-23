@@ -3281,6 +3281,7 @@ public class ExtendAttrPeer implements IExtendAttrManager {
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Article article = new Article();
+                    article.setID(rs.getInt("id"));
                     article.setSiteID(rs.getInt("siteid"));
                     article.setColumnID(rs.getInt("columnid"));
                     article.setNullContent(rs.getInt("EMPTYCONTENTFLAG"));

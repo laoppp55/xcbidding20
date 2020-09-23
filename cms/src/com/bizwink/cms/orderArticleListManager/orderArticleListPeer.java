@@ -598,6 +598,8 @@ public class orderArticleListPeer implements IOrderArticleListManager {
             if (value.equals("5")) strSQL.append(" and auditflag=2");                                   //
         } else if (item.equals("id")) {
             strSQL.append( " and " + item + "=" + value);
+        } else if (item.equals("all")){
+            strSQL.append( " and " + value);
         } else {
             strSQL.append( " and " + item + " like '%" + value  + "%' ");
         }
@@ -733,6 +735,8 @@ public class orderArticleListPeer implements IOrderArticleListManager {
             if (value.equals("5")) strSQL.append(" and auditflag=2");                                      //
         } else if (item.equals("id")) {
             strSQL.append( " and " + item + "=" + value);
+        } else if (item.equals("all")){
+            strSQL.append( " and " + value);
         } else {
             strSQL.append( " and " + item + " like '%" + value  + "%' ");
         }

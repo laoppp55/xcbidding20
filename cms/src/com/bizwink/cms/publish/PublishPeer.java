@@ -724,6 +724,8 @@ public class PublishPeer implements IPublishManager {
         String[] navbar_fields = null;
         if (type == 1) filename = filename + "-";
 
+        if (pageNum<=1) return "";   //如果只是一页内容，不需要生成导航条，直接返回空字符串
+
         try {
             str = viewfileMgr.getAViewFile(navbarID).getContent();
             navbar_fields = str.split("\r");
@@ -1283,8 +1285,7 @@ public class PublishPeer implements IPublishManager {
         for (int p = 0; p < pageNum; p++) {
             StringBuffer sb = new StringBuffer();
 
-            if (p == pageNum - 1)        //如果是最后一页
-            {
+            if (p == pageNum - 1) {        //如果是最后一页
                 int lastPageColNum = columnCount % colNum;                  //最后一页的栏目数
                 if (lastPageColNum > 0) {
                     rowNum = lastPageColNum / columnNum;                      //最后一页的整行数
@@ -1292,12 +1293,10 @@ public class PublishPeer implements IPublishManager {
                 }
             }
 
-            for (int i = 0; i < rowNum; i++)     //生成栏目列表
-            {
+            for (int i = 0; i < rowNum; i++){     //生成栏目列表
                 int begin = p * colNum + i * columnNum;
                 int end = p * colNum + (i + 1) * columnNum;
-                for (int j = begin; j < end; j++)    //按行循环
-                {
+                for (int j = begin; j < end; j++) {   //按行循环
                     int k = (j - begin) * 2;
                     if (columnNum > 1) {
                         sb.append(arr[k]);
@@ -1328,7 +1327,7 @@ public class PublishPeer implements IPublishManager {
             sb.append(tailstr);      //为栏目列表增加表尾
 
             //为栏目列表增加尾部导航条
-            if (navbar > 0) sb.append(generateNavBar(0,navbar,pageNum,p,columnCount,column,fname,modeltype));
+            if (navbar > 0 && pageNum > 1) sb.append(generateNavBar(0,navbar,pageNum,p,columnCount,column,fname,modeltype));
 
             for (int j = 0; j < tagHTML.length; j++) {
                 if (j == altagIndex) {
