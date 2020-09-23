@@ -4,6 +4,8 @@
 <%@ page import="com.bizwink.cms.news.ColumnPeer" %>
 <%@ page import="com.bizwink.cms.news.IColumnManager" %>
 <%@ page import="com.bizwink.cms.util.ParamUtil" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
@@ -17,6 +19,9 @@
     IColumnManager columnMgr = ColumnPeer.getInstance();
     Column column = columnMgr.getColumn(columnID);
     String dirName = column.getDirName();
+
+    Gson gson = new Gson();
+    String session_value = URLEncoder.encode(gson.toJson(authToken),"utf-8");
 %>
 <html>
 <head>
@@ -53,7 +58,7 @@
     $(function() {
         $('#file_upload').uploadify({
             'swf'          : 'uploadify/uploadify.swf',
-            'uploader'    : 'saveVideo.jsp?doCreate=true',
+            'uploader'    : 'saveVideo.jsp?doCreate=true&column=<%=columnID%>&session=<%=session_value%>',
             //'buttonImg'   : 'uploadify/upload.png',      //浏览按钮的图片的路径 。
             'buttonText'  : ' 选择文件',
             'wmode'       : 'transparent',                 //设置该项为transparent 可以使浏览按钮的flash背景文件透明，并且flash文件会被置为页面的最高层。

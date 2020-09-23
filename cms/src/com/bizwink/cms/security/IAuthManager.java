@@ -6,6 +6,10 @@ public interface IAuthManager
 {
     Auth getAuth(String username,String password,String userip) throws UnauthedException;
 
+    PermissionSet getPermissionSetByUserid(String userid);
+
+    RolesSet getRolesSetByUserid(String userid,int siteid);
+
     Auth getSjsAuth(String userid, String password) throws UnauthedException;
 
     int removeAllNoActionUsers(int dtime) throws UnauthedException;

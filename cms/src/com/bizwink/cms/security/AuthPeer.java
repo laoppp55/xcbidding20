@@ -679,6 +679,76 @@ public class AuthPeer implements IAuthManager {
         return null;
     }
 
+    public PermissionSet getPermissionSetByUserid(String userid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        PermissionSet permissionSet = null;
+        try {
+            conn = this.cpool.getConnection();
+            pstmt = conn.prepareStatement("select distinct rightid from tbl_group_members a,tbl_group_rights b where a.groupid = b.groupid and a.userid = ? union (select distinct rightid from tbl_members_rights where userid = ?)");
+            pstmt.setString(1, userid);
+            pstmt.setString(2, userid);
+            rs = pstmt.executeQuery();
+            permissionSet = new PermissionSet();
+
+            while (rs.next()) {
+                Permission permission = new Permission();
+                int rightid = rs.getInt("rightid");
+                permission.setRightID(rightid);
+                List cList = getUserColumnID(userid, rightid);
+                permission.setColumnListOnRight(cList);
+                permissionSet.add(permission);
+            }
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) this.cpool.freeConnection(conn);
+            }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+
+        return permissionSet;
+    }
+
+    public RolesSet getRolesSetByUserid(String userid,int siteid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        RolesSet roleSet = null;
+        try {
+            conn = this.cpool.getConnection();
+            pstmt = conn.prepareStatement("select rolename from tbl_member_roles where siteid=? and userid=?");
+            pstmt.setInt(1, siteid);
+            pstmt.setString(2, userid);
+            rs = pstmt.executeQuery();
+            roleSet = new RolesSet();
+            while (rs.next()) {
+                Role role = new Role();
+                role.setRolename(rs.getString("rolename"));
+                roleSet.add(role);
+            }
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) this.cpool.freeConnection(conn);
+            }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+
+        return roleSet;
+    }
+
     private static final String GET_Columns_For_User = "select distinct columnid from tbl_group_members a, tbl_group_rights b where " +
             "a.groupid = b.groupid and a.userid = ? and b.rightid = ? and columnid > 0 union " +
             "select distinct columnid from tbl_members_rights where userid = ? and rightid = ? and columnid > 0";

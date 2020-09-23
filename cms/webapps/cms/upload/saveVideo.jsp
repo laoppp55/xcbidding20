@@ -8,11 +8,9 @@
 <%@ page import="com.bizwink.cms.news.Column,
                  com.bizwink.cms.news.ColumnPeer,
                  com.bizwink.cms.news.IColumnManager,
-                 com.bizwink.cms.security.Auth,
                  com.bizwink.cms.util.ParamUtil"
          contentType="text/html;charset=utf-8"
 %>
-<%@ page import="com.bizwink.cms.util.SessionUtil" %>
 <%@ page import="com.bizwink.cms.util.StringUtil" %>
 <%@ page import="org.apache.commons.fileupload.*"%>
 <%@ page import="org.apache.commons.io.*"%>
@@ -23,12 +21,45 @@
 <%@ page import="com.bizwink.cms.publish.PublishPeer" %>
 <%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
 <%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="java.util.Enumeration" %>
-
+<%@ page import="com.alibaba.fastjson.JSONObject" %>
+<%@ page import="com.bizwink.cms.security.*" %>
 
 <%
-    Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
+    request.setCharacterEncoding("utf-8");
+    String session_value = ParamUtil.getParameter(request,"session");
+    JSONObject jsStr = JSONObject.parseObject(session_value);
+    Auth authToken = null;
+    IAuthManager authManager = AuthPeer.getInstance();
+    String userID = jsStr.getString("userID");
+    String nickname = jsStr.getString("nickname");
+    String sitename = jsStr.getString("sitename");
+    int siteid=jsStr.getInteger("siteid");
+    int samsiteid = jsStr.getInteger("samsiteid");
+    int sitetype = jsStr.getInteger("sitetype");
+    int sharetemplatenum = jsStr.getInteger("sharetemplatenum");
+    int trypassnum = jsStr.getInteger("trypassnum");
+    int errcode = jsStr.getInteger("errcode");
+    int imgSaveFlag = jsStr.getInteger("imgSaveFlag");
+    int cssjsDir = jsStr.getInteger("cssjsDir");
+    int publishFlag = jsStr.getInteger("publishFlag");
+    int listShow = jsStr.getInteger("listShow");
+    int tagSite = jsStr.getInteger("tagSite");
+    int copyColumn = jsStr.getInteger("copyColumn");
+    int beCopyColumn = jsStr.getInteger("beCopyColumn");
+    int pushArticle = jsStr.getInteger("pushArticle");
+    int moveArticle = jsStr.getInteger("moveArticle");
+    int orgid = jsStr.getInteger("orgid");
+    int companyid = jsStr.getInteger("companyid");
+    int deptid = jsStr.getInteger("deptid");
+    PermissionSet permissionSet = authManager.getPermissionSetByUserid(userID);
+    RolesSet roleSet = authManager.getRolesSetByUserid(userID,siteid);
+
+    authToken = new Auth(null, null, null, null, userID, nickname, sitename, siteid, samsiteid, sitetype, sharetemplatenum, imgSaveFlag, cssjsDir,
+            publishFlag, listShow, errcode, tagSite, copyColumn, beCopyColumn, pushArticle, moveArticle, orgid, companyid, deptid, permissionSet, roleSet);
+    session.setAttribute("CmsAdmin", authToken);
+    session.setMaxInactiveInterval(60*60*1000);
+
+    /*Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
     if (authToken == null) {
         response.sendRedirect(response.encodeRedirectURL("../login.jsp?msg=系统超时，请重新登陆!"));
         return;
@@ -38,11 +69,10 @@
     while(enu.hasMoreElements()){
         String paraName=(String)enu.nextElement();
         System.out.println(paraName+": "+request.getParameter(paraName));
-    }
+    }*/
 
     int encodeflag = 0;
     String username = authToken.getUserID();
-    String sitename = authToken.getSitename();
     int siteID = authToken.getSiteID();
     boolean doCreate = ParamUtil.getBooleanParameter(request, "doCreate");
     //判断是从工具棒上传视频文件还是从视频输入框上传视频文件
