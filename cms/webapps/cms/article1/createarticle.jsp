@@ -447,13 +447,13 @@
                 return;
             <%}%>
 
-            for (var i = 0; i < createForm.recommendID.length; i++) {
+            /*for (var i = 0; i < createForm.recommendID.length; i++) {
                 createForm.recommendID[i].selected = true;
             }
 
             for (var i = 0; i < createForm.pcolumnsID.length; i++) {
                 createForm.pcolumnsID[i].selected = true;
-            }
+            }*/
 
             createForm.submit();
         }
@@ -670,21 +670,21 @@
                 来源(<a href="javascript:upload_attrpic_onclick('sr')">图</a>)<input class=tine name=source id="source" value="<%=(company!=null)?company:""%>" disabled="disabled"
                                                                                   size=20 onDblClick="history('sr');"
                                                                                   title="双击鼠标左键即可选择历史图片">
-                关键字(;)<input class=tine name=keyword size=30> 标签(;)<input class=tine name=signword size=30>
-                <%=(isProduct==1)?"显示模板":"文章模板"%><input class=tine name=modelID id="modelID" size=8 value=0 title="双击鼠标左键即可弹出模板选择页面"
+                关键字(;)<input class=tine name=keyword size=25> 标签(;)<input class=tine name=signword size=30>
+                <%=(isProduct==1)?"显示模板":"文章模板"%><input class=tine name=modelID id="modelID" size=4 value=0 title="双击鼠标左键即可弹出模板选择页面"
                                                         onDblClick="selectArticleModel();">
             </td>
         </tr>
         <tr bgcolor="#ffffff">
             <td class=line>
                 <%=(isProduct==1)?"商品摘要":"摘要"%><!--input class=tine name=summary size=80-->
-                <textarea cols="80" rows="3" id="summaryID" name="summary"></textarea>
+                <textarea cols="120" rows="3" id="summaryID" name="summary"></textarea>
 
-                <a href=javascript:AddPubColumns();>发布栏目</a>：
+                <!--a href=javascript:AddPubColumns();>发布栏目</a>：
                 <select size=3 name="pubcolumns" id="pcolumnsID" style="width:150px;" multiple></select>
 
                 <a href=javascript:recommendArticle();>推荐</a>:
-                <select size=3 name="recommend" id="recommendID" style="width:150px;" multiple></select>
+                <select size=3 name="recommend" id="recommendID" style="width:150px;" multiple></select-->
             </td>
         </tr>
         <%if (isProduct == 1) {%>
@@ -774,8 +774,8 @@
 
                 视频文件(<a href="javascript:upload_media_onclick()">视频</a>)：<input class=tine name=media id="mediaid" value="" size=30>&nbsp;&nbsp;
 
-                <input type=button name=articletype id=turnpic size=30 value="附图" onclick="javascript:upload_turn_pic();">&nbsp;&nbsp;
-                <input type=button name=articletype id=attfiles size=30 value="附件" onclick="javascript:upload_attachments();">
+                <!--input type=button name=articletype id=turnpic size=30 value="附图" onclick="javascript:upload_turn_pic();">&nbsp;&nbsp;
+                <input type=button name=articletype id=attfiles size=30 value="附件" onclick="javascript:upload_attachments();"-->
             </td>
         </tr>
     </table>

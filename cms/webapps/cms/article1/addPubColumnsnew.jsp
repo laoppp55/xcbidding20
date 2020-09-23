@@ -158,7 +158,12 @@
                 simpleData: {
                     enable: true
                 }
+            },
+            callback: {
+                //beforeCheck: beforeCheck,
+                onCheck: onCheck
             }
+
         };
 
         var zNodes = <%=tbuf%>;
@@ -189,8 +194,16 @@
             $("#sn").bind("change", setCheck);
         });
 
+        function onCheck(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var node = zTree.getNodeByParam("id",treeNode.id);
+            if (node.checked) {
+
+                alert(treeNode.id + "==" + treeId);
+            }
+        }
+
         function save() {
-            alert("hello word");
             window.close();
         }
         //-->
@@ -202,8 +215,8 @@
 <div class="content_wrap">
     <div class="zTreeDemoBackground left">
         <ul id="treeDemo" class="ztree"></ul>
-
         <div align="center" style="margin-top: 20px;">
+            <input type="hidden" name="columns" id="columnids" value="">
             <input type="button" name="save" value="确认" onclick="javascript:save();"/>
             <input type="button" name="cancel" value="返回" onclick="javascript:window.close();"/>
         </div>

@@ -39,6 +39,10 @@
     IExtendAttrManager extendAttrManager = ExtendAttrPeer.getInstance();
     int msgno = 0;
     try {
+        System.out.println("batchdel==" + batchdel);
+        System.out.println("updatecss==" + updatecss);
+        System.out.println("articleIDs==" + articleIDs);
+
         if (batchdel!=null) {
             extendAttrManager.batchDel(articleIDs,username);
             msgno = 3;

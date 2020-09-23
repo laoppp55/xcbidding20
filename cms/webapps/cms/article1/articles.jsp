@@ -68,6 +68,7 @@
             String publishtime1 = ParamUtil.getParameter(request, "publishtime1");
             String publishtime2 = ParamUtil.getParameter(request, "publishtime2");
             int status = ParamUtil.getIntParameter(request, "status", 0);
+            int articleid = ParamUtil.getIntParameter(request, "id", 0);
 
             if (maintitle != null && maintitle.trim().length() > 0)
                 value += "maintitle like '%" + maintitle + "%' and ";
@@ -79,6 +80,7 @@
                 value += "author like '%" + author + "%' and ";
             if (source != null && source.trim().length() > 0)
                 value += "source like '%" + source + "%' and ";
+            if (articleid>0) value += "id=" + articleid + " and ";
             if (status > 0) {
                 if (status == 1) value += "status=1 and auditflag=0 and pubflag=1 and ";  //新稿
                 if (status == 2) value += "status=1 and auditflag=0 and pubflag=0 and ";  //已发布
@@ -116,6 +118,7 @@
         }
 
         if (value != null && value.length() > 0) {
+            System.out.println("value===" + value);
             try {
                 if (SecurityCheck.hasPermission(authToken, 54)) {
                     articleList = orderArticleMgr.searchArticles(columnID, item, value, "*", start, range,siteid,flag,ascdesc);
@@ -225,12 +228,9 @@
             return success;
         }
 
-        function search(item)
-        {
-            if (item == 'doclevel')
-            {
-                if (!checkNum(searchForm.doclevel1.value) || !checkNum(searchForm.doclevel2.value))
-                {
+        function search(item) {
+            if (item == 'doclevel') {
+                if (!checkNum(searchForm.doclevel1.value) || !checkNum(searchForm.doclevel2.value)) {
                     alert("权重应为整数！");
                     return;
                 }
@@ -315,18 +315,26 @@
                 }
             })
             var src=document.activeElement;
-            if (src.name=='batchdel' && articl_ids!='') {
-                var val = confirm("是否删除选择的文件？");
-                if (val)
-                    return true;
-                else
-                    return false;
+            if (src.name=='batchdel') {
+                if (articl_ids!='') {
+                    var val = confirm("是否删除选择的文件？");
+                    if (val)
+                        return true;
+                    else
+                        return false;
+                } else {
+                    alert("请选择需要批量删除的文章");
+                }
             } else {
-                var val = confirm("是否将选择的文件加入RSS？");
-                if (val)
-                    return true;
-                else
-                    return false;
+                if (articl_ids!='') {
+                    var val = confirm("是否将选择的文件加入RSS？");
+                    if (val)
+                        return true;
+                    else
+                        return false;
+                } else {
+                    alert("请选择需要批量加入RSS的文章");
+                }
             }
         }
     </script>

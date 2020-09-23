@@ -246,10 +246,10 @@
             <td height="36">简体文件：<input type=file id="sfilename" size=40 name="sfilename"></td>
             <td height="36">下载：<input type=file id="downsfilename" size=40 name="downsfilename"></td>
         </tr>
-        <tr>
+        <!--tr>
             <td height="36">繁体文件：<input type=file id="tfilename" size=40 name="tfilename"></td>
             <td height="36">下载：<input type=file id="downtfilename" size=40 name="downtfilename"></td>
-        </tr>
+        </tr-->
         <tr>
             <td colspan="2" align="center" height=60>
                 <input type="submit" value="  修改  " class=tine>&nbsp;&nbsp;&nbsp;&nbsp;

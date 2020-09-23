@@ -512,13 +512,13 @@
                 return;
             <%}%>
 
-            for (var i = 0; i < createForm.recommendID.length; i++) {
+            /*for (var i = 0; i < createForm.recommendID.length; i++) {
                 createForm.recommendID[i].selected = true;
             }
 
             for (var i = 0; i < createForm.pcolumnsID.length; i++) {
                 createForm.pcolumnsID[i].selected = true;
-            }
+            }*/
 
             createForm.submit();
         }
@@ -761,11 +761,11 @@
         <tr>
             <td class=line color="#eeeeee">
                 <%=(isProduct==1)?"商品摘要":"摘要"%>
-                <textarea cols="80" rows="3" id="summaryID" name="summary"><%=(summary!=null)?summary:""%></textarea>
+                <textarea cols="120" rows="3" id="summaryID" name="summary"><%=(summary!=null)?summary:""%></textarea>
 
-                <a href=javascript:AddPubColumns();><b>发布栏目</b></a><b>：</b>
+                <!--a href=javascript:AddPubColumns();><b>发布栏目</b></a><b>：</b>
                 <select size=3 name="pubcolumns" id="pcolumnsID" style="width:150" multiple>
-                    <%
+                    < %
                         Refers refer = new Refers();
                         for (int i = 0; i < pubcolumns.size(); i++) {
                             refer = (Refers) pubcolumns.get(i);
@@ -777,7 +777,7 @@
 
                 <a href=javascript:recommendArticle();>推荐</a>:
                 <select size=3 name="recommend" id="recommendID" style="width:150px;" multiple>
-                    <%
+                    < %
                         relatedArticle relatedArticle = null;
                         for (int i = 0; i < recommends.size(); i++) {
                             relatedArticle = (relatedArticle)recommends.get(i);
@@ -785,7 +785,7 @@
                             out.println("<option value='" + value + "'>" + StringUtil.gb2iso4View(relatedArticle.getChineseName()) + "</option>");
                         }
                     %>
-                </select>
+                </select-->
             </td>
         </tr>
         <%if (isProduct == 1) {%>
@@ -887,8 +887,8 @@
 
                 视频文件(<a href="javascript:upload_media_onclick()">视频</a>)：<input class=tine name=media id="mediaid" value="<%=(article.getMediafile()==null)?"":StringUtil.gb2iso4View(article.getMediafile())%>" size=30>
 
-                <input type=button name=articletype id=turnpic size=30 value="附图" onclick="javascript:upload_turn_pic();">&nbsp;&nbsp;
-                <input type=button name=articletype id=attfiles size=30 value="附件" onclick="javascript:upload_attachments();">
+                <!--input type=button name=articletype id=turnpic size=30 value="附图" onclick="javascript:upload_turn_pic();">&nbsp;&nbsp;
+                <input type=button name=articletype id=attfiles size=30 value="附件" onclick="javascript:upload_attachments();"-->
             </td>
         </tr>
     </table>
