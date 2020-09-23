@@ -26,14 +26,14 @@
   <script language="javascript">
       var errcode = <%=errcode%>;
       $(document).ready(function(){
-          if (errcode == -1 || errcode == -2 || errcode == -3) {
+          if (errcode == -101 || errcode == -102 || errcode == -106 || errcode == -103) {
               $("#usermsg").html("用户名或者密码错");
               $("#usermsg").css({color:"red"});
-          } else if (errcode == -4) {
-              $("#usermsg").html("验证码错，请重新输入验证码");
+          } else if (errcode == -104) {
+              $("#usermsg").html("用户已经被删除");
               $("#usermsg").css({color:"red"});
-          } else if (errcode == -5) {
-              $("#usermsg").html("运行环境初始化错误，请联系客服人员");
+          } else if (errcode == -105) {
+              $("#usermsg").html("验证码错，请重新输入验证码");
               $("#usermsg").css({color:"red"});
           } else if (errcode == -6) {
               $("#usermsg").html("用户被暂时停止登录，请联系客服人员");

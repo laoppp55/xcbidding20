@@ -33,7 +33,7 @@
         <div class="home_box"><a href="/ggzyjy/">首页</a></div>
         <div class="menu_list">
             <ul>
-                <li class="fl_4"><a href="/ggzyjy/news/tztg/">要闻动态</a></li>
+                <li class="fl_4"><a href="/ggzyjy/news">要闻动态</a></li>
                 <li class="fl_3 current">公告信息</li>
                 <li class="fl_2"><a href="/ggzyjy/manual/">服务指南</a></li>
                 <li class="fl_1"><a href="/ggzyjy/jrkb/">今日开标</a></li>
