@@ -117,4 +117,35 @@
     <!-- 扫描任务 -->
 	<!--task:annotation-driven /-->	
     <!--context:component-scan base-package="com.bizwink.task" /-->
+
+    <!--     定时执行索引 -->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="luceneIndexService" />
+        <property name="targetMethod">
+            <value>createIndex</value>
+        </property>
+        <property name="concurrent" value="false" />
+    </bean>
+
+	<!-- 任务调度计时器，进行定时设置。CronTriggerBean能进行非常精确的定时设置 -->
+    <bean id="indexerClock" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >
+        <property name="jobDetail" ref="jobDetail" />
+        <!-- cron表达式 -->
+        <property name="cronExpression">
+            <!--   0 0 */2 * * ? 每两小时、整点触发 -->
+            <!--   0 0/2 * * * ? 每两分钟  -->
+            <!--   0/5 * * * * ? 每五秒钟  -->
+            <!--   0 15 10 * * ? 每天Y分X点触发  -->
+            <value>0 0/1 * * * ?</value>
+        </property>
+    </bean>
+
+    <!-- 调度任务触发器，启动定时任务-->
+    <bean autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="stop">
+        <property name="triggers">
+            <list>
+                <ref bean="indexerClock" />
+            </list>
+        </property>
+    </bean>
 </beans>

@@ -22,10 +22,16 @@
 
   <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
   <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
+  <script src="/ggzyjy/js/XTXSAB.js" type="text/javascript"></script>
   <script src="/ggzyjy/js/users.js" type="text/javascript"></script>
   <script language="javascript">
       var errcode = <%=errcode%>;
       $(document).ready(function(){
+          init(function(){
+          },function(){
+              alert("请插入UKEY");
+          });
+
           if (errcode == -101 || errcode == -102 || errcode == -106 || errcode == -103) {
               $("#usermsg").html("用户名或者密码错");
               $("#usermsg").css({color:"red"});
@@ -42,6 +48,10 @@
               alert("用户注册成功");
           }
       });
+
+      function call_back(data){
+          alert(data.retVal);
+      }
 
       function loginsubmit(form) {
           var name = form.username.value;
@@ -110,7 +120,8 @@
           </tr>
           <tr>
             <td valign="middle" colspan="2">
-              <input name="username" type="text" class="input_but_1" id="userid" autocomplete="off" />
+              <input name="username" type="text" class="input_but_1" id="userid" autocomplete="off"/>
+              <!--input type="button"  onclick="SOF_GetUserList(call_back)" value="调用" /-->
           </tr>
           <tr>
             <td class="txt_grey" colspan="2">用户密码</td>
@@ -125,7 +136,7 @@
           </tr>
           <tr>
             <td valign="middle" colspan="2"><span style="float:left; display:block"><input type="text" name="yzcode" class="input_yzm" autocomplete="off"></span>
-              <span style="float:left; display:block; margin-left:10px;"><img src="/users/image.jsp" height="40px" id="yzImageID" name="yzcodeimage" align="absmiddle"/></span><span><a href="javascript:change_yzcodeimage();">换一张</a></span>
+              <span style="float:left; display:block; margin-left:10px;"><img src="/users/image.jsp" height="40px" id="yzImageID" name="yzcodeimage" align="absmiddle" /></span><span><a href="javascript:change_yzcodeimage();">换一张</a></span>
             </td>
           </tr>
 
@@ -148,7 +159,7 @@
             <td class="txt_red">系统升级CA互认程序，如果无法正常显示证书名称，请下载并安装新的CA驱动程序。</td>
           </tr-->
           <tr>
-            <td colspan="2"><input type="submit" class="input_but_3" />&nbsp;</td>
+            <td colspan="2"><input type="submit" class="input_but_3" value="提交"/>&nbsp;</td>
           </tr>
           <tr align="center">
             <td class="txt_grey"><a href="/users/userreg1.jsp">用户注册</a></td><td class="txt_grey"><a href="/users/findPwd.jsp">忘记密码</a></td>
@@ -162,7 +173,7 @@
 </div>
 <div class="main">
   <div class="txt_box">
-    <p class="txt_red">温馨提示：</p>
+    <p class="txt_red"><img src="/images/icon_11.png" onload="SOF_GetUserList(call_back)" />温馨提示：</p>
     <p>1、建议使用谷歌浏览器或者360浏览器，初次使用用户请下载并认真阅读<a href="/users/supplierGuide.pdf" target="_blank">投标人服务手册</a></p>
     <!--p>2、请使用CA证书登录，点击<a href="#">CA办理服务指南及驱动下载</a>查看服务办理流程或下载驱动程序</p-->
   </div>
