@@ -276,18 +276,15 @@ public class UsersService implements IUserService {
                 String extname = null;
                 if (posi > -1) extname = filename.substring(posi + 1);
                 baseAttachment.setFilename(filename);
-                //baseAttachment.setCategory("base_purchasing_agency");
                 baseAttachment.setSuffix(extname);
-                //baseAttachment.setCreationTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
-                //baseAttachment.setCreatorId(userid);
-                String filepath = InitServer.getProperties().getProperty("main.uploaddir");
-                baseAttachment.setRootPath(filepath);
+                String filepath = MyConstants.getSftpRelatePath();    //交易服务器上传文件的目录地址
                 if (filepath.endsWith(File.separator))
-                    filepath = filepath + filename;
+                    filepath = filepath + purchasingAgency.getLegalCode()+ File.separator + filename;
                 else
-                    filepath = filepath + File.separator + filename;
+                    filepath = filepath + File.separator + purchasingAgency.getLegalCode()+ File.separator + filename;
                 baseAttachment.setFilepath(filepath);
+                baseAttachment.setRootPath(MyConstants.getSftpRootpath());
                 File thefile = new File(filepath);
                 baseAttachment.setFileSize((double) thefile.length()/(1024*1024));
                 errcode = baseAttachmentMapper.updateByPrimaryKeySelective(baseAttachment);
@@ -306,13 +303,13 @@ public class UsersService implements IUserService {
                 baseAttachment.setCreationTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setCreatorId(userid);
-                String filepath = InitServer.getProperties().getProperty("main.uploaddir");
-                baseAttachment.setRootPath(filepath);
+                String filepath = MyConstants.getSftpRelatePath();  //交易服务器上传文件的目录地址
                 if (filepath.endsWith(File.separator))
-                    filepath = filepath + filename;
+                    filepath = filepath + purchasingAgency.getLegalCode()+ File.separator + filename;
                 else
-                    filepath = filepath + File.separator + filename;
+                    filepath = filepath + File.separator + purchasingAgency.getLegalCode()+ File.separator + filename;
                 baseAttachment.setFilepath(filepath);
+                baseAttachment.setRootPath(MyConstants.getSftpRootpath());
                 File thefile = new File(filepath);
                 baseAttachment.setFileSize((double) thefile.length()/(1024*1024));
                 errcode = baseAttachmentMapper.insert(baseAttachment);
@@ -333,18 +330,15 @@ public class UsersService implements IUserService {
                 String extname = null;
                 if (posi > -1) extname = filename.substring(posi + 1);
                 baseAttachment.setFilename(filename);
-                //baseAttachment.setCategory("base_purchasing_agency_promise");
                 baseAttachment.setSuffix(extname);
-                //baseAttachment.setCreationTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
-                //baseAttachment.setCreatorId(userid);
-                String filepath = InitServer.getProperties().getProperty("main.uploaddir");
-                baseAttachment.setRootPath(filepath);
+                String filepath = MyConstants.getSftpRelatePath(); //交易服务器上传文件的目录地址
                 if (filepath.endsWith(File.separator))
-                    filepath = filepath + filename;
+                    filepath = filepath + purchasingAgency.getLegalCode()+ File.separator + filename;
                 else
-                    filepath = filepath + File.separator + filename;
+                    filepath = filepath + File.separator + purchasingAgency.getLegalCode()+ File.separator + filename;
                 baseAttachment.setFilepath(filepath);
+                baseAttachment.setRootPath(MyConstants.getSftpRootpath());
                 File thefile = new File(filepath);
                 baseAttachment.setFileSize((double) thefile.length()/(1024*1024));
                 errcode = baseAttachmentMapper.updateByPrimaryKeySelective(baseAttachment);
@@ -363,13 +357,13 @@ public class UsersService implements IUserService {
                 baseAttachment.setCreationTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
                 baseAttachment.setCreatorId(userid);
-                String filepath = InitServer.getProperties().getProperty("main.uploaddir");
-                baseAttachment.setRootPath(filepath);
+                String filepath = MyConstants.getSftpRelatePath(); //交易服务器上传文件的目录地址
                 if (filepath.endsWith(File.separator))
-                    filepath = filepath + filename;
+                    filepath = filepath + purchasingAgency.getLegalCode()+ File.separator + filename;
                 else
-                    filepath = filepath + File.separator + filename;
+                    filepath = filepath + File.separator + purchasingAgency.getLegalCode()+ File.separator + filename;
                 baseAttachment.setFilepath(filepath);
+                baseAttachment.setRootPath(MyConstants.getSftpRootpath());
                 File thefile = new File(filepath);
                 baseAttachment.setFileSize((double) thefile.length()/(1024*1024));
                 errcode = baseAttachmentMapper.insert(baseAttachment);
