@@ -103,7 +103,7 @@
                 buymethod = "其它";
             //保存用户已经阅读过公告的信息
             if (authToken!=null) {
-                noticeService.saveReadNoticeFlag(bulletinConsultationsNotice.getBulletintitle(),bulletinConsultationsNotice.getUuid(),authToken.getUserid());
+                noticeService.saveReadNoticeFlag(bulletinNoticeWithBLOBs.getBulletintitle(),bulletinNoticeWithBLOBs.getUuid(),authToken.getUserid());
             }
         }
 
@@ -406,7 +406,7 @@
                 <p></p>
                 <p>
                     <%
-                        if (bulletinConsultationsNotice.getUrl()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinConsultationsNotice.getUrl() + "\"><span style=\"color:red\">公告附件</span></a>");
+                        if (bulletinConsultationsNotice.getUrl()!=null) out.println("<a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinConsultationsNotice.getConsultationAnnouncement() + "><span style=\"color:red\">公告附件</span></a>");
                     %>
                 </p>
                 <p>
