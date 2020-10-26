@@ -11,6 +11,7 @@
 <%@ page import="com.bizwink.po.WinResultsNoticeWithBLOBs" %>
 <%@ page import="com.bizwink.util.SessionUtil" %>
 <%@ page import="com.bizwink.security.Auth" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -43,7 +44,10 @@
         }
     }
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
     String priceFormCode = winResultsNotice.getPriceFormCode();
+    String bidingAnnoDate = sdf.format(winResultsNotice.getBidingAnnoDate());
+    String calibrationAnnDate = sdf.format(winResultsNotice.getCalibrationAnnDate());
 %>
 <!doctype html>
 <html>
@@ -99,56 +103,47 @@
             <p><strong>三、中标（成交）信息</strong></p>
             <!--价款形式代码 1-金额  2-费率/比率/优惠率/合格率等 3-单价 4-其它形式 -->
             <% if (priceFormCode.equals("1")) {%>
-            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 万元（人民币）</p>
+            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 元（人民币）</p>
             <%} else if (priceFormCode.equals("2")){%>
-            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 万元（人民币）</p>
+            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 元（人民币）</p>
             <%} else if (priceFormCode.equals("3")) {%>
-            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 万元（人民币）</p>
+            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 元（人民币）</p>
             <%} else {%>
-            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 万元（人民币）</p>
+            <p>总中标金额：<fmt:formatNumber type="currency" pattern="￥.000000#"><%=winResultsNotice.getWinBidingPrice().floatValue()%></fmt:formatNumber> 元（人民币）</p>
             <%}%>
             <p>中标供应商名称、联系地址及中标金额：</p>
             <p>
-            <p>&nbsp;项目管理费01包--文化领域项目管理费:</p>
-            <p>中标人：京华观致（北京）国际信息咨询有限公司</p>
-            <p>中标单位地址:&nbsp;北京市石景山区广宁村新立街25号托儿所2层2202房间</p>
-            <p>中标金额：小写：&yen;450000元</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大写：肆拾伍万元整</p>
-            <p>项目管理费02包--文物和旅游项目事中跟踪管理费:</p>
-            <p>中标人：北京东方华太工程咨询有限公司</p>
-            <p>中标单位地址:&nbsp;北京市东城区光明西街1号14号楼2层218室</p>
-            <p>中标金额：小写：&yen;232800元</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大写：贰拾叁万贰仟捌佰元整</p>
-            <p>项目管理费03包--文物和旅游项目事后绩效管理费:</p>
-            <p>中标人：北京通正会计师事务所有限责任公司</p>
-            <p>中标单位地址:&nbsp;北京市通州区中仓路3号1幢</p>
-            <p>中标金额：小写：&yen;308000元</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大写：叁拾万零捌仟元整</p>
+            <p>&nbsp;<%=winResultsNotice.getMainSectionName()%>:</p>
+            <p>中标人：<%=winResultsNotice.getSuppliersName()%></p>
+            <p>中标单位地址:&nbsp;<%=winResultsNotice.getSuppliersAddress()%></p>
+            <p>中标金额：小写：&yen;<%=winResultsNotice.getWinBidingPrice()%>元</p>
+            <!--p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大写：肆拾伍万元整</p-->
             </p>
             <p><strong>四、主要标的信息</strong></p>
             <p></p>
             <p>
-            <p>项目名称：项目管理费</p><p>项目编号：TZXM-202004278352</p>
-            <p>招标单位：北京市通州区文化和旅游局</p>
-            <p>地 &nbsp;&nbsp;&nbsp;址：北京市通州区车站路27号</p>
-            <p>联 系 人： 刘超</p>
-            <p>联系电话： 010-80574852</p>
-            <p>招标代理人：中工久诚（北京）管理咨询有限公司</p>
-            <p>地 &nbsp;&nbsp;&nbsp;址： 北京市通州区疃里东区庄园G5号楼102底商</p>
-            <p>联 系 人： 皮丹</p>
-            <p>联系电话： 010-61519006&nbsp;</p>
-            <p>批准文号：通财教采指[2020]40号</p>
+            <p>项目名称：<%=winResultsNotice.getPurchaseprojname()%></p>
+            <p>项目编号：<%=purchaseProject.getPurchaseprojcode()%></p>
+            <p>招标单位：<%=winResultsNotice.getBuyerName()%></p>
+            <p>地 &nbsp;&nbsp;&nbsp;址：<%=winResultsNotice.getBuyerAddress()%></p>
+            <p>联 系 人： <%=winResultsNotice.getBuyerContactor()%></p>
+            <p>联系电话： <%=winResultsNotice.getBuyerContact()%></p>
+            <p>招标代理人：<%=winResultsNotice.getAgentName()%></p>
+            <p>地 &nbsp;&nbsp;&nbsp;址： <%=winResultsNotice.getAgentAddress()%></p>
+            <p>联 系 人： <%=winResultsNotice.getAgentContactor()%></p>
+            <p>联系电话： <%=winResultsNotice.getAgentContact()%>&nbsp;</p>
+            <p>批准文号：<%=(winResultsNotice.getReplyCode()==null)?"":winResultsNotice.getReplyCode()%></p>
             <p>&nbsp;</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目管理费于2020年04月29日发布招标公告，2020年05月25日开标，并于2020年05月27日已按照招标文件规定的评标办法完成了评标工作。</p>
+            <p><%=winResultsNotice.getPurchaseprojname()%>于<%=bidingAnnoDate%>发布招标公告，<%=calibrationAnnDate%>开标，并于<%=calibrationAnnDate%>已按照招标文件规定的评标办法完成了评标工作。</p>
             <p>中标标的名称、规格型号、数量、单价、服务要求：</p>
             <p>详见招标文件</p>
-            <p><span>服务时间：自签订合同之日始一年</span></p>
+            <p><span>服务时间：<%=(winResultsNotice.getServiceTime()==null)?"":winResultsNotice.getServiceTime()%></span></p>
             </p>
             <p><strong>五、评审专家（单一来源采购人员）名单：</strong></p>
-            <p>张海峰，马宁，刘胜岭，吴巧先，刘海燕</p>
+            <p><%=winResultsNotice.getMemberList()%></p>
             <p><strong>六、代理服务收费标准及金额：</strong></p>
             <p></p>
-            <p><b>本项目代理费总金额：4.5万元（人民币）</b></p>
+            <p><b>本项目代理费总金额：<%=winResultsNotice.getAgencyServiceFee()%>元（人民币）</b></p>
             <p>本项目代理费收费标准：</p>
             <p>按原国家计委《招标代理服务收费管理暂行办法》[2002]1980号的规定执行</p>
             <p><strong>七、公告期限</strong></p>
@@ -160,42 +155,21 @@
             <p></p>
             <p><strong>九、凡对本次公告内容提出询问，请按以下方式联系。</strong></p>
             <p>1.采购人信息</p>
-            <p>名 称：北京市通州区文化和旅游局　　　　　</p>
-            <p>地址：北京市通州区车站路27号　　　　　　　　</p>
-            <p>联系方式：刘超 010-80574852　　　　　　</p>        　　　
+            <p>名 称：<%=winResultsNotice.getBuyerName()%>　　　　　</p>
+            <p>地址：<%=winResultsNotice.getBuyerAddress()%>　　　　　　　　</p>
+            <p>联系方式：<%=winResultsNotice.getBuyerContactor()%> <%=winResultsNotice.getBuyerContact()%>　　　　　　</p>        　　　
             <p>2.采购代理机构信息</p>
-            <p>名 称：中工久诚（北京）管理咨询有限公司　　　　　　　　　　　　</p>
-            <p>地　址：北京市通州区疃里东区庄园G5号楼102底商　　　　　　　　　　　　</p>
-            <p>联系方式：皮丹 010-61519006　　　　　　　　　　　　</p>
+            <p>名 称：<%=winResultsNotice.getAgentName()%>　　　　　　　　　　　　</p>
+            <p>地　址：<%=winResultsNotice.getAgentAddress()%>　　　　　　　　　　　　</p>
+            <p>联系方式：<%=winResultsNotice.getAgentContactor()%> <%=winResultsNotice.getAgentContact()%>　　　　　　　　　　　　</p>
             <p>3.项目联系方式</p>
-            <p>项目联系人：皮丹</p>
-            <p>电　话：　　010-61519006</p>　
+            <p>项目联系人：<%=winResultsNotice.getBuyerContactor()%></p>
+            <p>电　话：　　<%=winResultsNotice.getBuyerContact()%></p>　
             <p></p>
             <p>&nbsp;</p>
             <p></p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
             <p>
-                <a href="./P020200529648136928742.rar">2020项目管理费.rar</a>
-            </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-
+                <a href="<%=winResultsNotice.getBidNoticeLinkAddress()%>">源公告地址</a>
             </p>
             <p>
 
