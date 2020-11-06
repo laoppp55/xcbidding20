@@ -2,6 +2,11 @@
 <%@ page import="com.bizwink.util.SessionUtil" %>
 <%@ page import="com.bizwink.security.Auth" %>
 <%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.bizwink.util.SpringInit" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="com.bizwink.service.IBidderInfoService" %>
+<%@ page import="com.bizwink.service.IUserService" %>
+<%@ page import="com.bizwink.po.Users" %>
 <%--
   Created by IntelliJ IDEA.
   User: petersong
@@ -13,6 +18,15 @@
     //清除SESSION的数据
     Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
     if (authToken != null) {
+        ApplicationContext appContext = SpringInit.getApplicationContext();
+        if (appContext!=null) {
+            IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");      //投标报名服务
+            IUserService usersService = (IUserService)appContext.getBean("usersService");
+            Users user = usersService.getUserinfoByUserid(authToken.getUserid());
+
+            //记录用户退出系统时间
+            bidderInfoService.saveDownBidFileLog(authToken.getUserid(),user.getCOMPANYCODE(),null,"用户退出系统");
+        }
         SessionUtil.removeUserAuthorization(response, session);
         authToken = null;
     }

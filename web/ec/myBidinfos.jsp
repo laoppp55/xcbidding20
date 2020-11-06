@@ -24,6 +24,7 @@
 
     String username = authToken.getUserid();
     Users user = null;
+    String compcode = null;
     List<BidderInfo> bidderInfoList = null;
     List<BulletinNoticeWithBLOBs> bulletinNotices = null;
     List<BulletinNoticeConsultationsWithBLOBs> consultationsNotices = null;
@@ -36,6 +37,7 @@
         //获取用户信息
         IUserService usersService = (IUserService)appContext.getBean("usersService");
         user = usersService.getUserinfoByUserid(username);
+        compcode = user.getCOMPANYCODE();
         //获取该投标人该登录账户投标信息
         IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
         bidderInfoList = bidderInfoService.getBidderInfosByUseridAndCompcode(username,user.getCOMPANYCODE(), BigDecimal.valueOf(0),BigDecimal.valueOf(20));
@@ -158,11 +160,11 @@
                 <td><a href="javascript:downfile('<%=bidderInfo.getPurchaseprojcode()%>',<%=buymethod_type%>);">下载</a></td>
                 <%} else {
                     if (buymethod_type.equals("1"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotices.get(0).getReceiveFile() + " target=\"_blank\">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFileTime?compcode=" + compcode + "&username=" + username + "&id=" + bulletinNotices.get(0).getReceiveFile() + " target=\"_blank\">下载</a></td>");
                     else if (buymethod_type.equals("3"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getNegotiationNotice() + " target=\"_blank\">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFileTime?compcode=" + compcode + "&username=" + username + "&id=" + consultationsNotices.get(0).getOtherAocuments() + " target=\"_blank\">下载</a></td>");
                     else if (buymethod_type.equals("6"))
-                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + consultationsNotices.get(0).getConsultationAnnouncement() + " target=\"_blank\">下载</a></td>");
+                        out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFileTime?compcode=" + compcode + "&username=" + username + "&id=" + consultationsNotices.get(0).getOtherAocuments() + " target=\"_blank\">下载</a></td>");
                     //else if (buymethod_type.equals("4"))
                     //    out.println("<td><a href=" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id=" + bulletinNotices.get(0).getReceiveFile() + ">下载</a></td>");
                 }%>

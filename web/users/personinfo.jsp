@@ -375,8 +375,8 @@
         <div class="title">个人中心</div>
         <ul>
             <li><a href="/ec/myBidinfos.jsp">投标项目管理</a></li>
-            <!--li><a href="/users/personinfo.jsp?action=2">< %=(actionid==2)?"<span style=\"color: red\">":""%>授信申请管理< %=(actionid==2)?"</span>":""%></a></li>
-            <li><a href="/users/personinfo.jsp?action=3">< %=(actionid==3)?"<span style=\"color: red\">":""%>保证金管理< %=(actionid==3)?"</span>":""%></a></li-->
+            <!--li><a href="/users/personinfo.jsp?action=2"><%=(actionid==2)?"<span style=\"color: red\">":""%>授信申请管理<%=(actionid==2)?"</span>":""%></a></li>
+            <li><a href="/users/personinfo.jsp?action=3"><%=(actionid==3)?"<span style=\"color: red\">":""%>保证金管理<%=(actionid==3)?"</span>":""%></a></li-->
             <li><a href="/users/companyinfo.jsp">公司信息管理</a></li>
             <li><a href="/users/updatereg.jsp">修改个人注册信息</a></li>
             <li><a href="/users/changePwd.jsp">修改密码</a></li>

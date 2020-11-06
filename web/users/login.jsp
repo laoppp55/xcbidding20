@@ -2,7 +2,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%
   int errcode = ParamUtil.getIntParameter(request,"errcode",0);
-  System.out.println("errcode==" + errcode);
   String refer_url = request.getHeader("referer");
 %>
 <!doctype html>
@@ -29,7 +28,7 @@
       $(document).ready(function(){
           init(function(){
           },function(){
-              alert("请插入UKEY");
+              //alert("请插入UKEY");
           });
 
           if (errcode == -101 || errcode == -102 || errcode == -106 || errcode == -103) {

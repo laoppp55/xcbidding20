@@ -1,19 +1,12 @@
 <%@page contentType="text/html;charset=utf-8" %>
-<%@page import="com.yeepay.PaymentForOnlineService,com.yeepay.Configuration"%>
 <%@ page import="com.bizwink.util.SpringInit" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="com.bizwink.mysql.service.MEcService" %>
-<%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="com.bizwink.util.SessionUtil" %>
 <%@ page import="com.bizwink.security.Auth" %>
-<%@ page import="com.bizwink.service.IUserService" %>
-<%@ page import="com.bizwink.service.INoticeService" %>
 <%@ page import="com.bizwink.util.ParamUtil" %>
 <%@ page import="com.bizwink.po.*" %>
-<%@ page import="com.bizwink.service.IBudgetProjectService" %>
-<%@ page import="com.bizwink.service.IPurchaseProjectService" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="com.bizwink.service.*" %>
 <%
 	int errcode = 0;
 	Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
@@ -41,6 +34,8 @@
     String buyerPhone = null;
     String agentName = null;
     String agentPhone = null;
+    String receiveFile = null;
+
 	if (appContext!=null) {
 		//获取登录用户的信息
 		IUserService usersService = (IUserService)appContext.getBean("usersService");
@@ -56,13 +51,14 @@
 		IBudgetProjectService budgetProjectService = (IBudgetProjectService)appContext.getBean("budgetProjectService");
 		IPurchaseProjectService purchaseProjectService = (IPurchaseProjectService)appContext.getBean("purchaseProjectService");
 		INoticeService noticeService = (INoticeService)appContext.getBean("noticeService");
-		System.out.println("buymethod==" + buymethod);
+		IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");      //投标报名服务
 		if (buymethod == 1) {
 			bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
 			projName = bulletinNotice.getPurchaseprojname();
 			projCode = bulletinNotice.getPurchaseprojcode();
 			agentName = bulletinNotice.getAgentName();
 			agentPhone = bulletinNotice.getAgentContactPhone();
+			receiveFile = bulletinNotice.getReceiveFile();
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinNotice.getPurchaseprojcode());
 		} else if (buymethod ==3 || buymethod == 6) {
 			bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
@@ -70,6 +66,7 @@
 			projCode = bulletinConsultationsNotice.getPurchaseprojcode();
 			agentName = bulletinConsultationsNotice.getAgentName();
 			agentPhone = bulletinConsultationsNotice.getAgentContactPhone();
+			receiveFile = bulletinConsultationsNotice.getOtherAocuments();
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinConsultationsNotice.getPurchaseprojcode());
 		} else if (buymethod == 4) {
 			bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
@@ -77,11 +74,15 @@
 			projCode = bulletinSinglesourceNotice.getPurchaseprojcode();
 			agentName = bulletinSinglesourceNotice.getAgentName();
 			agentPhone = bulletinSinglesourceNotice.getAgentContactPhone();
+			receiveFile = bulletinConsultationsNotice.getOtherAocuments();
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinSinglesourceNotice.getPurchaseprojcode());
 		}
 		budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
 		buyerName = budgetProject.getBuyername();
 		buyerPhone = budgetProject.getPhone();
+
+		//保存进入报名页面的LOG信息
+		bidderInfoService.saveDownBidFileLog(username,compcode,receiveFile,"进入报名页面");
 	}
 %>
 <!doctype html>
