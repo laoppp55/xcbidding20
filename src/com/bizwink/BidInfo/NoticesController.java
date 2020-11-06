@@ -576,8 +576,10 @@ public class NoticesController {
                     for(int ii=0;ii<baseContracts.size();ii++) {
                         notices_ids.add(baseContracts.get(ii).getUuid());
                     }
+
                     //获取公告已经被该用户读取过的LOG信息
                     readNoticeLogs =noticeService.getReadNotiesLog(authToken.getUserid(),notices_ids);
+
                     //修改列表的公告是否已经被该用户读过的状态
                     for(int ii=0;ii<baseContracts.size();ii++) {
                         voBaseContract voBaseContract = baseContracts.get(ii);

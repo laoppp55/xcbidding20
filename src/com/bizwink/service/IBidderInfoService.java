@@ -6,7 +6,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface IBidderInfoService {
-    int saveBidderInfo(BidderInfo bidderInfo,String userid,String compcode);
+    int saveBidderInfo(BidderInfo bidderInfo,String userid,String compcode,String bidFile_uuid);
+
+    int saveDownBidFileLog(String userid,String compcode,String bidFile_uuid,String op);
 
     BidderInfo getBidderInfoByProjcodeAndCompcode(String projcode,String Compcode);
 

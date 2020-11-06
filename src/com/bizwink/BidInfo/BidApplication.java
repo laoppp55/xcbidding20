@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
@@ -76,6 +78,8 @@ public class BidApplication {
         String yzcodeForSession = (String)session.getAttribute("randnum");
         Auth authToken = SessionUtil.getUserAuthorization(request, response, session);
         String bidFile_uuid = null;
+        String compcode = null;
+        String username = null;
 
         if (yzcode.equals(yzcodeForSession)) {
             if (checkcode.equals(paramVals)) {
@@ -95,31 +99,39 @@ public class BidApplication {
                     //获取登录用户的信息
                     IUserService usersService = (IUserService)appContext.getBean("usersService");
                     user = usersService.getUserinfoByUserid(authToken.getUserid());
+                    compcode = user.getCOMPANYCODE();
+                    username = authToken.getUsername();
 
                     //获取用户所在单位的法人信息
                     purchasingAgency = usersService.getEnterpriseInfoByCompcode(user.getCOMPANYCODE());
 
                     //将下载招标文件的用户所在单位保存为潜在投标人
                     String purchaseProjCode = null;
+                    Date receiveFileEndTime = null;
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    //1公开招标，2邀请招标，3竞争性谈判，4单一来源，5询价，6竞争性磋商，9其他
                     IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
-                    if (buymethod == 1){
+                    if (buymethod == 1){                                         //公开招标
                         bulletinNotice = noticeService.getBulletinNoticeByUUID(bulletinNotice_uuid);
+                        receiveFileEndTime = bulletinNotice.getReceiveFileEndTime();
                         bidFile_uuid = bulletinNotice.getReceiveFile();
                         purchaseProjCode = bulletinNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
-                    }else if (buymethod == 3){
+                    }else if (buymethod == 3){                                  //竞争性谈判
                         bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
-                        //bidFile_uuid = bulletinConsultationsNotice.getReceiveFile();
+                        receiveFileEndTime = bulletinConsultationsNotice.getConsultationFileEndTime();
+                        bidFile_uuid = bulletinConsultationsNotice.getOtherAocuments();
                         purchaseProjCode = bulletinConsultationsNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinConsultationsNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
-                    }else if (buymethod == 6){
+                    }else if (buymethod == 6){                                  //竞争性磋商
                         bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
-                        //bidFile_uuid = bulletinConsultationsNotice.getReceiveFile();
+                        receiveFileEndTime = bulletinConsultationsNotice.getNegotiationFileEndTime();
+                        bidFile_uuid = bulletinConsultationsNotice.getOtherAocuments();
                         purchaseProjCode = bulletinConsultationsNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinConsultationsNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
-                    } else if (buymethod == 4) {
+                    } else if (buymethod == 4) {                                //单一来源
                         bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
-                        //bidFile_uuid = bulletinSinglesourceNotice.getReceiveFile();
+                        bidFile_uuid = bulletinSinglesourceNotice.getOtherAocuments();
                         purchaseProjCode = bulletinSinglesourceNotice.getPurchaseprojcode();
                         bidderInfo = bidderInfoService.getBidderInfoByProjcodeAndCompcode(bulletinSinglesourceNotice.getPurchaseprojcode(),user.getCOMPANYCODE());
                     }
@@ -193,9 +205,8 @@ public class BidApplication {
                             }
 
                             if (retval_for_licensepic == 0 && retval_for_authletterpic == 0 && retval_for_idcardpic_frontfile == 0)
-                                //潜在报名信息修改人
-                                retcode = bidderInfoService.saveBidderInfo(bidderInfo,authToken.getUserid(),supplierCode);
-
+                                //潜在报名信息修改
+                                retcode = bidderInfoService.saveBidderInfo(bidderInfo,authToken.getUserid(),supplierCode,bidFile_uuid);
                         } else {
                             return "redirect:/users/error.jsp?errcode=-201";   //供应商已经报名，不需要再次报名
                         }
@@ -214,7 +225,7 @@ public class BidApplication {
 
         //return "redirect:/ec/download.jsp?uuid=" + bulletinNotice_uuid;
 
-        return "redirect:" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFile?id="+bidFile_uuid;
+        return "redirect:" + MyConstants.getDownloadAddress() + "/oa/common/attachment/publicDownloadFileTime?compcode=" + compcode + "&username=" + username + "&id="+bidFile_uuid;
     }
 
     @RequestMapping(value = "/getMyBidInfos.do")

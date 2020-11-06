@@ -9,6 +9,7 @@ import com.bizwink.po.PurchasingAgency;
 import com.bizwink.po.Users;
 import com.bizwink.security.Auth;
 import com.bizwink.service.IAttechemntsService;
+import com.bizwink.service.IBidderInfoService;
 import com.bizwink.service.ICodeService;
 import com.bizwink.service.IUserService;
 import com.bizwink.service.impl.CodeService;
@@ -405,6 +406,7 @@ public class BidInfoController {
         if (yzcode.equals(yzcodeForSession) && doLogin) {
             ApplicationContext appContext = SpringInit.getApplicationContext();
             IUserService usersService = (IUserService)appContext.getBean("usersService");
+            IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");      //投标报名服务
 
             Users us= usersService.getUserinfoByUserid(userid);
             if (us==null) {
@@ -434,9 +436,11 @@ public class BidInfoController {
                             auth.setUserid(us.getUSERID());
                             auth.setUsername(us.getNICKNAME());
                             auth.setUsertype(us.getUSERTYPE().intValue());
-                            session.setMaxInactiveInterval(60*60*1000);
+                            session.setMaxInactiveInterval(30*60*1000);
                             session.setAttribute("AuthInfo", auth);
-                            //return "redirect:" +  refer_url;
+
+                            //记录用户登录时间
+                            bidderInfoService.saveDownBidFileLog(us.getUSERID(),us.getCOMPANYCODE(),null,"用户登录");
                             return "redirect:ggzyjy/index.shtml";
                         }
                     } else {

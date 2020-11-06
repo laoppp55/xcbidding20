@@ -4,8 +4,10 @@ import com.bizwink.cms.server.InitServer;
 import com.bizwink.cms.server.MyConstants;
 import com.bizwink.persistence.BaseAttachmentMapper;
 import com.bizwink.persistence.BidderInfoMapper;
+import com.bizwink.persistence.DownBiddocLogMapper;
 import com.bizwink.po.BaseAttachment;
 import com.bizwink.po.BidderInfo;
+import com.bizwink.po.DownBiddocLog;
 import com.bizwink.service.IBidderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,13 @@ public class BidderInfoService implements IBidderInfoService{
     @Autowired
     private BaseAttachmentMapper baseAttachmentMapper;
 
+    @Autowired
+    private DownBiddocLogMapper downBiddocLogMapper;
+
 
     //保存潜在投标人信息，如果注册用户下载了标书，他就成为这个项目的潜在投标人
     @Transactional
-    public int saveBidderInfo(BidderInfo bidderInfo,String username,String compcode){
+    public int saveBidderInfo(BidderInfo bidderInfo,String username,String compcode,String bidFile_uuid){
         int errcode = 0;
         //保存联系人身份证正面图片
         String filename = bidderInfo.getIdcard();
@@ -158,6 +163,16 @@ public class BidderInfoService implements IBidderInfoService{
             bidderInfo.setOtherpic(uuid);
         }
 
+        //保存用户下载公告文件的日志信息
+        DownBiddocLog downBiddocLog = new DownBiddocLog();
+        downBiddocLog.setBidderid(username);
+        downBiddocLog.setNoticeid(bidFile_uuid);
+        downBiddocLog.setSupplierCode(compcode);
+        downBiddocLog.setOpname("提交报名信息，自动下载招标文件");
+        downBiddocLog.setDowntime(new Timestamp(System.currentTimeMillis()));
+        downBiddocLogMapper.insert(downBiddocLog);
+
+        //保存投标人联系人信息
         return  bidderInfoMapper.insert(bidderInfo);
     }
 
@@ -175,5 +190,16 @@ public class BidderInfoService implements IBidderInfoService{
         params.put("startrow",startrow);
         params.put("pagesize",pagesize);
         return bidderInfoMapper.getBidderInfosByUseridAndCompcode(params);
+    }
+
+    public int saveDownBidFileLog(String userid,String compcode,String bidFile_uuid,String op) {
+        //保存用户下载公告文件的日志信息
+        DownBiddocLog downBiddocLog = new DownBiddocLog();
+        downBiddocLog.setBidderid(userid);
+        downBiddocLog.setNoticeid(bidFile_uuid);
+        downBiddocLog.setSupplierCode(compcode);
+        downBiddocLog.setOpname(op);
+        downBiddocLog.setDowntime(new Timestamp(System.currentTimeMillis()));
+        return downBiddocLogMapper.insert(downBiddocLog);
     }
 }
