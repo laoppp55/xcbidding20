@@ -218,7 +218,7 @@
                     $.msgbox({
                         height: 300,
                         width: 400,
-                        content: {type: 'alert', content: "采购中心审核信息："+data.reason},
+                        content: {type: 'alert', content: "采购中心审核信息："+data.auditstatus},
                         animation: 0,        //禁止拖拽
                         drag: false          //禁止动画
                         //autoClose: 10       //自动关闭

@@ -35,6 +35,5 @@
 
     Gson gson = new Gson();
     String jsonData = gson.toJson(purchasingAgency);
-
     JSON.setPrintWriter(response, jsonData,"utf-8");
 %>
