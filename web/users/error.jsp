@@ -65,7 +65,8 @@
                 out.println("前后台数据输入不符，未能通过数据检验，请检查您的输入数据。");
             else if (errcode == -205)
                 out.println("您的验证码输入错误，请输入正确的验证码。");
-
+            else if (errcode == -400)
+                out.println("已经超过招标公告许可的招标文件下载时间，您不能下载招标文件。");
             else
                 out.println("<div class=\"notebox\">系统出现错误了。</div>");
         %>

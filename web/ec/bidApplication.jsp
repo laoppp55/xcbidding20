@@ -30,11 +30,13 @@
 	String lawPersonTel = null;
 	String projName = null;
 	String projCode = null;
-    String buyerName = null;
-    String buyerPhone = null;
-    String agentName = null;
-    String agentPhone = null;
-    String receiveFile = null;
+	String buyerName = null;
+	String buyerPhone = null;
+	String agentName = null;
+	String agentPhone = null;
+	String receiveFile = null;
+	Timestamp receiveFileEndTime = null;
+	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
 	if (appContext!=null) {
 		//获取登录用户的信息
@@ -59,6 +61,7 @@
 			agentName = bulletinNotice.getAgentName();
 			agentPhone = bulletinNotice.getAgentContactPhone();
 			receiveFile = bulletinNotice.getReceiveFile();
+			receiveFileEndTime = new Timestamp(bulletinNotice.getReceiveFileEndTime().getTime());
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinNotice.getPurchaseprojcode());
 		} else if (buymethod ==3 || buymethod == 6) {
 			bulletinConsultationsNotice = noticeService.getConsultationsNoticeByUUID(bulletinNotice_uuid);
@@ -67,6 +70,10 @@
 			agentName = bulletinConsultationsNotice.getAgentName();
 			agentPhone = bulletinConsultationsNotice.getAgentContactPhone();
 			receiveFile = bulletinConsultationsNotice.getOtherAocuments();
+			if (buymethod ==6)                          //6表示磋商     3表示谈判
+				receiveFileEndTime = new Timestamp(bulletinConsultationsNotice.getConsultationFileEndTime().getTime());
+			else
+				receiveFileEndTime = new Timestamp(bulletinConsultationsNotice.getNegotiationFileEndTime().getTime());
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinConsultationsNotice.getPurchaseprojcode());
 		} else if (buymethod == 4) {
 			bulletinSinglesourceNotice = noticeService.getSinglesourceNoticeByUUID(bulletinNotice_uuid);
@@ -74,7 +81,8 @@
 			projCode = bulletinSinglesourceNotice.getPurchaseprojcode();
 			agentName = bulletinSinglesourceNotice.getAgentName();
 			agentPhone = bulletinSinglesourceNotice.getAgentContactPhone();
-			receiveFile = bulletinConsultationsNotice.getOtherAocuments();
+			receiveFile = bulletinSinglesourceNotice.getOtherAocuments();
+			receiveFileEndTime = new Timestamp(bulletinSinglesourceNotice.getTenderEndTime().getTime());
 			purchaseProject = purchaseProjectService.getProjectInfoByProjCode(bulletinSinglesourceNotice.getPurchaseprojcode());
 		}
 		budgetProject = budgetProjectService.getBudgetProjByPrjcode(purchaseProject.getBudgetProjectId());
@@ -83,6 +91,8 @@
 
 		//保存进入报名页面的LOG信息
 		bidderInfoService.saveDownBidFileLog(username,compcode,receiveFile,"进入报名页面");
+		//当前日期已经在许可的文件下载时间之后，跳转到错误页面，提示已经超过报名时间。
+		if (receiveFileEndTime.before(currentTime)) response.sendRedirect("/users/error.jsp?errcode=-400");
 	}
 %>
 <!doctype html>

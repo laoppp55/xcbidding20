@@ -149,7 +149,8 @@
             htmlobj = $.ajax({
                 url: "/ec/checkTenderEndTime.jsp?thetime=<%=System.currentTimeMillis()%>",
                 data: {
-                    uuid: uuid
+                    uuid: uuid,
+                    buymethod:<%=buymethod_type%>
                 },
                 dataType: 'json',
                 async: false,
