@@ -605,6 +605,126 @@ public class CertInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andCertbegindateIsNull() {
+            addCriterion("certbegindate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateIsNotNull() {
+            addCriterion("certbegindate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateEqualTo(Date value) {
+            addCriterion("certbegindate =", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateNotEqualTo(Date value) {
+            addCriterion("certbegindate <>", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateGreaterThan(Date value) {
+            addCriterion("certbegindate >", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateGreaterThanOrEqualTo(Date value) {
+            addCriterion("certbegindate >=", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateLessThan(Date value) {
+            addCriterion("certbegindate <", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateLessThanOrEqualTo(Date value) {
+            addCriterion("certbegindate <=", value, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateIn(List<Date> values) {
+            addCriterion("certbegindate in", values, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateNotIn(List<Date> values) {
+            addCriterion("certbegindate not in", values, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateBetween(Date value1, Date value2) {
+            addCriterion("certbegindate between", value1, value2, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertbegindateNotBetween(Date value1, Date value2) {
+            addCriterion("certbegindate not between", value1, value2, "certbegindate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateIsNull() {
+            addCriterion("certenddate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateIsNotNull() {
+            addCriterion("certenddate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateEqualTo(Date value) {
+            addCriterion("certenddate =", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateNotEqualTo(Date value) {
+            addCriterion("certenddate <>", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateGreaterThan(Date value) {
+            addCriterion("certenddate >", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateGreaterThanOrEqualTo(Date value) {
+            addCriterion("certenddate >=", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateLessThan(Date value) {
+            addCriterion("certenddate <", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateLessThanOrEqualTo(Date value) {
+            addCriterion("certenddate <=", value, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateIn(List<Date> values) {
+            addCriterion("certenddate in", values, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateNotIn(List<Date> values) {
+            addCriterion("certenddate not in", values, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateBetween(Date value1, Date value2) {
+            addCriterion("certenddate between", value1, value2, "certenddate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertenddateNotBetween(Date value1, Date value2) {
+            addCriterion("certenddate not between", value1, value2, "certenddate");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedateIsNull() {
             addCriterion("createdate is null");
             return (Criteria) this;
