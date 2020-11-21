@@ -25,8 +25,42 @@
 
   <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
   <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
+  <script src="/ggzyjy/js/XTXSAB.js" type="text/javascript"></script>
   <script src="/ggzyjy/js/users.js" type="text/javascript"></script>
   <script type="text/javascript">
+      $(document).ready(function(){
+          init(function(){
+              SOF_GetUserList(call_back);
+          },function(){
+          });
+      });
+
+      function call_back(data){
+          var buf = data.retVal;
+          if (buf=="" || buf==null || typeof(buf) == 'undefined')
+              alert("请插入UKEY");
+          else {
+              var posi = buf.indexOf("&");
+              buf = buf.substring(0,posi);
+              posi = buf.indexOf("||");
+              var username = buf.substring(0, posi);
+              var certid = buf.substring(posi + 2);
+              form1.compname.value = username;
+              SOF_ExportUserCert(certid,call_back_cert);     //获取证书
+          }
+      }
+
+      function call_back_cert(data){
+          var buf = data.retVal;
+          SOF_GetCertInfoByOid(buf,"2.16.840.1.113732.2",call_user_compcode);     //获取统一社会信用代码
+      }
+
+      //获取注册供应商的统一社会信用代码
+      function call_user_compcode(data){
+          var buf = data.retVal;
+          form1.compcode.value = buf;
+      }
+      
       function donext(form) {
           var compname = form.compname.value;
           var compcode = form.compcode.value;
@@ -219,11 +253,11 @@
         </tr-->
         <tr>
           <td align="right">企业名称:</td>
-          <td><input name="compname" type="text" class="input_but_5"></td>
+          <td><input name="compname" type="text" class="input_but_5" readonly></td>
         </tr>
         <tr>
           <td align="right">统一社会信用代码或组织机构代码：</td>
-          <td><input name="compcode" type="text" class="input_but_5"></td>
+          <td><input name="compcode" type="text" class="input_but_5" readonly></td>
         </tr>
         <!--tr>
           <td align="right">企业类型：</td>

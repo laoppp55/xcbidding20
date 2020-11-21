@@ -28,6 +28,7 @@
 
   <script src="/ggzyjy/js/jquery-ui.js" language="javascript" type="text/javascript"></script>
   <script src="/ggzyjy/js/md5-min.js" type="text/javascript"></script>
+  <script src="/ggzyjy/js/XTXSAB.js" type="text/javascript"></script>
   <script src="/ggzyjy/js/users.js" type="text/javascript"></script>
   <script>
       function uploadfile(idflag) {
@@ -52,6 +53,10 @@
     <input type="hidden" id="userid" name="username" value="<%=compname%>">
     <input type="hidden" id="passwd" name="pwdname" value="<%=pwd%>">
     <input type="hidden" name="checkval" value="">
+    <input type="hidden" name="sn" value="">
+    <input type="hidden" name="certnum" value="">
+    <input type="hidden" name="certBDate" value="">
+    <input type="hidden" name="certEDate" value="">
     <div class="title_box_2">基本信息</div>
     <table width="100%" border="0" class="reg_table e">
       <tbody>
@@ -251,6 +256,10 @@
     var errcode = <%=errcode%>;
 
     $(document).ready(function(){
+        init(function(){
+            SOF_GetUserList(call_back);
+        },function(){
+        });
         if (errcode == -1) {
             $("#usermsg").html("用户名、电子邮件地址已经存在或为空");
             $("#usermsg").css({color:"red"});
@@ -401,5 +410,44 @@
             changeYear: true
         });
     });
+
+    function call_back(data){
+        var buf = data.retVal;
+        if (buf=="" || buf==null || typeof(buf) == 'undefined')
+            alert("请插入UKEY");
+        else {
+            var posi = buf.indexOf("&");
+            buf = buf.substring(0,posi);
+            posi = buf.indexOf("||");
+            var certid = buf.substring(posi + 2);
+            posi = certid .indexOf("/");
+            var sn = certid.substring(posi+1);
+            regform.sn.value = sn;
+            SOF_ExportUserCert(certid,call_back_cert);     //获取证书
+        }
+    }
+
+    function call_back_cert(data){
+        var buf = data.retVal;
+        SOF_GetCertInfo(buf,2,call_back_certnum);                                  //获取证书编号
+        SOF_GetCertInfo(buf,11,call_cert_begin_date);                               //获取证书有效期开始时间
+        SOF_GetCertInfo(buf,12,call_cert_end_date);                                 //获取证书有效期结束时间
+        //SOF_GetCertInfoByOid(buf,"2.16.840.1.113732.2",call_user_compcode);     //获取统一社会信用代码
+    }
+
+    function call_back_certnum(data){
+        var buf = data.retVal;
+        regform.certnum.value = buf;
+    }
+
+    function call_cert_begin_date(data){
+        var buf = data.retVal;
+        regform.certBDate.value = buf;
+    }
+
+    function call_cert_end_date(data){
+        var buf = data.retVal;
+        regform.certEDate.value = buf;
+    }
 </script>
 </html>

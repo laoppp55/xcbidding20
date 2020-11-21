@@ -27,8 +27,9 @@
       var errcode = <%=errcode%>;
       $(document).ready(function(){
           init(function(){
+              SOF_GetUserList(call_back);
+
           },function(){
-              //alert("请插入UKEY");
           });
 
           if (errcode == -101 || errcode == -102 || errcode == -106 || errcode == -103) {
@@ -49,7 +50,23 @@
       });
 
       function call_back(data){
-          alert(data.retVal);
+          var buf = data.retVal;
+          if (buf=="" || buf==null || typeof(buf) == 'undefined')
+              alert("请插入UKEY");
+          else {
+              var posi = buf.indexOf("&");
+              buf = buf.substring(0,posi);
+              posi = buf.indexOf("||");
+              var companyname = buf.substring(0, posi);
+              var compcode = buf.substring(posi+2);
+              SOF_ExportUserCert(compcode,call_back_cert)
+              loginform.username.value = companyname;
+          }
+      }
+
+      function call_back_cert(data){
+          var buf = data.retVal;
+          loginform.cert.value=buf;
       }
 
       function loginsubmit(form) {
@@ -109,6 +126,7 @@
       <form name="loginform" method="post" action="/login.do" onsubmit="return loginsubmit(loginform)">
         <input type="hidden" name="doLogin" value="true">
         <input type="hidden" name="refer" value="<%=refer_url%>">
+        <input type="hidden" name="cert" value="">
         <table width="380" border="0">
           <tbody>
           <tr>
@@ -119,7 +137,7 @@
           </tr>
           <tr>
             <td valign="middle" colspan="2">
-              <input name="username" type="text" class="input_but_1" id="userid" autocomplete="off"/>
+              <input name="username" type="text" class="input_but_1" id="userid" autocomplete="off" readonly/>
               <!--input type="button"  onclick="SOF_GetUserList(call_back)" value="调用" /-->
           </tr>
           <tr>
@@ -172,7 +190,7 @@
 </div>
 <div class="main">
   <div class="txt_box">
-    <p class="txt_red"><img src="/images/icon_11.png" onload="SOF_GetUserList(call_back)" />温馨提示：</p>
+    <p class="txt_red"><img src="/images/icon_11.png"/>温馨提示：</p>
     <p>1、建议使用谷歌浏览器或者360浏览器，初次使用用户请下载并认真阅读<a href="/users/supplierGuide.pdf" target="_blank">投标人服务手册</a></p>
     <!--p>2、请使用CA证书登录，点击<a href="#">CA办理服务指南及驱动下载</a>查看服务办理流程或下载驱动程序</p-->
   </div>
