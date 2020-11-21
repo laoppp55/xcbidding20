@@ -328,9 +328,9 @@ public class Users implements Serializable{
 
     private String NATION;                        //籍贯
 
-    private int TRYPASSNUM;
+    private int TRYPASSNUM;                      //允许用户试错密码的次数
 
-    private Timestamp TRYPASSTIME;
+    private Timestamp TRYPASSTIME;                //达到用户密码试错的最大次数后锁定系统的时间
 
     public BigDecimal getID() {
         return ID;

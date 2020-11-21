@@ -1,5 +1,6 @@
 package com.bizwink.service;
 
+import com.bizwink.po.CertInfo;
 import com.bizwink.po.PurchasingAgency;
 import com.bizwink.po.Template;
 import com.bizwink.po.Users;
@@ -11,7 +12,7 @@ import java.util.Map;
 public interface IUserService {
     int addUser(Users user);
 
-    int createUserAndEnterpriseInfo(Users user,PurchasingAgency suppino);
+    int createUserAndEnterpriseInfo(Users user, CertInfo certInfo,PurchasingAgency suppino);
 
     boolean checkName(BigDecimal siteid, String username);
 

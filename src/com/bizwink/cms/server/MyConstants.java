@@ -19,23 +19,24 @@ public class MyConstants {
     private static String serviceUrl = "http://103.83.44.14/JFPT-test/api.do";
 
     //测试环境
-    private static String SFTP_ADDRESS = "39.105.96.34";
+    /*private static String SFTP_ADDRESS = "39.105.96.34";
     private static String SFTP_PORT ="22";
     private static String SFTP_USER = "suppinfo";
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/data/project/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/32/supp/";
     private static String DOWNLOAD_ADDRESS = "http://39.105.96.34:8086";
+    */
 
     //生产环境
-    /*private static String SFTP_ADDRESS = "39.97.119.172";
+    private static String SFTP_ADDRESS = "39.97.119.172";
     private static String SFTP_PORT ="22";
     private static String SFTP_USER = "suppinfo";
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/home/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/30/supp/";
     private static String DOWNLOAD_ADDRESS = "http://39.97.119.172:8086";
-    */
+
 
     public static List<String> getColumns() {
         return columns;

@@ -4,6 +4,7 @@ import com.bizwink.cms.entity.DayCompare;
 import com.bizwink.cms.server.InitServer;
 import com.bizwink.cms.server.MyConstants;
 import com.bizwink.net.sftp.FtpFileToDest;
+import com.bizwink.po.CertInfo;
 import com.bizwink.po.NameValueCode;
 import com.bizwink.po.PurchasingAgency;
 import com.bizwink.po.Users;
@@ -102,6 +103,20 @@ public class BidInfoController {
         String promisepic = filter.excludeHTMLCode(ParamUtil.getParameter(request, "promisepic"));                   //风险承诺书图片名称
         //boolean agreeflag = ParamUtil.getCheckboxParameter(request,"agreement");
         String yzcode = filter.excludeHTMLCode(ParamUtil.getParameter(request, "yzcode"));
+        String sn = filter.excludeHTMLCode(ParamUtil.getParameter(request, "sn"));
+        String certnum = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certnum"));
+        String s_certBDate = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certBDate"));
+        String s_certEDate = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certEDate"));
+
+        System.out.println("sn==" + sn);
+        System.out.println("certnum==" + certnum);
+        System.out.println("certBDate==" + s_certBDate);
+        System.out.println("certEDate==" + s_certEDate);
+
+        //获取证书的有效期开始时间和有效期结束时间
+        SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Timestamp certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
+        Timestamp certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
 
         HttpSession session = request.getSession();
         String yzcodeForSession = (String)session.getAttribute("randnum");
@@ -142,7 +157,6 @@ public class BidInfoController {
                     else {
                         DayCompare dayCompare = DateUtil.dayCompare(sdf.parse(sdate),sdf.parse(edate));
                         suppinfo.setOperatingpeoid(String.valueOf(dayCompare.getYear()));
-                        System.out.println(String.valueOf(dayCompare.getYear()));
                     }
                     suppinfo.setRegistrationTime(sdf.parse(sdate));                                             //营业开始时间
                     if(edate!=null) suppinfo.setExpiryDate(sdf.parse(edate));                                  //营业结束时间
@@ -199,7 +213,6 @@ public class BidInfoController {
                         FtpFileToDest ftpFileToDest = new FtpFileToDest();
                         InitServer initServer = InitServer.getInstance();
                         String localFileName = initServer.getProperties().getProperty("main.uploaddir");
-                        System.out.println("localFileName==" + localFileName);
                         if (localFileName.endsWith(File.separator))
                             localFileName = localFileName + licensepic;
                         else
@@ -213,8 +226,17 @@ public class BidInfoController {
                         int retval_for_promisepic = ftpFileToDest.transfer(MyConstants.getSftpAddress(),MyConstants.getSftpUser(),MyConstants.getSftpPasswd(),localFileName,suppinfo.getLegalCode(),MyConstants.getSftpRootpath() + "/upload/30/supp",0);
 
 
-                        if (retval_for_licensepic==0 && retval_for_promisepic==0)                     //表示文件上传交易系统服务器成功
-                            errcode = usersService.createUserAndEnterpriseInfo(user,suppinfo);
+                        Timestamp now = new Timestamp(System.currentTimeMillis());                    //获取当前时间
+                        CertInfo certInfo = new CertInfo();
+                        certInfo.setCertnum(certnum);
+                        certInfo.setSn(sn);
+                        certInfo.setUserid(user.getUSERID());
+                        certInfo.setCertbegindate(certBDate);
+                        certInfo.setCertenddate(certEDate);
+                        certInfo.setCreatedate(now);
+
+                        if (retval_for_licensepic==0 && retval_for_promisepic==0 && now.after(certBDate) && now.before(certEDate))                     //表示文件上传交易系统服务器成功
+                            errcode = usersService.createUserAndEnterpriseInfo(user,certInfo,suppinfo);
                         else                                                                          //表示文件上传交易系统服务器失败
                             errcode = -105;
                     } else {

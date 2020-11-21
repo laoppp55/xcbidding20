@@ -54,6 +54,8 @@ public class UsersService implements IUserService {
     private PurchasingAgencyMapper purchasingAgencyMapper;
     @Autowired
     private BaseAttachmentMapper baseAttachmentMapper;
+    @Autowired
+    private CertInfoMapper certInfoMapper;
 
     public int addUser(Users user) {
         int errcode = 0;
@@ -82,7 +84,7 @@ public class UsersService implements IUserService {
     }
 
     @Transactional
-    public int createUserAndEnterpriseInfo(Users user,PurchasingAgency suppinfo) {
+    public int createUserAndEnterpriseInfo(Users user,CertInfo certInfo,PurchasingAgency suppinfo) {
         int errcode = 0;
         Users t_user = usersMapper.selectByPrimaryKey(user.getUSERID());
         if (t_user!=null) {
@@ -152,6 +154,9 @@ public class UsersService implements IUserService {
 
             //创建用户，保存用户信息
             errcode = usersMapper.insert(user);
+
+            //判断用户的数字证书信息不为空，在数据库记录用户的数字证书信息
+            if (certInfo.getCertnum()!=null && certInfo.getSn()!=null) certInfoMapper.insert(certInfo);
 
             //判断企业基本信息是否已经存在，如果企业基本信息已经存在，不在新增企业基本信息
             PurchasingAgency agency = purchasingAgencyMapper.selectEnterpriseInfoByCompcode(suppinfo.getLegalCode());
