@@ -4,9 +4,11 @@ import com.bizwink.cms.server.InitServer;
 import com.bizwink.cms.server.MyConstants;
 import com.bizwink.persistence.BaseAttachmentMapper;
 import com.bizwink.persistence.BidderInfoMapper;
+import com.bizwink.persistence.CertInfoMapper;
 import com.bizwink.persistence.DownBiddocLogMapper;
 import com.bizwink.po.BaseAttachment;
 import com.bizwink.po.BidderInfo;
+import com.bizwink.po.CertInfo;
 import com.bizwink.po.DownBiddocLog;
 import com.bizwink.service.IBidderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class BidderInfoService implements IBidderInfoService{
     @Autowired
     private DownBiddocLogMapper downBiddocLogMapper;
 
+    @Autowired
+    private CertInfoMapper certInfoMapper;
 
     //保存潜在投标人信息，如果注册用户下载了标书，他就成为这个项目的潜在投标人
     @Transactional
@@ -192,13 +196,26 @@ public class BidderInfoService implements IBidderInfoService{
         return bidderInfoMapper.getBidderInfosByUseridAndCompcode(params);
     }
 
-    public int saveDownBidFileLog(String userid,String compcode,String bidFile_uuid,String op) {
+    public int saveDownBidFileLog(String userid, String compcode, CertInfo certInfo,String bidFile_uuid, String op) {
+       //判断用户CA信息是否为空，如果不为空查询数据库TBL_certinfo表是否有该用户的CA信息，如果存在不做任何操作，如果不存在，则插入用户CA信息
+       if (certInfo!=null) {
+           Map params = new HashMap();
+           params.put("userid",userid);
+           params.put("certnum",certInfo.getCertnum());
+           CertInfo tt = certInfoMapper.getCertInfoByUserIDAndCertNum(params);
+           if (tt==null) certInfoMapper.insert(certInfo);
+       }
+
         //保存用户下载公告文件的日志信息
         DownBiddocLog downBiddocLog = new DownBiddocLog();
         downBiddocLog.setBidderid(userid);
         downBiddocLog.setNoticeid(bidFile_uuid);
         downBiddocLog.setSupplierCode(compcode);
         downBiddocLog.setOpname(op);
+        if (certInfo!=null) {
+            downBiddocLog.setSn(certInfo.getSn());
+            downBiddocLog.setCertnum(certInfo.getCertnum());
+        }
         downBiddocLog.setDowntime(new Timestamp(System.currentTimeMillis()));
         return downBiddocLogMapper.insert(downBiddocLog);
     }

@@ -267,7 +267,8 @@ public class Post {
 
     public static void main(String[] args) {
         //发送 POST 请求
-        String sr=Post.sendPost("http://localhost:6144/Home/RequestPostString", "key=123&v=456");
+        //userid、userName、subjectCompanyCode、snKey、certNum、source
+        String sr=Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(), "userid=北京东方波尔科技有限公司&userName=北京东方波尔科技有限公司&subjectCompanyCode=911101087825432441&snKey=5302201601061907&certNum=1B2000000000014239D8&source=1");
         System.out.println(sr);
     }
 }

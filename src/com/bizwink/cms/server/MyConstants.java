@@ -19,24 +19,29 @@ public class MyConstants {
     private static String serviceUrl = "http://103.83.44.14/JFPT-test/api.do";
 
     //测试环境
-    /*private static String SFTP_ADDRESS = "39.105.96.34";
+    private static String SFTP_ADDRESS = "39.105.96.34";
     private static String SFTP_PORT ="22";
     private static String SFTP_USER = "suppinfo";
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/data/project/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/32/supp/";
     private static String DOWNLOAD_ADDRESS = "http://39.105.96.34:8086";
-    */
+    private static String UPLOAD_USER_INFO = "/oa/baseInfo/addUserInformation";         //userid、userName、subjectCompanyCode、snKey、certNum、source
+    private static String CHECKCERT = "/oa/baseInfo/chcekCert";                          //certNo、certInfo
+    private static String SHAREUSER = "/oa/baseInfo/shareUser";                          //certNo、、snKey
 
     //生产环境
-    private static String SFTP_ADDRESS = "39.97.119.172";
+    /*private static String SFTP_ADDRESS = "39.97.119.172";
     private static String SFTP_PORT ="22";
     private static String SFTP_USER = "suppinfo";
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/home/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/30/supp/";
     private static String DOWNLOAD_ADDRESS = "http://39.97.119.172:8086";
-
+    private static String UPLOAD_USER_INFO = "/oa/baseInfo/addUserInformation";
+    private static String CHECKCERT = "/oa/baseInfo/chcekCert";
+    private static String SHAREUSER = "/oa/baseInfo/shareUser";
+    */
 
     public static List<String> getColumns() {
         return columns;
@@ -172,5 +177,29 @@ public class MyConstants {
 
     public static void setDownloadAddress(String downloadAddress) {
         DOWNLOAD_ADDRESS = downloadAddress;
+    }
+
+    public static String getUploadUserInfo() {
+        return UPLOAD_USER_INFO;
+    }
+
+    public static void setUploadUserInfo(String uploadUserInfo) {
+        UPLOAD_USER_INFO = uploadUserInfo;
+    }
+
+    public static String getCHECKCERT() {
+        return CHECKCERT;
+    }
+
+    public static void setCHECKCERT(String CHECKCERT) {
+        MyConstants.CHECKCERT = CHECKCERT;
+    }
+
+    public static String getSHAREUSER() {
+        return SHAREUSER;
+    }
+
+    public static void setSHAREUSER(String SHAREUSER) {
+        MyConstants.SHAREUSER = SHAREUSER;
     }
 }

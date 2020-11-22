@@ -3,6 +3,7 @@ package com.bizwink.BidInfo;
 import com.bizwink.cms.entity.DayCompare;
 import com.bizwink.cms.server.InitServer;
 import com.bizwink.cms.server.MyConstants;
+import com.bizwink.net.http.Post;
 import com.bizwink.net.sftp.FtpFileToDest;
 import com.bizwink.po.CertInfo;
 import com.bizwink.po.NameValueCode;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
@@ -225,7 +227,6 @@ public class BidInfoController {
                             localFileName = localFileName + File.separator + promisepic;
                         int retval_for_promisepic = ftpFileToDest.transfer(MyConstants.getSftpAddress(),MyConstants.getSftpUser(),MyConstants.getSftpPasswd(),localFileName,suppinfo.getLegalCode(),MyConstants.getSftpRootpath() + "/upload/30/supp",0);
 
-
                         Timestamp now = new Timestamp(System.currentTimeMillis());                    //获取当前时间
                         CertInfo certInfo = new CertInfo();
                         certInfo.setCertnum(certnum);
@@ -235,9 +236,14 @@ public class BidInfoController {
                         certInfo.setCertenddate(certEDate);
                         certInfo.setCreatedate(now);
 
-                        if (retval_for_licensepic==0 && retval_for_promisepic==0 && now.after(certBDate) && now.before(certEDate))                     //表示文件上传交易系统服务器成功
-                            errcode = usersService.createUserAndEnterpriseInfo(user,certInfo,suppinfo);
-                        else                                                                          //表示文件上传交易系统服务器失败
+                        if (retval_for_licensepic==0 && retval_for_promisepic==0 && now.after(certBDate) && now.before(certEDate)) {                    //表示文件上传交易系统服务器成功
+                            //调用数字证书接口，上传数字证书信息
+                            String params = "userid=" + userid + "&userName=" + user.getUSERID() + "&subjectCompanyCode=" + supplierCode + "&snKey=" + sn + "&certNum=" + certnum + "&source=1";
+                            System.out.println("params==" + params);
+                            //String retcode = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(),params);
+                            //保存用户信息、用户数字证书信息和供应商基本信息
+                            errcode = usersService.createUserAndEnterpriseInfo(user, certInfo, suppinfo);
+                        }else                                                                          //表示文件上传交易系统服务器失败
                             errcode = -105;
                     } else {
                         errcode = -101;
@@ -419,61 +425,134 @@ public class BidInfoController {
         String userid = filter.excludeHTMLCode(ParamUtil.getParameter(request,"username"));
         String passwd = filter.excludeHTMLCode(ParamUtil.getParameter(request,"pwd"));
         String yzcode = filter.excludeHTMLCode(ParamUtil.getParameter(request, "yzcode"));
+        String sn = filter.excludeHTMLCode(ParamUtil.getParameter(request, "sn"));
+        String certnum = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certnum"));
+        String certinfo = filter.excludeHTMLCode(ParamUtil.getParameter(request, "cert"));
+        String s_certBDate = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certBDate"));
+        String s_certEDate = filter.excludeHTMLCode(ParamUtil.getParameter(request, "certEDate"));
+        int loginway = ParamUtil.getIntParameter(request,"loginway",0);
+
+        System.out.println("loginway==" + loginway);
+        System.out.println("sn==" + sn);
+        System.out.println("certnum==" + certnum);
+        System.out.println("certinfo==" + certinfo);
+        System.out.println("s_certBDate==" + s_certBDate);
+        System.out.println("s_certEDate==" + s_certEDate);
+
         HttpSession session = request.getSession();
-        String yzcodeForSession = (String)session.getAttribute("randnum");
+        String yzcodeForSession = (String) session.getAttribute("randnum");
         String password = null;
 
         if (refer_url == null) refer_url = "/ggzyjy/index.shtml";
 
         if (yzcode.equals(yzcodeForSession) && doLogin) {
             ApplicationContext appContext = SpringInit.getApplicationContext();
-            IUserService usersService = (IUserService)appContext.getBean("usersService");
-            IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");      //投标报名服务
+            IUserService usersService = (IUserService) appContext.getBean("usersService");
+            IBidderInfoService bidderInfoService = (IBidderInfoService) appContext.getBean("bidderInfoService");      //投标报名服务
 
-            Users us= usersService.getUserinfoByUserid(userid);
-            if (us==null) {
-                us= usersService.getUserinfoByEmail(userid);                   //用户输入邮件地址进行登录
+            Users us = usersService.getUserinfoByUserid(userid);
+            if (us == null) {
+                us = usersService.getUserinfoByEmail(userid);                   //用户输入邮件地址进行登录
                 if (us == null) {
-                    us= usersService.getUserinfoByMphone(userid);             //用户输入手机地址进行登录
+                    us = usersService.getUserinfoByMphone(userid);             //用户输入手机地址进行登录
                 }
             }
 
             if (us == null) {
-                return "redirect:/users/login.jsp?errcode=-101";
+                return "redirect:/users/login.jsp?errcode=-101";                                  //用户不存在
             } else {
-                if (us.getDFLAG().intValue()==0) {
+                if (us.getDFLAG().intValue() == 0) {
+                    Timestamp certBDate = null;
+                    Timestamp certEDate = null;
                     try {
                         password = Encrypt.md5(passwd.getBytes());
+                        //获取证书的有效期开始时间和有效期结束时间
+                        SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddHHmmss");
+                        certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
+                        certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
                     } catch (Exception e) {
                         return "redirect:/users/login.jsp?errcode=-102";
                     }
-                    if (password!=null) {
-                        //用户口令错
-                        if (!password.equalsIgnoreCase(us.getUSERPWD())) {
-                            return "redirect:/users/login.jsp?errcode=-103";
-                        } else {
-                            Auth auth = new Auth();
-                            auth.setUid(us.getID().intValue());
-                            auth.setSiteid(us.getSITEID().intValue());
-                            auth.setUserid(us.getUSERID());
-                            auth.setUsername(us.getNICKNAME());
-                            auth.setUsertype(us.getUSERTYPE().intValue());
-                            session.setMaxInactiveInterval(30*60*1000);
-                            session.setAttribute("AuthInfo", auth);
 
-                            //记录用户登录时间
-                            bidderInfoService.saveDownBidFileLog(us.getUSERID(),us.getCOMPANYCODE(),null,"用户登录");
-                            return "redirect:ggzyjy/index.shtml";
+                    Timestamp now = new Timestamp(System.currentTimeMillis());
+                    //如果是使用CA登录，检查CA证书是否有效
+                    String check_CA_result = null;
+                    if (loginway==1) {
+                        //判断数字证书的有效期的起始时间和结束时间都不为空
+                        if (certBDate != null && certEDate != null) {
+                            //判断当前登录时间是在数字证书的有效期之内
+                            if (now.after(certBDate) && now.before(certEDate)) {
+                                //调用北京市公共资源交易服务平台接口，判断数字证书有效
+                                String params = "certNo=" + certnum + "&certInfo=" + certinfo;
+                                //check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT(),params);
+                                if (password != null) {
+                                    if (!password.equalsIgnoreCase(us.getUSERPWD())) {
+                                        return "redirect:/users/login.jsp?errcode=-103";           //用户口令与用户录入的口令不相符
+                                    } else {
+                                        if (check_CA_result!=null) {
+                                            Auth auth = new Auth();
+                                            auth.setUid(us.getID().intValue());
+                                            auth.setSiteid(us.getSITEID().intValue());
+                                            auth.setUserid(us.getUSERID());
+                                            auth.setUsername(us.getNICKNAME());
+                                            auth.setUsertype(us.getUSERTYPE().intValue());
+                                            session.setMaxInactiveInterval(30 * 60 * 1000);
+                                            session.setAttribute("AuthInfo", auth);
+
+                                            //用户使用CA登录，记录用户的CA信息
+                                            CertInfo certInfo = new CertInfo();
+                                            certInfo.setCertnum(certnum);
+                                            certInfo.setSn(sn);
+                                            certInfo.setUserid(us.getUSERID());
+                                            certInfo.setCertbegindate(certBDate);
+                                            certInfo.setCertenddate(certEDate);
+                                            certInfo.setCreatedate(now);
+
+                                            //记录用户登录时间
+                                            bidderInfoService.saveDownBidFileLog(us.getUSERID(), us.getCOMPANYCODE(), certInfo,null, "用户登录");
+                                            return "redirect:ggzyjy/index.shtml";
+                                        } else {
+                                            return "redirect:/users/login.jsp?errcode=-107";     //数字证书检查失败
+                                        }
+                                    }
+                                } else {
+                                    return "redirect:/users/login.jsp?errcode=-106";              //用户口令为空
+                                }
+                            } else {
+                                return "redirect:/users/login.jsp?errcode=-108";                  //数字证书不在有效期内
+                            }
+                        } else {
+                            return "redirect:/users/login.jsp?errcode=-109";                      //未获取有效的数字证书有效期
                         }
                     } else {
-                        return "redirect:/users/login.jsp?errcode=-106";
+                        if (password != null) {
+                            //用户口令错
+                            if (!password.equalsIgnoreCase(us.getUSERPWD())) {
+                                return "redirect:/users/login.jsp?errcode=-103";                  //用户口令与用户录入的口令不相符
+                            } else {
+                                Auth auth = new Auth();
+                                auth.setUid(us.getID().intValue());
+                                auth.setSiteid(us.getSITEID().intValue());
+                                auth.setUserid(us.getUSERID());
+                                auth.setUsername(us.getNICKNAME());
+                                auth.setUsertype(us.getUSERTYPE().intValue());
+                                session.setMaxInactiveInterval(30 * 60 * 1000);
+                                session.setAttribute("AuthInfo", auth);
+
+                                //记录用户登录时间
+                                bidderInfoService.saveDownBidFileLog(us.getUSERID(), us.getCOMPANYCODE(), null,null, "用户登录");
+                                return "redirect:ggzyjy/index.shtml";
+                            }
+                        } else {
+                            return "redirect:/users/login.jsp?errcode=-106";                        //数据库存储的用户口令为空
+                        }
                     }
                 } else {
-                    return "redirect:/users/login.jsp?errcode=-104";
+                    return "redirect:/users/login.jsp?errcode=-104";                                 //用户被删除
                 }
             }
         } else {
-            return "redirect:/users/login.jsp?errcode=-105";
+            return "redirect:/users/login.jsp?errcode=-105";                                         //验证码输入错或者登录标识位为空
         }
     }
 

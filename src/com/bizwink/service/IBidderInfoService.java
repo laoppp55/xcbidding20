@@ -1,6 +1,7 @@
 package com.bizwink.service;
 
 import com.bizwink.po.BidderInfo;
+import com.bizwink.po.CertInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public interface IBidderInfoService {
     int saveBidderInfo(BidderInfo bidderInfo,String userid,String compcode,String bidFile_uuid);
 
-    int saveDownBidFileLog(String userid,String compcode,String bidFile_uuid,String op);
+    int saveDownBidFileLog(String userid, String compcode, CertInfo certInfo, String bidFile_uuid, String op);
 
     BidderInfo getBidderInfoByProjcodeAndCompcode(String projcode,String Compcode);
 
