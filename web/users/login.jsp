@@ -28,7 +28,6 @@
       $(document).ready(function(){
           init(function(){
               SOF_GetUserList(call_back);
-
           },function(){
           });
 
@@ -58,8 +57,11 @@
               buf = buf.substring(0,posi);
               posi = buf.indexOf("||");
               var companyname = buf.substring(0, posi);
-              var compcode = buf.substring(posi+2);
-              SOF_ExportUserCert(compcode,call_back_cert)
+              var certid = buf.substring(posi+2);
+              posi = certid.indexOf("/");
+              var sn = certid.substring(posi+1);
+              loginform.sn.value = sn;
+              SOF_ExportUserCert(certid,call_back_cert)
               loginform.username.value = companyname;
           }
       }
@@ -67,6 +69,24 @@
       function call_back_cert(data){
           var buf = data.retVal;
           loginform.cert.value=buf;
+          SOF_GetCertInfo(buf,2,call_back_certnum);                                  //获取证书编号
+          SOF_GetCertInfo(buf,11,call_cert_begin_date);                               //获取证书有效期开始时间
+          SOF_GetCertInfo(buf,12,call_cert_end_date);                                 //获取证书有效期结束时间
+      }
+
+      function call_back_certnum(data){
+          var buf = data.retVal;
+          loginform.certnum.value = buf;
+      }
+
+      function call_cert_begin_date(data){
+          var buf = data.retVal;
+          loginform.certBDate.value = buf;
+      }
+
+      function call_cert_end_date(data){
+          var buf = data.retVal;
+          loginform.certEDate.value = buf;
       }
 
       function loginsubmit(form) {
@@ -110,6 +130,15 @@
               return false;
           }
       }
+
+      function updateLoginWay(flag) {
+          if (flag==0) {
+              $("#userid").removeAttr("readonly");
+          } else {
+              SOF_GetUserList(call_back);
+              $("#userid").attr({"readonly":"readonly"});
+          }
+      }
   </script>
 </head>
 
@@ -126,11 +155,19 @@
       <form name="loginform" method="post" action="/login.do" onsubmit="return loginsubmit(loginform)">
         <input type="hidden" name="doLogin" value="true">
         <input type="hidden" name="refer" value="<%=refer_url%>">
+        <input type="hidden" name="sn" value="">
+        <input type="hidden" name="certnum" value="">
         <input type="hidden" name="cert" value="">
+        <input type="hidden" name="certBDate" value="">
+        <input type="hidden" name="certEDate" value="">
         <table width="380" border="0">
           <tbody>
           <tr>
             <td colspan="2" align="left" valign="bottom" class="w_red"><div id="usermsg"></div></td>
+          </tr>
+          <tr>
+            <td align="left" valign="bottom" class="w_red"><input type="radio" name="loginway" id="loginway_id" value="1" checked onclick="updateLoginWay(1);">CA登录</td>
+            <td align="left" valign="bottom" class="w_red"><input type="radio" name="loginway" id="loginway_id" value="0" onclick="updateLoginWay(0);">用户名密码登录</td>
           </tr>
           <tr>
             <td class="txt_grey" colspan="2">用户名（企业完整名称） </td>

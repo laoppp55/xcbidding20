@@ -80,17 +80,30 @@
         }
 
         function getFilename() {
-            var fp = $("#fUpload");
-            var items = fp[0].files;
-            var fileName = items[0].name;              //获取文件名
-            var lg = fp[0].files.length;               //获取文件的大小
-            return fileName;
+            var isIE=navigator.userAgent.toUpperCase().indexOf("MSIE")?true:false;
+            var isFirefox=navigator.userAgent.toUpperCase().indexOf("Firefox")?true:false;
+            var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1
+            if(isChrome) {
+                var fp = $("#fUpload");
+                var items = fp[0].files;
+                var fileName = items[0].name;              //获取文件名
+                var lg = fp[0].files.length;               //获取文件的大小
+                return fileName;
+            } else if (isIE)
+                return uploadForm.file.value;
+            else {
+                var fp = $("#fUpload");
+                var items = fp[0].files;
+                var fileName = items[0].name;              //获取文件名
+                var lg = fp[0].files.length;               //获取文件的大小
+                return fileName;
+            }
         }
     </script>
 </head>
 
 <body>
-<form action="/servlet/Upload" method="post" enctype="multipart/form-data" target="upload_iframe" onsubmit="upload()">
+<form name="uploadForm" action="/servlet/Upload" method="post" enctype="multipart/form-data" target="upload_iframe" onsubmit="upload()">
     <p><input type="file" name="file" id="fUpload"></p>
     <!--p><input type="button" name="OK" value="test" onclick="getFilename();"></p-->
     <div id="bid" style="float: left;"><input type="submit" value="上传文件"></div><div style="padding-left:100px;"><input type="button" id="closeid" value="关闭" onclick="javascript:window.close();" disabled></div>

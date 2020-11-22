@@ -57,7 +57,10 @@
     <input type="hidden" name="certnum" value="">
     <input type="hidden" name="certBDate" value="">
     <input type="hidden" name="certEDate" value="">
-    <div class="title_box_2">基本信息</div>
+    <div class="title_box_2">基本信息：
+      <p><font size="2" color="red">温馨提示：1、请使用CA数字证书进行注册，单位名称信息由CA数字证书读取生成；</font></p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2" color="red">2、务必保证所填信息与单位信息一致，已注册过的企业请勿重复注册。</font></p>
+    </div>
     <table width="100%" border="0" class="reg_table e">
       <tbody>
       <tr>

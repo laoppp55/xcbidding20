@@ -46,21 +46,9 @@
               var username = buf.substring(0, posi);
               var certid = buf.substring(posi + 2);
               form1.compname.value = username;
-              SOF_ExportUserCert(certid,call_back_cert);     //获取证书
           }
       }
 
-      function call_back_cert(data){
-          var buf = data.retVal;
-          SOF_GetCertInfoByOid(buf,"2.16.840.1.113732.2",call_user_compcode);     //获取统一社会信用代码
-      }
-
-      //获取注册供应商的统一社会信用代码
-      function call_user_compcode(data){
-          var buf = data.retVal;
-          form1.compcode.value = buf;
-      }
-      
       function donext(form) {
           var compname = form.compname.value;
           var compcode = form.compcode.value;
@@ -257,7 +245,7 @@
         </tr>
         <tr>
           <td align="right">统一社会信用代码或组织机构代码：</td>
-          <td><input name="compcode" type="text" class="input_but_5" readonly></td>
+          <td><input name="compcode" type="text" class="input_but_5"></td>
         </tr>
         <!--tr>
           <td align="right">企业类型：</td>
