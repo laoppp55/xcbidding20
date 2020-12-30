@@ -40,6 +40,15 @@
           } else if (errcode == -105) {
               $("#usermsg").html("验证码错，请重新输入验证码");
               $("#usermsg").css({color:"red"});
+          } else if (errcode == -107) {
+              $("#usermsg").html("数字证书检查失败");
+              $("#usermsg").css({color:"red"});
+          } else if (errcode == -108) {
+              $("#usermsg").html("数字证书不在有效期内");
+              $("#usermsg").css({color:"red"});
+          } else if (errcode == -109) {
+              $("#usermsg").html("未获取有效的数字证书有效期");
+              $("#usermsg").css({color:"red"});
           } else if (errcode == -6) {
               $("#usermsg").html("用户被暂时停止登录，请联系客服人员");
               $("#usermsg").css({color:"red"});
