@@ -19,11 +19,13 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,7 +70,6 @@ public class Post {
             if (responseEntity != null) {
                 System.out.println("响应内容长度为:" + responseEntity.getContentLength());
                 System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
-                retval = EntityUtils.toString(responseEntity);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -256,7 +257,8 @@ public class Post {
         System.out.println("报文参数结束");
 
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, "UTF-8");
-        HttpPost httppost = new HttpPost(MyConstants.getServiceUrl());
+        //HttpPost httppost = new HttpPost(MyConstants.getServiceUrl());
+        HttpPost httppost = new HttpPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo());
         httppost.setEntity(entity);
         HttpResponse response = httpclient.execute(httppost);
         HttpEntity entityResponse = response.getEntity();
@@ -267,8 +269,29 @@ public class Post {
 
     public static void main(String[] args) {
         //发送 POST 请求
-        //userid、userName、subjectCompanyCode、snKey、certNum、source
-        String sr=Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(), "userid=北京东方波尔科技有限公司&userName=北京东方波尔科技有限公司&subjectCompanyCode=911101087825432441&snKey=5302201601061907&certNum=1B2000000000014239D8&source=1");
-        System.out.println(sr);
+        try {
+            System.out.println(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo() + "?userId=" + URLEncoder.encode("北京东方波尔科技有限公司", "utf-8") + "&userName=" + URLEncoder.encode("北京东方波尔科技有限公司", "utf-8") + "&subjectCompanyCode=911101087825432441&snKey=5302201601061907&certNum=1B2000000000014239D8");
+            String check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(), "userId=" + URLEncoder.encode("北京东方波尔科技有限公司", "utf-8") + "&userName=" + URLEncoder.encode("北京东方波尔科技有限公司", "utf-8") + "&subjectCompanyCode=911101087825432441&snKey=5302201601061907&certNum=1B2000000000014239D8");
+            String retcode = null;
+            if (check_CA_result!=null) {
+                JSONObject jsonObj = new JSONObject(check_CA_result);
+                retcode = jsonObj.getString("Data");
+            }
+            System.out.println(retcode);
+
+            String params = "certNo=1B2000000000014239D8&certInfo=MIIFvDCCBKSgAwIBAgIKGyAAAAAAAUI52DANBgkqhkiG9w0BAQUFADA6MQswCQYDVQQGEwJDTjENMAsGA1UECgwEQkpDQTENMAsGA1UECwwEQkpDQTENMAsGA1UEAwwEQkpDQTAeFw0yMDA2MjcxNjAwMDBaFw0yMTA3MjUxNTU5NTlaMGsxCzAJBgNVBAYTAkNOMS0wKwYDVQQKDCTljJfkuqzkuJzmlrnms6LlsJTnp5HmioDmnInpmZDlhazlj7gxLTArBgNVBAMMJOWMl+S6rOS4nOaWueazouWwlOenkeaKgOaciemZkOWFrOWPuDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAxVHSSnyDIqi5kLrv6FR5bbn2lRJ9uRC4IeoisaLTFUNpnmXJeXsKtQuSbQLgjN6GGeRYst3Mu1YhiXCWXNtAc361tBV/+CgsYstVpLVsDUD/cD925EleSaY6Js2muZsRm+Ka8tM7AkCkn9VzCO0yVJHA5jV+PAbHQk84FcH6px8CAwEAAaOCAxUwggMRMB8GA1UdIwQYMBaAFMHOKGgYXY6DM/GVqgjDPYoImp12MB0GA1UdDgQWBBQmVt2JIQibySAXpo+zPHT8b18NHTALBgNVHQ8EBAMCBsAwgZkGA1UdHwSBkTCBjjBWoFSgUqRQME4xCzAJBgNVBAYTAkNOMQ0wCwYDVQQKDARCSkNBMQ0wCwYDVQQLDARCSkNBMQ0wCwYDVQQDDARCSkNBMRIwEAYDVQQDEwljYTJjcmwxMDMwNKAyoDCGLmh0dHA6Ly9sZGFwLmJqY2Eub3JnLmNuL2NybC9iamNhL2NhMmNybDEwMy5jcmwwCQYDVR0TBAIwADARBglghkgBhvhCAQEEBAMCAP8wGwYIKlaGSAGBMAEEDzEwMjA4MDAwNzIyNjAxODAXBghghkgBhvhEAgQLSko3ODI1NDMyNDQwGwYFKlYLBwQEEjkxMTEwMTA4NzgyNTQzMjQ0MTAbBgUqVgsHBQQSOTExMTAxMDg3ODI1NDMyNDQxMBQGBSpWCwcJBAtKSjc4MjU0MzI0NDAYBgYqVgsHAQgEDjNCQEpKNzgyNTQzMjQ0MBUGCSqBHAHFOIEwBAQIMDY0NDI4NzEwQAYDVR0gBDkwNzA1BgkqgRyG7zICAgEwKDAmBggrBgEFBQcCARYaaHR0cDovL3d3dy5iamNhLm9yZy5jbi9jcHMwYgYIKwYBBQUHAQEEVjBUMCgGCCsGAQUFBzABhhxPQ1NQOi8vb2NzcC5iamNhLm9yZy5jbjo5MDEyMCgGCCsGAQUFBzAChhxodHRwOi8vY3JsLmJqY2Eub3JnL2NhaXNzdWVyMBEGBSpWCwcHBAgwNjQ0Mjg3MTAiBgoqgRyG7zICAQELBBQMEjkxMTEwMTA4NzgyNTQzMjQ0MTAXBggqgRzQFAQBBAQLDAk3ODI1NDMyNDQwEwYKKoEchu8yAgEBHgQFDAM2MDAwIgYKKoEchu8yAgEBEQQUDBI5MTExMDEwODc4MjU0MzI0NDEwIgYKKoEchu8yAgEBHwQUDBI5MTExMDEwODc4MjU0MzI0NDEwDQYJKoZIhvcNAQEFBQADggEBAIk8hafZ710dqJbWy9vMDCAQAAeMKqSU53A5kyF/7HdX9SBc1yT/p81ihGnmYXyXFQHJnJl/OluxTcMG3Yk2WncUlQSwsj2s9zdw2FhYBhx9ADj660l7jhjEJ1/5Fsoox8XEcGcQWClDEIIqVslIfM7mSZoGCEs+O+DHUebtXJI5bMjKnRVcAwsj3u16d4XbclieBFjDx53FF9aRSTTvWsKdOv5MJVeX1Q+KgGn8jhGaOh53+fVV66FvGoW9k74BteQqpA7nqSYBQaiQeJVDZIxTNDEWFHmHZ9stpPpYBcBNt4D8R7Nd6+K41Ov+6uzTUlir3iysvyrhTY9zAUxgAn0=";
+            System.out.println(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT() +"?" + params);
+            check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT(),params);
+            System.out.println(check_CA_result);
+
+
+            params = "snKey=5302201601061907&certNo=1B2000000000014239D8";
+            System.out.println(MyConstants.getDownloadAddress() + MyConstants.getSHAREUSER() +"?" + params);
+            check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getSHAREUSER(),params);
+            System.out.println(check_CA_result);
+
+        }catch(Exception exp) {
+
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.bizwink.service.impl.CodeService;
 import com.bizwink.service.impl.UsersService;
 import com.bizwink.util.*;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.sql.Timestamp;
@@ -462,14 +464,8 @@ public class BidInfoController {
                 return "redirect:/users/login.jsp?errcode=-101";                                  //用户不存在
             } else {
                 if (us.getDFLAG().intValue() == 0) {
-                    Timestamp certBDate = null;
-                    Timestamp certEDate = null;
                     try {
                         password = Encrypt.md5(passwd.getBytes());
-                        //获取证书的有效期开始时间和有效期结束时间
-                        SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddHHmmss");
-                        certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
-                        certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
                     } catch (Exception e) {
                         return "redirect:/users/login.jsp?errcode=-102";
                     }
@@ -478,18 +474,40 @@ public class BidInfoController {
                     //如果是使用CA登录，检查CA证书是否有效
                     String check_CA_result = null;
                     if (loginway==1) {
+                        Timestamp certBDate = null;
+                        Timestamp certEDate = null;
+                        try {
+                            password = Encrypt.md5(passwd.getBytes());
+                            //获取证书的有效期开始时间和有效期结束时间
+                            SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddHHmmss");
+                            certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
+                            certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
+                        } catch (Exception e) {
+                            return "redirect:/users/login.jsp?errcode=-102";
+                        }
+
                         //判断数字证书的有效期的起始时间和结束时间都不为空
                         if (certBDate != null && certEDate != null) {
                             //判断当前登录时间是在数字证书的有效期之内
                             if (now.after(certBDate) && now.before(certEDate)) {
                                 //调用北京市公共资源交易服务平台接口，判断数字证书有效
                                 String params = "certNo=" + certnum + "&certInfo=" + certinfo;
-                                //check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT(),params);
+                                try {
+                                    FileUtil.writeTxtFile(certinfo, new File("c:\\data\\tttt.txt"));
+                                } catch (Exception exp) {
+                                    exp.printStackTrace();
+                                }
+                                check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT(),params);
+                                String retcode = null;
+                                if (check_CA_result!=null) {
+                                    JSONObject jsonObj = new JSONObject(check_CA_result);
+                                    retcode = jsonObj.getString("Data");
+                                }
                                 if (password != null) {
                                     if (!password.equalsIgnoreCase(us.getUSERPWD())) {
                                         return "redirect:/users/login.jsp?errcode=-103";           //用户口令与用户录入的口令不相符
                                     } else {
-                                        if (check_CA_result!=null) {
+                                        if (check_CA_result!=null && retcode.equals("200")) {
                                             Auth auth = new Auth();
                                             auth.setUid(us.getID().intValue());
                                             auth.setSiteid(us.getSITEID().intValue());
