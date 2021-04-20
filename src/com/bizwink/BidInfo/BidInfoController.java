@@ -119,8 +119,10 @@ public class BidInfoController {
 
         //获取证书的有效期开始时间和有效期结束时间
         SimpleDateFormat sdformat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Timestamp certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
-        Timestamp certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
+        Timestamp certBDate = null;
+        Timestamp certEDate = null;
+        if (s_certBDate!=null) certBDate = new Timestamp(sdformat.parse(s_certBDate).getTime());
+        if (s_certEDate!=null) certEDate = new Timestamp(sdformat.parse(s_certEDate).getTime());
 
         HttpSession session = request.getSession();
         String yzcodeForSession = (String)session.getAttribute("randnum");
@@ -238,15 +240,28 @@ public class BidInfoController {
                         certInfo.setCertenddate(certEDate);
                         certInfo.setCreatedate(now);
 
-                        if (retval_for_licensepic==0 && retval_for_promisepic==0 && now.after(certBDate) && now.before(certEDate)) {                    //表示文件上传交易系统服务器成功
-                            //调用数字证书接口，上传数字证书信息
-                            String params = "userid=" + userid + "&userName=" + user.getUSERID() + "&subjectCompanyCode=" + supplierCode + "&snKey=" + sn + "&certNum=" + certnum + "&source=1";
-                            System.out.println("params==" + params);
-                            //String retcode = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(),params);
-                            //保存用户信息、用户数字证书信息和供应商基本信息
-                            errcode = usersService.createUserAndEnterpriseInfo(user, certInfo, suppinfo);
-                        }else                                                                          //表示文件上传交易系统服务器失败
-                            errcode = -105;
+                        if (certBDate!=null && certEDate!=null) {
+                            if (retval_for_licensepic == 0 && retval_for_promisepic == 0 && now.after(certBDate) && now.before(certEDate)) {                    //表示文件上传交易系统服务器成功
+                                //if (retval_for_licensepic==0 && retval_for_promisepic==0) {                    //表示文件上传交易系统服务器成功
+                                //调用数字证书接口，上传数字证书信息
+                                String params = "userid=" + userid + "&userName=" + user.getUSERID() + "&subjectCompanyCode=" + supplierCode + "&snKey=" + sn + "&certNum=" + certnum + "&source=1";
+                                System.out.println("params==" + params);
+                                //String retcode = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(),params);
+                                //保存用户信息、用户数字证书信息和供应商基本信息
+                                errcode = usersService.createUserAndEnterpriseInfo(user, certInfo, suppinfo);
+                            } else                                                                          //表示文件上传交易系统服务器失败
+                                errcode = -105;
+                        } else {
+                            if (retval_for_licensepic == 0 && retval_for_promisepic == 0) {                    //表示文件上传交易系统服务器成功
+                                //调用数字证书接口，上传数字证书信息
+                                String params = "userid=" + userid + "&userName=" + user.getUSERID() + "&subjectCompanyCode=" + supplierCode + "&snKey=" + sn + "&certNum=" + certnum + "&source=1";
+                                System.out.println("params==" + params);
+                                //String retcode = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getUploadUserInfo(),params);
+                                //保存用户信息、用户数字证书信息和供应商基本信息
+                                errcode = usersService.createUserAndEnterpriseInfo(user, certInfo, suppinfo);
+                            } else                                                                          //表示文件上传交易系统服务器失败
+                                errcode = -105;
+                        }
                     } else {
                         errcode = -101;
                     }
@@ -326,7 +341,7 @@ public class BidInfoController {
                 "&bankname=" + bankname + "&BaseAccountName=" + BaseAccountName + "&baseAccount=" + baseAccount + "&businessBrief=" + businessBrief + "&operationAddress=" + operationAddress,"utf-8");
 
         //logger.info("update:" + checkcode + "=" + paramVals);
-        //System.out.println(checkcode +"==" + paramVals);
+        System.out.println(checkcode +"==" + paramVals);
 
         checkcode = MD5Util.MD5Encode(checkcode,"utf-8");
 
@@ -498,16 +513,18 @@ public class BidInfoController {
                                     exp.printStackTrace();
                                 }
                                 check_CA_result = Post.sendPost(MyConstants.getDownloadAddress() + MyConstants.getCHECKCERT(),params);
+                                System.out.println("check_CA_result==" + check_CA_result);
                                 String retcode = null;
-                                if (check_CA_result!=null) {
-                                    JSONObject jsonObj = new JSONObject(check_CA_result);
-                                    retcode = jsonObj.getString("Data");
-                                }
+                                //if (check_CA_result!=null) {
+                                //    JSONObject jsonObj = new JSONObject(check_CA_result);
+                                //    retcode = jsonObj.getString("Data");
+                                //}
                                 if (password != null) {
                                     if (!password.equalsIgnoreCase(us.getUSERPWD())) {
                                         return "redirect:/users/login.jsp?errcode=-103";           //用户口令与用户录入的口令不相符
                                     } else {
-                                        if (check_CA_result!=null && retcode.equals("200")) {
+                                        //if (check_CA_result!=null && retcode.equals("200")) {
+                                        if (check_CA_result!=null) {
                                             Auth auth = new Auth();
                                             auth.setUid(us.getID().intValue());
                                             auth.setSiteid(us.getSITEID().intValue());

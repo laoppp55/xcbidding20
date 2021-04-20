@@ -29,16 +29,29 @@ public class MyConstants {
     private static String UPLOAD_USER_INFO = "/oa/baseInfo/addUserInformation";         //userid、userName、subjectCompanyCode、snKey、certNum、source
     private static String CHECKCERT = "/oa/baseInfo/chcekCert";                          //certNo、certInfo
     private static String SHAREUSER = "/oa/baseInfo/shareUser";                          //certNo、、snKey
-    */
+   */
 
     //生产环境
-    private static String SFTP_ADDRESS = "39.97.119.172";
+    /*private static String SFTP_ADDRESS = "39.97.119.172";
     private static String SFTP_PORT ="22";
     private static String SFTP_USER = "suppinfo";
     private static String SFTP_PASSWD = "Zaq!2wsx";
     private static String SFTP_ROOTPATH = "/home/xicheng/upload";
     private static String SFTP_RELATE_PATH = "upload/30/supp/";
     private static String DOWNLOAD_ADDRESS = "http://39.97.119.172:8086";
+    private static String UPLOAD_USER_INFO = "/oa/baseInfo/addUserInformation";
+    private static String CHECKCERT = "/oa/baseInfo/chcekCert";
+    private static String SHAREUSER = "/oa/baseInfo/shareUser";
+*/
+
+    //西城云服务器生产环境
+    private static String SFTP_ADDRESS = "192.168.194.164";
+    private static String SFTP_PORT ="22";
+    private static String SFTP_USER = "suppinfo";
+    private static String SFTP_PASSWD = "Zaq!2wsx";
+    private static String SFTP_ROOTPATH = "/home/xicheng/upload";
+    private static String SFTP_RELATE_PATH = "upload/30/supp/";
+    private static String DOWNLOAD_ADDRESS = "http://192.168.194.164:8084";
     private static String UPLOAD_USER_INFO = "/oa/baseInfo/addUserInformation";
     private static String CHECKCERT = "/oa/baseInfo/chcekCert";
     private static String SHAREUSER = "/oa/baseInfo/shareUser";
