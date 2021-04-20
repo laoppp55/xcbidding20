@@ -39,7 +39,7 @@
             IUserService usersService = (IUserService)appContext.getBean("usersService");
             Users user = usersService.getUserinfoByUserid(username);
             IBidderInfoService bidderInfoService = (IBidderInfoService)appContext.getBean("bidderInfoService");
-            bidderInfoService.saveDownBidFileLog(username,user.getCOMPANYCODE(),bulletinNotice_uuid);
+            bidderInfoService.saveDownBidFileLog(username,user.getCOMPANYCODE(),null,bulletinNotice_uuid,"下载文件");
         }
     } catch (SmartUploadException e) {
         e.printStackTrace();

@@ -90,7 +90,7 @@
 		buyerPhone = budgetProject.getPhone();
 
 		//保存进入报名页面的LOG信息
-		bidderInfoService.saveDownBidFileLog(username,compcode,receiveFile,"进入报名页面");
+		bidderInfoService.saveDownBidFileLog(username,compcode,null,receiveFile,"进入报名页面");
 		//当前日期已经在许可的文件下载时间之后，跳转到错误页面，提示已经超过报名时间。
 		if (receiveFileEndTime.before(currentTime)) response.sendRedirect("/users/error.jsp?errcode=-400");
 	}

@@ -25,7 +25,7 @@
             Users user = usersService.getUserinfoByUserid(authToken.getUserid());
 
             //记录用户退出系统时间
-            bidderInfoService.saveDownBidFileLog(authToken.getUserid(),user.getCOMPANYCODE(),null,"用户退出系统");
+            bidderInfoService.saveDownBidFileLog(authToken.getUserid(),user.getCOMPANYCODE(),null,null,"用户退出系统");
         }
         SessionUtil.removeUserAuthorization(response, session);
         authToken = null;

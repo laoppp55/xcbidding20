@@ -37,9 +37,9 @@
 
       function call_back(data){
           var buf = data.retVal;
-          if (buf=="" || buf==null || typeof(buf) == 'undefined')
-              alert("请插入UKEY");
-          else {
+          if (buf!="" || buf!=null || typeof(buf) != 'undefined'){
+              //alert("请插入UKEY");
+          //else {
               var posi = buf.indexOf("&");
               buf = buf.substring(0,posi);
               posi = buf.indexOf("||");
@@ -241,7 +241,7 @@
         </tr-->
         <tr>
           <td align="right">企业名称:</td>
-          <td><input name="compname" type="text" class="input_but_5" readonly></td>
+          <td><input name="compname" type="text" class="input_but_5"></td>
         </tr>
         <tr>
           <td align="right">统一社会信用代码或组织机构代码：</td>

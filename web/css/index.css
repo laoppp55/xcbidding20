@@ -47,7 +47,6 @@ body {
 .reg {
 	height: 40px;
 	line-height: 40px;
-	background-color: rgba(56,114,186,1.00);
 	margin-top: 40px;
 	color: rgba(253,253,253,1.00);
 	border-radius: 5px;
@@ -92,7 +91,7 @@ body {
 	opacity: 1.00;
 }
 .menu li a.bg1 {
-	background: url(../images/icon_2.png) 40px center no-repeat;
+	background: url(../images/icon_2.png) 30px center no-repeat;
 }
 .menu li a.bg2 {
 	background: url(../images/icon_3.png) 30px center no-repeat;
@@ -104,7 +103,7 @@ body {
 	background: url(../images/icon_5.png) 30px center no-repeat;
 }
 .menu li a.bg5 {
-	background: url(../images/icon_6.png) 15px center no-repeat;
+	background: url(../images/icon_6.png) 30px center no-repeat;
 	padding-left: 75px;
 }
 .foot_box{

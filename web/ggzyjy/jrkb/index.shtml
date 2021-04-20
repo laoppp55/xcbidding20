@@ -1,11 +1,57 @@
 <!doctype html>
 <html>
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
   <meta charset="utf-8">
   <title>北京市西城区公共资源交易中心--今日开标</title>
-  <link href="/css/base.css" rel="stylesheet" type="text/css">
-  <link href="/css/jrkb.css" rel="stylesheet" type="text/css">
+
+  <script language="javascript">
+      <!--
+      if(IEVersion()>-1){
+//如果浏览器为IE
+          setActiveStyleSheet("jrkb.css");
+          setActiveStyleSheet("base.css");
+      } else {
+//如果浏览器为其它
+          setActiveStyleSheet("jrkb_no_ie.css");
+          setActiveStyleSheet("base_no_ie.css");
+      }
+
+      function setActiveStyleSheet(filename){
+          document.write("<link href=\"\/css\/"+filename+"\" type=\"text\/css\" rel=\"stylesheet\">");
+      }
+
+      function IEVersion() {
+          var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+          var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+          var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+          var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+          if(isIE) {
+              var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+              reIE.test(userAgent);
+              var fIEVersion = parseFloat(RegExp["$1"]);
+              if(fIEVersion == 7) {
+                  return 7;
+              } else if(fIEVersion == 8) {
+                  return 8;
+              } else if(fIEVersion == 9) {
+                  return 9;
+              } else if(fIEVersion == 10) {
+                  return 10;
+              } else {
+                  return 6;          //IE版本<=7
+              }
+          } else if(isEdge) {
+              return 12;            //edge
+          } else if(isIE11) {
+              return 11;            //IE11
+          }else{
+              return -1;            //不是ie浏览器
+          }
+      }
+      //-->
+  </script>
+
+
   <link href="/ggzyjy/css/jquery.msgbox.css" rel="stylesheet" type="text/css" />
   <link href="/ggzyjy/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 

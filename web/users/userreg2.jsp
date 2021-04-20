@@ -154,9 +154,9 @@
       <tbody>
       <tr>
         <td width="25%" align="right"><span class="redstar">*</span>省份:</td>
-        <td width="25%"><input type="text" name="provname" id="province" class="input_but_5" readonly value="北京"></td>
+        <td width="25%"><input type="text" name="provname" id="province" class="input_but_5" value="北京"></td>
         <td width="25%" align="right"><span class="redstar">*</span>市:</td>
-        <td><input type="text" name="cityname" id="city" class="input_but_5" readonly value="北京市"></td>
+        <td><input type="text" name="cityname" id="city" class="input_but_5" value="北京市"></td>
       </tr>
       <tr>
         <td align="right"><span class="redstar">*</span>区:</td>
@@ -416,9 +416,9 @@
 
     function call_back(data){
         var buf = data.retVal;
-        if (buf=="" || buf==null || typeof(buf) == 'undefined')
-            alert("请插入UKEY");
-        else {
+        if (buf!="" || buf!=null || typeof(buf) != 'undefined'){
+            //alert("请插入UKEY");
+        //else {
             var posi = buf.indexOf("&");
             buf = buf.substring(0,posi);
             posi = buf.indexOf("||");

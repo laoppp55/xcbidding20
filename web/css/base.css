@@ -130,21 +130,24 @@ body {
 .menu li a:hover {
 	opacity: 1.00;
 }
+
 .menu li a.bg1 {
-	background: url(../images/icon_8.png) 60px center no-repeat;
+    background: url(../images/icon_2.png) 30px center no-repeat;
 }
 .menu li a.bg2 {
-	background: url(../images/icon_7.png) 60px center no-repeat;
+    background: url(../images/icon_3.png) 30px center no-repeat;
 }
 .menu li a.bg3 {
-	background: url(../images/icon_9.png) 66px center no-repeat;
+    background: url(../images/icon_4.png) 30px center no-repeat;
 }
 .menu li a.bg4 {
-	background: url(../images/icon_10.png) 60px center no-repeat;
+    background: url(../images/icon_5.png) 30px center no-repeat;
 }
 .menu li a.bg5 {
-	background: url(../images/icon_10.png) 60px center no-repeat;
+    background: url(../images/icon_6.png) 30px center no-repeat;
+    padding-left: 75px;
 }
+
 .foot_box{
 	z-index: 2;
 	position: absolute;
